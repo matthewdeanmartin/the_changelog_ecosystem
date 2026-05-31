@@ -6,30 +6,27 @@ Summary: Full metadata table of every changelog and release tool on our radar.
 
 ## Tool Inventory
 
-This table is generated from `data/tools.json`. It tracks every tool we know about,
-its current status, and links to its distribution channel.
+10 tools tracked &nbsp;·&nbsp; 1 reviewed.
+Data refreshed via `just gather`. Run `just generate-pages` to rebuild this page.
 
-*Data is updated manually via `make gather` which queries package registries and GitHub.*
-
-| Tool | Ecosystem | Latest Version | Last Release | Stars | Archived? | Distribution |
-|------|-----------|---------------|--------------|-------|-----------|-------------|
-| keepachangelog-manager | Python | — | — | — | — | [PyPI](https://pypi.org/project/keepachangelog-manager/) |
-| git-cliff | Rust | — | — | — | — | [crates.io](https://crates.io/crates/git-cliff) |
-| semantic-release | Node | — | — | — | — | [npm](https://www.npmjs.com/package/semantic-release) |
-| standard-version | Node | — | — | — | — | [npm](https://www.npmjs.com/package/standard-version) |
-| release-it | Node | — | — | — | — | [npm](https://www.npmjs.com/package/release-it) |
-| towncrier | Python | — | — | — | — | [PyPI](https://pypi.org/project/towncrier/) |
-| changie | Go | — | — | — | — | [GitHub](https://github.com/miniscruff/changie) |
-| goreleaser | Go | — | — | — | — | [GitHub](https://github.com/goreleaser/goreleaser) |
-
-*Run `make gather` to populate live metadata. This table will be auto-generated once Phase 2 is complete.*
+| Tool | Ecosystem | Latest Version | Last Release | Stars | Status | Distribution | Review |
+|------|-----------|---------------|--------------|-------|--------|-------------|--------|
+| [keepachangelog-manager](https://github.com/matthewdeanmartin/keepachangelog-manager) | Python | 5.2.0 | 2026-05-30 | 0 | ✅ active | [pypi](https://pypi.org/project/keepachangelog-manager/) | [Review](/reviews/keepachangelog-manager/) |
+| [towncrier](https://github.com/twisted/towncrier) | Python | 25.8.0 | 2025-08-30 | 899 | ✅ active | [pypi](https://pypi.org/project/towncrier/) | — |
+| [changelog-rs](https://github.com/nickelc/changelog-rs) | Rust | 0.3.4 | 2020-03-02 | — | ✅ active | [crates.io](https://crates.io/crates/changelog) | — |
+| [git-cliff](https://github.com/orhun/git-cliff) | Rust | 2.13.1 | 2026-04-26 | 11,909 | ✅ active | [crates.io](https://crates.io/crates/git-cliff) | — |
+| [changie](https://github.com/miniscruff/changie) | Go | 1.24.0 | 2025-11-22 | 879 | ✅ active | [github](https://github.com/miniscruff/changie) | — |
+| [goreleaser](https://github.com/goreleaser/goreleaser) | Go | 2.16.0 | 2026-05-24 | 15,830 | ✅ active | [github](https://github.com/goreleaser/goreleaser) | — |
+| [conventional-changelog-cli](https://github.com/conventional-changelog/conventional-changelog) | Node / npm | git-client-v2.7.0 | 2026-04-07 | 8,450 | ✅ active | [npm](https://www.npmjs.com/package/conventional-changelog-cli) | — |
+| [release-it](https://github.com/release-it/release-it) | Node / npm | 20.2.0 | 2026-05-30 | 8,966 | ✅ active | [npm](https://www.npmjs.com/package/release-it) | — |
+| [semantic-release](https://github.com/semantic-release/semantic-release) | Node / npm | 25.0.3 | 2026-01-30 | 23,728 | ✅ active | [npm](https://www.npmjs.com/package/semantic-release) | — |
+| [standard-version](https://github.com/conventional-changelog/standard-version) | Node / npm | 9.5.0 | 2022-05-15 | 7,974 | ✅ active | [npm](https://www.npmjs.com/package/standard-version) | — |
 
 ## How to Add a Tool
 
-If you know of a tool that should be here, open an issue or PR on the
-[GitHub repository](https://github.com/matthewdeanmartin/the_changelog_ecosystem).
+Open an issue or PR on the [GitHub repository](https://github.com/matthewdeanmartin/the_changelog_ecosystem).
 
 Include:
-- Tool name and repository URL
-- Distribution channel (PyPI, npm, crates.io, etc.)
-- Brief description of what it does
+- Tool name and repository or distribution URL
+- Ecosystem and distribution channel
+- One-line description
