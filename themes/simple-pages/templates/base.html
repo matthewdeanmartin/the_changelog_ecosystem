@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/style.css" />
+</head>
+<body>
+    <div class="site-shell">
+        <header class="site-header">
+            <div class="site-header__inner">
+                <div class="site-branding">
+                    <a class="site-title" href="{{ SITEURL }}/">{{ SITENAME }}</a>
+                    <p class="site-tagline">{{ SITESUBTITLE | default("Reviews of changelog & release tools across every ecosystem.") }}</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-content">
+            <aside class="site-sidebar">
+                <nav class="site-nav" aria-label="Primary">
+                    <p class="site-nav__title">Navigate</p>
+                    <ul>
+                        <li{% if page is defined and (page.slug == "home" or not page.url) %} class="active"{% endif %}>
+                            <a href="{{ SITEURL }}/">Home</a>
+                        </li>
+                        {% for p in pages | sort_by_sortorder %}
+                        {% if p.url %}
+                        <li{% if page is defined and p == page %} class="active"{% endif %}>
+                            <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="site-main">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+
+        <footer class="site-footer">
+            <div class="site-footer__inner">
+                <p>&copy; {{ CURRENTYEAR }} {{ AUTHOR }}. Built with <a href="https://getpelican.com/">Pelican</a>.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

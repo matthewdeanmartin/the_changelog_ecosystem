@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<article class="review">
+    <div class="review-header">
+        <div class="review-header__meta">
+            <span class="ecosystem-badge ecosystem-badge--{{ article.ecosystem | lower | replace('#', 'sharp') | replace('.', 'dot') | replace('/', '-') }}">{{ article.ecosystem }}</span>
+            <span class="article-date">{{ article.date.strftime('%Y-%m-%d') }}</span>
+            {% if article.tool_version %}
+            <span class="tool-version">v{{ article.tool_version }}</span>
+            {% endif %}
+        </div>
+        <h1>{{ article.title }}</h1>
+        {% if article.tool_url %}
+        <p class="tool-link"><a href="{{ article.tool_url }}" rel="noopener noreferrer">{{ article.tool_url }}</a></p>
+        {% endif %}
+    </div>
+
+    {% if article.tool_status == 'archived' %}
+    <div class="status-banner status-banner--archived">
+        This project appears to be archived / no longer maintained.
+    </div>
+    {% endif %}
+
+    <div class="entry-content">
+        {{ article.content }}
+    </div>
+</article>
+{% endblock %}
