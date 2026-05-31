@@ -95,8 +95,15 @@ def fetch_crates(tool: dict, session: requests.Session) -> dict:
 
 
 def fetch_npm(tool: dict, session: requests.Session) -> dict:
+    # Scoped packages need the @ encoded as %40 in the path
+    pkg = tool["package_id"]
+    if pkg.startswith("@"):
+        # @scope/name -> @scope%2Fname
+        pkg_path = pkg.replace("/", "%2F")
+    else:
+        pkg_path = pkg
     data = http_cache.get(
-        f"https://registry.npmjs.org/{tool['package_id']}",
+        f"https://registry.npmjs.org/{pkg_path}",
         session=session,
     )
     if not data:

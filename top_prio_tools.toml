@@ -1,0 +1,755 @@
+# Curated changelog/release-note management tools for review-site ingestion.
+# Generated 2026-05-31.
+# Scope: Java, Python, Go, npm/Node/JS/TS, Rust, C++, C, Ruby, .NET/C#/NuGet.
+
+[metadata]
+title = "Changelog Tool Ecosystem"
+generated_on = "2026-05-31"
+format_version = "1.0"
+selection_policy = "Curated must-review tools for changelog creation, validation, editing, release publishing, backfilling, auto-generation, and fragment assembly."
+notes = "Language-agnostic tools are repeated via languages arrays rather than duplicated per ecosystem."
+
+[[tools]]
+id = "keep-a-changelog"
+package_name = "Keep a Changelog"
+ecosystem = "standard"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://keepachangelog.com/en/1.1.0/"
+package_url = ""
+source_type = "standard"
+status = "active"
+review_priority = "must"
+capabilities = ["format-standard", "manual-authoring", "validation-target"]
+short_description = "Human-centered changelog format and vocabulary that many tools target or partially implement."
+review_notes = "Use as the baseline rubric for reviewing all tools, especially whether generated output remains user-facing rather than raw git logs."
+
+[[tools]]
+id = "git-cliff"
+package_name = "git-cliff"
+ecosystem = "cross-language"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://git-cliff.org/"
+package_url = "https://crates.io/crates/git-cliff"
+source_type = "cli"
+status = "active"
+review_priority = "must"
+capabilities = ["autocreate-from-commits", "conventional-commits", "custom-templates", "backfill", "release-notes"]
+short_description = "Highly customizable changelog generator using git history, Conventional Commits, and regex-powered custom parsers."
+review_notes = "Probably the most important modern standalone generator to review for non-Node projects and mixed-language monorepos."
+
+[[tools]]
+id = "release-please"
+package_name = "release-please"
+ecosystem = "cross-language"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://github.com/googleapis/release-please"
+package_url = "https://github.com/googleapis/release-please-action"
+source_type = "github-action-cli"
+status = "active"
+review_priority = "must"
+capabilities = ["autocreate-from-commits", "version-bump", "changelog-update", "github-release", "release-pr"]
+short_description = "Google release automation that parses Conventional Commits, opens release PRs, updates changelogs, bumps versions, and creates GitHub releases."
+review_notes = "Important across languages because it has language/release strategies and a release-PR model rather than direct publish-only automation."
+
+[[tools]]
+id = "release-drafter"
+package_name = "Release Drafter"
+ecosystem = "github"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://github.com/release-drafter/release-drafter"
+package_url = "https://github.com/marketplace/actions/release-drafter"
+source_type = "github-action"
+status = "active"
+review_priority = "must"
+capabilities = ["github-release", "draft-release", "pull-request-labels", "release-notes", "categorization"]
+short_description = "GitHub Action that keeps a draft release updated as PRs merge, grouping release notes by labels and rules."
+review_notes = "Must-review for PR-label based release-note workflows, especially projects that do not enforce Conventional Commits."
+
+[[tools]]
+id = "github-generated-release-notes"
+package_name = "GitHub Automatically Generated Release Notes"
+ecosystem = "github"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes"
+package_url = ""
+source_type = "platform-feature"
+status = "active"
+review_priority = "must"
+capabilities = ["github-release", "autocreate-from-prs", "contributors", "backfill-helper"]
+short_description = "Built-in GitHub release-note generator based on merged pull requests, contributors, and changelog comparison links."
+review_notes = "Essential baseline competitor because many projects can get 'good enough' release notes without adding a third-party tool."
+
+[[tools]]
+id = "github-changelog-generator"
+package_name = "github_changelog_generator"
+ecosystem = "ruby-gem-cross-language"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://github.com/github-changelog-generator/github-changelog-generator"
+package_url = "https://rubygems.org/gems/github_changelog_generator"
+source_type = "ruby-gem-cli"
+status = "mature"
+review_priority = "must"
+capabilities = ["autocreate-from-github", "issues", "pull-requests", "tags", "backfill", "changelog-file"]
+short_description = "Ruby CLI/gem that generates CHANGELOG.md from GitHub tags, issues, labels, and merged pull requests."
+review_notes = "Older but historically central; useful for backfilling existing GitHub projects from issue/PR metadata."
+
+[[tools]]
+id = "gitlab-changelogs"
+package_name = "GitLab Changelogs"
+ecosystem = "gitlab"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://docs.gitlab.com/user/project/changelogs/"
+package_url = ""
+source_type = "platform-feature-api"
+status = "active"
+review_priority = "must"
+capabilities = ["gitlab-release", "autocreate-from-commits", "git-trailers", "changelog-api", "custom-templates"]
+short_description = "GitLab built-in changelog generation based on commit titles and Git trailers such as Changelog: added/fixed/changed."
+review_notes = "Must-review for GitLab-native workflows; different philosophy from GitHub PR-based generation."
+
+[[tools]]
+id = "glab-changelog"
+package_name = "glab changelog"
+ecosystem = "gitlab"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://docs.gitlab.com/cli/changelog/generate/"
+package_url = "https://gitlab.com/gitlab-org/cli"
+source_type = "cli"
+status = "active"
+review_priority = "must"
+capabilities = ["gitlab-release", "changelog-generate", "commit-range", "config-file", "automation"]
+short_description = "GitLab CLI command that generates changelogs from project commits using GitLab changelog configuration."
+review_notes = "Review together with GitLab's changelog API and release creation commands."
+
+[[tools]]
+id = "glab-release"
+package_name = "glab release"
+ecosystem = "gitlab"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://docs.gitlab.com/cli/release/create/"
+package_url = "https://gitlab.com/gitlab-org/cli"
+source_type = "cli"
+status = "active"
+review_priority = "must"
+capabilities = ["gitlab-release", "create-release", "update-release", "notes-from-file", "ci-automation"]
+short_description = "GitLab CLI release command for creating or updating releases, including using release notes from a file."
+review_notes = "Important because GitLab release-cli is deprecated in favor of glab."
+
+[[tools]]
+id = "gitlab-release-cli"
+package_name = "release-cli"
+ecosystem = "gitlab"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://docs.gitlab.com/user/project/releases/release_cli/"
+package_url = "https://gitlab.com/gitlab-org/release-cli"
+source_type = "cli"
+status = "deprecated"
+review_priority = "important"
+capabilities = ["gitlab-release", "create-release", "ci-automation"]
+short_description = "Deprecated GitLab release command-line tool formerly used by CI release jobs to create releases through the Releases API."
+review_notes = "Still worth reviewing because older GitLab CI examples use it; mark migration path to glab."
+
+[[tools]]
+id = "towncrier"
+package_name = "towncrier"
+ecosystem = "python"
+languages = ["python"]
+url = "https://towncrier.readthedocs.io/"
+package_url = "https://pypi.org/project/towncrier/"
+source_type = "python-cli"
+status = "active"
+review_priority = "must"
+capabilities = ["fragment-assembly", "changelog-file", "release-notes", "issue-links", "markdown"]
+short_description = "Python-origin changelog fragment assembler used to collect per-change news fragments into release notes or CHANGELOG.md."
+review_notes = "Canonical Python fragment-based tool; compare directly with Scriv, Reno, Changie, and Changesets."
+
+[[tools]]
+id = "scriv"
+package_name = "scriv"
+ecosystem = "python"
+languages = ["python"]
+url = "https://scriv.readthedocs.io/"
+package_url = "https://pypi.org/project/scriv/"
+source_type = "python-cli"
+status = "active"
+review_priority = "must"
+capabilities = ["fragment-assembly", "changelog-file", "edit", "collect", "pyproject-config"]
+short_description = "Changelog management CLI that creates and aggregates changelog fragments into a project changelog."
+review_notes = "Ned Batchelder tool; particularly worth reviewing for lower-friction fragment workflows in Python projects."
+
+[[tools]]
+id = "reno"
+package_name = "reno"
+ecosystem = "python-openstack"
+languages = ["python"]
+url = "https://docs.openstack.org/reno/latest/"
+package_url = "https://pypi.org/project/reno/"
+source_type = "python-cli-sphinx"
+status = "active"
+review_priority = "must"
+capabilities = ["fragment-assembly", "release-notes", "sphinx", "git-tags", "branch-aware"]
+short_description = "OpenStack release-notes manager that stores note files and associates them with releases based on git tags."
+review_notes = "Must-review for large-project release-note management and docs-site integration."
+
+[[tools]]
+id = "keepachangelog-python"
+package_name = "keepachangelog"
+ecosystem = "python"
+languages = ["python"]
+url = "https://github.com/Colin-b/keepachangelog"
+package_url = "https://pypi.org/project/keepachangelog/"
+source_type = "python-library-cli"
+status = "active"
+review_priority = "important"
+capabilities = ["parse", "generate", "release", "keep-a-changelog"]
+short_description = "Python library/CLI for parsing, generating, and releasing Keep a Changelog style changelog files."
+review_notes = "Useful for CMS ingestion, validation-adjacent tasks, and programmatic manipulation."
+
+[[tools]]
+id = "keepachangelog-manager"
+package_name = "keepachangelog-manager"
+ecosystem = "python"
+languages = ["python"]
+url = "https://github.com/tomtom-international/keepachangelog-manager"
+package_url = "https://pypi.org/project/keepachangelog-manager/"
+source_type = "python-cli"
+status = "active"
+review_priority = "important"
+capabilities = ["validate", "create", "edit", "release", "keep-a-changelog"]
+short_description = "CLI for creating, validating, editing, and releasing Keep a Changelog formatted CHANGELOG.md files."
+review_notes = "Good candidate for validation/edit workflow reviews, not just generation."
+
+[[tools]]
+id = "conventional-changelog"
+package_name = "conventional-changelog"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts", "java", "python", "go", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://github.com/conventional-changelog/conventional-changelog"
+package_url = "https://www.npmjs.com/package/conventional-changelog"
+source_type = "npm-cli-library"
+status = "active"
+review_priority = "must"
+capabilities = ["autocreate-from-commits", "conventional-commits", "release-notes", "changelog-file", "version-bump"]
+short_description = "Core Node ecosystem changelog toolkit for generating changelogs and release notes from commit metadata."
+review_notes = "Foundational dependency/ancestor for many Node release tools, including semantic-release release note generation."
+
+[[tools]]
+id = "semantic-release"
+package_name = "semantic-release"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts", ".net-csharp-nuget", "java", "python", "go", "rust"]
+url = "https://semantic-release.gitbook.io/semantic-release"
+package_url = "https://www.npmjs.com/package/semantic-release"
+source_type = "npm-cli-ci"
+status = "active"
+review_priority = "must"
+capabilities = ["autocreate-from-commits", "version-bump", "release-notes", "package-publish", "github-release", "gitlab-release", "plugins"]
+short_description = "Fully automated CI release workflow using Conventional Commits to determine versions, generate notes, and publish packages/releases."
+review_notes = "Node-native but widely adapted through plugins; include NuGet and non-Node examples in review."
+
+[[tools]]
+id = "semantic-release-release-notes-generator"
+package_name = "@semantic-release/release-notes-generator"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts"]
+url = "https://github.com/semantic-release/release-notes-generator"
+package_url = "https://www.npmjs.com/package/@semantic-release/release-notes-generator"
+source_type = "npm-plugin"
+status = "active"
+review_priority = "important"
+capabilities = ["release-notes", "conventional-changelog", "semantic-release-plugin"]
+short_description = "semantic-release plugin that generates release note content with conventional-changelog."
+review_notes = "Review as a component rather than a standalone full workflow."
+
+[[tools]]
+id = "changesets"
+package_name = "Changesets"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts"]
+url = "https://github.com/changesets/changesets"
+package_url = "https://www.npmjs.com/package/@changesets/cli"
+source_type = "npm-cli"
+status = "active"
+review_priority = "must"
+capabilities = ["fragment-assembly", "version-bump", "monorepo", "changelog-file", "package-publish"]
+short_description = "File-based release intent workflow for packages and monorepos; contributors add changeset files that drive version bumps, changelogs, and publishing."
+review_notes = "Must-review for JS/TS monorepos and intentional release workflows; contrast with semantic-release automation."
+
+[[tools]]
+id = "changesets-changelog-github"
+package_name = "@changesets/changelog-github"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts"]
+url = "https://www.npmjs.com/package/@changesets/changelog-github"
+package_url = "https://www.npmjs.com/package/@changesets/changelog-github"
+source_type = "npm-plugin"
+status = "active"
+review_priority = "important"
+capabilities = ["changelog-template", "github-links", "pull-requests", "contributors"]
+short_description = "Changesets changelog generator that links changelog entries to GitHub commits, PRs, and users."
+review_notes = "Review alongside Changesets as the GitHub-aware changelog writer."
+
+[[tools]]
+id = "release-it"
+package_name = "release-it"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts", "java", "python", "go", "rust", "ruby", ".net-csharp-nuget"]
+url = "https://github.com/release-it/release-it"
+package_url = "https://www.npmjs.com/package/release-it"
+source_type = "npm-cli"
+status = "active"
+review_priority = "must"
+capabilities = ["version-bump", "changelog-preview", "github-release", "gitlab-release", "package-publish", "plugins"]
+short_description = "Interactive and CI-friendly release automation CLI that generates changelogs/release notes and can publish to GitHub/GitLab/package registries."
+review_notes = "Important alternative to semantic-release for projects wanting an explicit release command."
+
+[[tools]]
+id = "standard-version"
+package_name = "standard-version"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts"]
+url = "https://github.com/conventional-changelog/standard-version"
+package_url = "https://www.npmjs.com/package/standard-version"
+source_type = "npm-cli"
+status = "legacy"
+review_priority = "important"
+capabilities = ["version-bump", "changelog-file", "git-tag", "conventional-commits"]
+short_description = "Conventional Commits release helper for bumping package versions, generating CHANGELOG.md, and tagging releases."
+review_notes = "Still common in older projects; review current maintenance posture and migration to release-it/commit-and-tag-version."
+
+[[tools]]
+id = "commit-and-tag-version"
+package_name = "commit-and-tag-version"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts"]
+url = "https://github.com/absolute-version/commit-and-tag-version"
+package_url = "https://www.npmjs.com/package/commit-and-tag-version"
+source_type = "npm-cli"
+status = "active"
+review_priority = "important"
+capabilities = ["version-bump", "changelog-file", "git-tag", "conventional-commits"]
+short_description = "Drop-in replacement style tool for npm version workflows with automated bumping, tagging, and changelog generation."
+review_notes = "Review as the maintained continuation path for standard-version-style workflows."
+
+[[tools]]
+id = "auto-changelog"
+package_name = "auto-changelog"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts"]
+url = "https://www.npmjs.com/package/auto-changelog"
+package_url = "https://www.npmjs.com/package/auto-changelog"
+source_type = "npm-cli"
+status = "mature"
+review_priority = "important"
+capabilities = ["autocreate-from-tags", "autocreate-from-commits", "templates", "backfill"]
+short_description = "Command-line tool that generates changelogs from git tags and commit history."
+review_notes = "Review for simple backfill and tag-history workflows."
+
+[[tools]]
+id = "changelogithub"
+package_name = "changelogithub"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts"]
+url = "https://github.com/antfu/changelogithub"
+package_url = "https://www.npmjs.com/package/changelogithub"
+source_type = "npm-cli"
+status = "active"
+review_priority = "important"
+capabilities = ["github-release", "conventional-commits", "release-notes", "contributors", "update-existing-release"]
+short_description = "CLI for generating GitHub release changelogs from Conventional Commits, powered by changelogen."
+review_notes = "Popular in modern JS/TS OSS workflows; especially useful when the target is GitHub Releases rather than a committed CHANGELOG.md."
+
+[[tools]]
+id = "keep-a-changelog-npm"
+package_name = "keep-a-changelog"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts"]
+url = "https://www.npmjs.com/package/keep-a-changelog"
+package_url = "https://www.npmjs.com/package/keep-a-changelog"
+source_type = "npm-library"
+status = "active"
+review_priority = "important"
+capabilities = ["parse", "generate", "keep-a-changelog", "library"]
+short_description = "Node/Deno library for parsing and generating Keep a Changelog formatted changelog files."
+review_notes = "Good candidate for CMS ingestion or validation tooling in JS/TS."
+
+[[tools]]
+id = "goreleaser"
+package_name = "GoReleaser"
+ecosystem = "go"
+languages = ["go"]
+url = "https://goreleaser.com/"
+package_url = "https://github.com/goreleaser/goreleaser"
+source_type = "go-cli-ci"
+status = "active"
+review_priority = "must"
+capabilities = ["release-orchestration", "changelog-generate", "github-release", "gitlab-release", "gitea-release", "artifacts"]
+short_description = "Go-focused release automation that builds artifacts, generates changelogs, and publishes GitHub/GitLab/Gitea releases."
+review_notes = "The Go release tool to review first; changelog is one feature in a complete release pipeline."
+
+[[tools]]
+id = "git-chglog"
+package_name = "git-chglog"
+ecosystem = "go"
+languages = ["go", "java", "python", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://github.com/git-chglog/git-chglog"
+package_url = "https://github.com/git-chglog/git-chglog"
+source_type = "go-cli"
+status = "active"
+review_priority = "must"
+capabilities = ["autocreate-from-commits", "autocreate-from-tags", "templates", "backfill", "conventional-commits"]
+short_description = "Go-based changelog generator that uses git tags and commits with configurable templates."
+review_notes = "Still worth reviewing even with git-cliff present; strong cross-language CLI candidate."
+
+[[tools]]
+id = "changie"
+package_name = "Changie"
+ecosystem = "go-cross-language"
+languages = ["go", "java", "python", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://changie.dev/"
+package_url = "https://github.com/miniscruff/changie"
+source_type = "go-cli"
+status = "active"
+review_priority = "must"
+capabilities = ["fragment-assembly", "version-management", "changelog-file", "customization", "language-agnostic"]
+short_description = "Language-agnostic, file-based changelog management tool distributed as a single Go binary."
+review_notes = "Must-review as the Go-binary answer to Towncrier/Scriv/Changesets style fragment workflows."
+
+[[tools]]
+id = "go-changelog-generator"
+package_name = "changelog-generator"
+ecosystem = "go"
+languages = ["go"]
+url = "https://pkg.go.dev/gabe565.com/changelog-generator"
+package_url = "https://github.com/gabe565/changelog-generator"
+source_type = "go-cli-library"
+status = "active"
+review_priority = "important"
+capabilities = ["autocreate-from-commits", "release-notes", "github-action", "goreleaser-like"]
+short_description = "Configurable commit-based changelog generator that groups commits since the previous release."
+review_notes = "Review as a focused Go-native generator when GoReleaser is too broad."
+
+[[tools]]
+id = "release-plz"
+package_name = "release-plz"
+ecosystem = "rust"
+languages = ["rust"]
+url = "https://release-plz.dev/"
+package_url = "https://crates.io/crates/release-plz"
+source_type = "rust-cli-ci"
+status = "active"
+review_priority = "must"
+capabilities = ["release-pr", "changelog-generate", "version-bump", "crates-io-publish", "github-release", "gitlab-release"]
+short_description = "Rust crate release automation that updates changelogs with git-cliff, bumps Cargo.toml versions, publishes crates, and creates releases."
+review_notes = "Top Rust-specific must-review tool for CI-based crate release workflows."
+
+[[tools]]
+id = "cargo-smart-release"
+package_name = "cargo-smart-release"
+ecosystem = "rust"
+languages = ["rust"]
+url = "https://github.com/GitoxideLabs/cargo-smart-release"
+package_url = "https://crates.io/crates/cargo-smart-release"
+source_type = "cargo-subcommand"
+status = "active"
+review_priority = "important"
+capabilities = ["release-orchestration", "workspace", "changelog-scaffolding", "cargo-publish", "simulation"]
+short_description = "Cargo subcommand for smarter Rust workspace releases, including changelog scaffolding and release simulation."
+review_notes = "Review for multi-crate workspace release ergonomics and human-polished changelog workflows."
+
+[[tools]]
+id = "cargo-release"
+package_name = "cargo-release"
+ecosystem = "rust"
+languages = ["rust"]
+url = "https://github.com/crate-ci/cargo-release"
+package_url = "https://crates.io/crates/cargo-release"
+source_type = "cargo-subcommand"
+status = "active"
+review_priority = "important"
+capabilities = ["version-bump", "cargo-publish", "git-tag", "release-orchestration", "pre-release-hooks"]
+short_description = "Cargo subcommand for crate release automation; commonly combined with git-cliff or cargo-dist for changelog/release pipelines."
+review_notes = "Not primarily a changelog tool, but it belongs in reviews of Rust release workflows that include changelog hooks."
+
+[[tools]]
+id = "cargo-dist"
+package_name = "cargo-dist"
+ecosystem = "rust"
+languages = ["rust"]
+url = "https://github.com/axodotdev/cargo-dist"
+package_url = "https://crates.io/crates/cargo-dist"
+source_type = "cargo-subcommand-ci"
+status = "active"
+review_priority = "important"
+capabilities = ["release-orchestration", "github-release", "artifacts", "installers", "ci-generation"]
+short_description = "Rust release distribution tool that generates CI and publishes artifacts/installers to GitHub Releases; often paired with changelog generators."
+review_notes = "Review as adjacent release infrastructure, not as a primary changelog editor."
+
+[[tools]]
+id = "gradle-changelog-plugin"
+package_name = "org.jetbrains.changelog"
+ecosystem = "java-gradle"
+languages = ["java"]
+url = "https://github.com/JetBrains/gradle-changelog-plugin"
+package_url = "https://plugins.gradle.org/plugin/org.jetbrains.changelog"
+source_type = "gradle-plugin"
+status = "active"
+review_priority = "must"
+capabilities = ["keep-a-changelog", "gradle-task", "patch-changelog", "release-notes", "intellij-plugin"]
+short_description = "JetBrains Gradle plugin with tasks and helpers for working with Keep a Changelog style changelogs."
+review_notes = "Most important Java/Gradle changelog-specific plugin to review."
+
+[[tools]]
+id = "maven-changelog-plugin"
+package_name = "maven-changelog-plugin"
+ecosystem = "java-maven"
+languages = ["java"]
+url = "https://maven.apache.org/plugins/maven-changelog-plugin/"
+package_url = "https://maven.apache.org/plugins/maven-changelog-plugin/"
+source_type = "maven-plugin"
+status = "mature"
+review_priority = "must"
+capabilities = ["scm-report", "maven-site", "developer-activity", "file-activity"]
+short_description = "Apache Maven plugin that generates SCM change reports for Maven sites, including changelog and activity reports."
+review_notes = "Classic Maven-site oriented tool; distinguish SCM reports from user-facing release notes."
+
+[[tools]]
+id = "git-changelog-maven-plugin"
+package_name = "git-changelog-maven-plugin"
+ecosystem = "java-maven"
+languages = ["java"]
+url = "https://github.com/tomasbjerre/git-changelog-maven-plugin"
+package_url = "https://search.maven.org/artifact/se.bjurr.gitchangelog/git-changelog-maven-plugin"
+source_type = "maven-plugin"
+status = "active"
+review_priority = "must"
+capabilities = ["autocreate-from-git", "maven-plugin", "release-notes", "jira", "templates"]
+short_description = "Maven plugin that generates changelogs or release notes from a git repository, with issue tracker integration."
+review_notes = "Review as a modern Maven-specific generator compared with Apache Maven Changelog Plugin."
+
+[[tools]]
+id = "spotless-changelog"
+package_name = "com.diffplug.spotless-changelog"
+ecosystem = "java-gradle"
+languages = ["java"]
+url = "https://plugins.gradle.org/plugin/com.diffplug.spotless-changelog"
+package_url = "https://plugins.gradle.org/plugin/com.diffplug.spotless-changelog"
+source_type = "gradle-plugin"
+status = "active"
+review_priority = "important"
+capabilities = ["validate", "keep-a-changelog", "version-compute", "release-commit", "git-tag"]
+short_description = "Gradle plugin that checks Keep a Changelog compliance and can compute release versions from the changelog."
+review_notes = "Notable because it treats the changelog as source of truth for versioning."
+
+[[tools]]
+id = "net-wooga-github-release-notes"
+package_name = "net.wooga.github-release-notes"
+ecosystem = "java-gradle"
+languages = ["java"]
+url = "https://plugins.gradle.org/plugin/net.wooga.github-release-notes"
+package_url = "https://plugins.gradle.org/plugin/net.wooga.github-release-notes"
+source_type = "gradle-plugin"
+status = "mature"
+review_priority = "secondary"
+capabilities = ["github-release", "release-notes", "gradle-task"]
+short_description = "Gradle plugin providing tasks and conventions for GitHub release-note messages."
+review_notes = "Secondary review target for Gradle/GitHub integration."
+
+[[tools]]
+id = "dotnet-versionize"
+package_name = "versionize"
+ecosystem = ".net-csharp-nuget"
+languages = [".net-csharp-nuget"]
+url = "https://github.com/versionize/versionize"
+package_url = "https://www.nuget.org/packages/versionize"
+source_type = "dotnet-tool"
+status = "active"
+review_priority = "must"
+capabilities = ["autocreate-from-commits", "conventional-commits", "version-bump", "changelog-file", "nuget"]
+short_description = ".NET tool for automatic NuGet versioning and CHANGELOG generation from Conventional Commits."
+review_notes = "Top .NET-specific changelog/versioning tool to review."
+
+[[tools]]
+id = "dotnet-releaser"
+package_name = "dotnet-releaser"
+ecosystem = ".net-csharp-nuget"
+languages = [".net-csharp-nuget"]
+url = "https://github.com/xoofx/dotnet-releaser"
+package_url = "https://www.nuget.org/packages/dotnet-releaser"
+source_type = "dotnet-tool"
+status = "active"
+review_priority = "must"
+capabilities = ["release-orchestration", "release-notes", "github-release", "nuget-publish", "artifacts", "coverage"]
+short_description = "All-in-one .NET release CLI for building, testing, packaging, creating release notes from PRs/commits, publishing to NuGet, and creating GitHub releases."
+review_notes = "Must-review for .NET library/application release pipelines."
+
+[[tools]]
+id = "gitreleasemanager"
+package_name = "GitReleaseManager"
+ecosystem = ".net-csharp-nuget"
+languages = [".net-csharp-nuget"]
+url = "https://github.com/GitTools/GitReleaseManager"
+package_url = "https://www.nuget.org/packages/GitReleaseManager"
+source_type = "dotnet-tool"
+status = "active"
+review_priority = "must"
+capabilities = ["github-release", "draft-release", "milestones", "assets", "export-release-notes"]
+short_description = ".NET/GitTools utility for creating draft releases from milestones, attaching assets, publishing drafts, and exporting release notes."
+review_notes = "Important for GitHub milestone-based release workflows in .NET."
+
+[[tools]]
+id = "gitreleasenotes"
+package_name = "GitReleaseNotes"
+ecosystem = ".net-csharp-nuget"
+languages = [".net-csharp-nuget"]
+url = "https://github.com/GitTools/GitReleaseNotes"
+package_url = "https://www.nuget.org/packages/GitReleaseNotes"
+source_type = "dotnet-tool"
+status = "mature"
+review_priority = "important"
+capabilities = ["release-notes", "github", "jira", "youtrack", "templates"]
+short_description = "GitTools utility for generating release notes from GitHub, Jira, and YouTrack project data."
+review_notes = "Older but relevant for .NET shops with issue-tracker-derived notes."
+
+[[tools]]
+id = "gitversion"
+package_name = "GitVersion"
+ecosystem = ".net-csharp-nuget"
+languages = [".net-csharp-nuget"]
+url = "https://gitversion.net/docs/"
+package_url = "https://www.nuget.org/packages/GitVersion.Tool/"
+source_type = "dotnet-tool-msbuild"
+status = "active"
+review_priority = "important"
+capabilities = ["version-compute", "semver", "git-history", "ci-integration"]
+short_description = "Git-based semantic version calculator for .NET and CI pipelines."
+review_notes = "Not a changelog generator, but important adjacent tooling for version decisions feeding release notes."
+
+[[tools]]
+id = "nerdbank-gitversioning"
+package_name = "Nerdbank.GitVersioning"
+ecosystem = ".net-csharp-nuget"
+languages = [".net-csharp-nuget"]
+url = "https://github.com/dotnet/Nerdbank.GitVersioning"
+package_url = "https://www.nuget.org/packages/Nerdbank.GitVersioning"
+source_type = "nuget-msbuild-dotnet-tool"
+status = "active"
+review_priority = "important"
+capabilities = ["version-compute", "semver", "msbuild", "nuget-versioning", "ci-integration"]
+short_description = "Microsoft/dotnet project for stamping assemblies, NuGet packages, VSIX, and other artifacts with Git-derived SemVer information."
+review_notes = "Review as adjacent .NET versioning infrastructure rather than changelog management."
+
+[[tools]]
+id = "c-cpp-github-release-notes"
+package_name = "GitHub/GitLab + git-cliff/Changie pattern"
+ecosystem = "c-cpp"
+languages = ["c++", "c"]
+url = "https://git-cliff.org/"
+package_url = "https://changie.dev/"
+source_type = "workflow-pattern"
+status = "active"
+review_priority = "must"
+capabilities = ["autocreate-from-commits", "fragment-assembly", "github-release", "gitlab-release", "backfill"]
+short_description = "For C and C++, the must-review ecosystem is mostly language-agnostic: git-cliff for commit-derived logs, Changie for fragments, and GitHub/GitLab release tooling for publication."
+review_notes = "There is not a dominant C/C++ package-manager-native changelog tool comparable to Changesets or release-plz; review cross-language tools explicitly under C/C++."
+
+[[tools]]
+id = "changelog-from-release"
+package_name = "changelog-from-release"
+ecosystem = "cross-language"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://github.com/rhysd/changelog-from-release"
+package_url = "https://github.com/rhysd/changelog-from-release"
+source_type = "cli"
+status = "mature"
+review_priority = "secondary"
+capabilities = ["backfill", "github-releases-to-changelog", "markdown"]
+short_description = "Small CLI that backfills/generates a Markdown changelog from existing GitHub Releases."
+review_notes = "Useful for review category: converting release-page history back into portable CHANGELOG.md."
+
+[[tools]]
+id = "github-release-from-changelog"
+package_name = "github-release-from-changelog"
+ecosystem = "npm-node-js-ts"
+languages = ["npm-node-js-ts", "java", "python", "go", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://www.npmjs.com/package/github-release-from-changelog"
+package_url = "https://www.npmjs.com/package/github-release-from-changelog"
+source_type = "npm-cli"
+status = "mature"
+review_priority = "secondary"
+capabilities = ["changelog-to-github-release", "extract-version-section", "github-release"]
+short_description = "CLI that extracts the relevant changelog section and creates/updates a GitHub Release for a tag."
+review_notes = "Review for the 'turn CHANGELOG.md into GitHub Release' workflow."
+
+[[tools]]
+id = "create-release-notes-from-changelog"
+package_name = "Create release notes from changelog"
+ecosystem = "github"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://github.com/marketplace/actions/create-release-notes-from-changelog"
+package_url = "https://github.com/marketplace/actions/create-release-notes-from-changelog"
+source_type = "github-action"
+status = "active"
+review_priority = "secondary"
+capabilities = ["changelog-to-release-notes", "extract-version-section", "github-action"]
+short_description = "GitHub Action that extracts release notes from CHANGELOG.md, optionally combines a static header, and writes RELEASE.md."
+review_notes = "Useful small tool for pipelines that maintain changelog manually but publish release notes automatically."
+
+[[tools]]
+id = "logchange"
+package_name = "logchange"
+ecosystem = "cross-language"
+languages = ["java", "python", "go", "npm-node-js-ts", "rust", "c++", "c", "ruby", ".net-csharp-nuget"]
+url = "https://github.com/logchange/logchange"
+package_url = "https://github.com/logchange/logchange"
+source_type = "cli"
+status = "active"
+review_priority = "secondary"
+capabilities = ["fragment-assembly", "yaml-fragments", "changelog-file", "release-notes"]
+short_description = "Tool that stores each change in a separate YAML file to reduce changelog merge conflicts and generate CHANGELOG.md during release."
+review_notes = "Review as another fragment-based approach, especially for YAML-centric teams."
+
+[[ecosystem_recommendations]]
+ecosystem = "java"
+must_review_ids = ["gradle-changelog-plugin", "git-changelog-maven-plugin", "maven-changelog-plugin", "spotless-changelog", "git-cliff", "release-please", "github-generated-release-notes", "gitlab-changelogs"]
+notes = "Java splits by build system: Gradle plugins and Maven plugins matter; cross-language release tools are often better for GitHub/GitLab publication."
+
+[[ecosystem_recommendations]]
+ecosystem = "python"
+must_review_ids = ["towncrier", "scriv", "reno", "keepachangelog-manager", "keepachangelog-python", "git-cliff", "release-please", "github-changelog-generator"]
+notes = "Python has the strongest fragment-assembly ecosystem; compare Towncrier, Scriv, and Reno carefully."
+
+[[ecosystem_recommendations]]
+ecosystem = "go"
+must_review_ids = ["goreleaser", "git-chglog", "changie", "go-changelog-generator", "git-cliff", "release-please"]
+notes = "GoReleaser dominates full release automation; Changie and git-chglog cover narrower changelog workflows."
+
+[[ecosystem_recommendations]]
+ecosystem = "npm-node-js-ts"
+must_review_ids = ["conventional-changelog", "semantic-release", "changesets", "release-it", "changelogithub", "auto-changelog", "commit-and-tag-version", "release-please"]
+notes = "Node has both commit-driven automation and file-fragment intentional-release approaches."
+
+[[ecosystem_recommendations]]
+ecosystem = "rust"
+must_review_ids = ["release-plz", "git-cliff", "cargo-smart-release", "cargo-release", "cargo-dist", "release-please"]
+notes = "release-plz plus git-cliff is the central Rust changelog/release story; cargo-release and cargo-dist are adjacent release-pipeline tools."
+
+[[ecosystem_recommendations]]
+ecosystem = "c++"
+must_review_ids = ["git-cliff", "changie", "release-please", "release-drafter", "github-generated-release-notes", "gitlab-changelogs", "github-changelog-generator"]
+notes = "C++ lacks a single dominant package-manager-native changelog tool, so language-agnostic git/platform tools are the must-review set."
+
+[[ecosystem_recommendations]]
+ecosystem = "c"
+must_review_ids = ["git-cliff", "changie", "release-please", "release-drafter", "github-generated-release-notes", "gitlab-changelogs", "github-changelog-generator"]
+notes = "C mirrors C++: review cross-language git/platform tools rather than expecting Cargo/npm-style release managers."
+
+[[ecosystem_recommendations]]
+ecosystem = "ruby"
+must_review_ids = ["github-changelog-generator", "git-cliff", "release-please", "release-drafter", "github-generated-release-notes", "gitlab-changelogs"]
+notes = "Ruby's historically important changelog tool is github_changelog_generator; modern projects may use GitHub/GitLab or cross-language tools."
+
+[[ecosystem_recommendations]]
+ecosystem = ".net-csharp-nuget"
+must_review_ids = ["dotnet-versionize", "dotnet-releaser", "gitreleasemanager", "gitreleasenotes", "gitversion", "nerdbank-gitversioning", "semantic-release", "git-cliff"]
+notes = ".NET has strong versioning/release orchestration tools; distinguish changelog generation from SemVer stamping."
