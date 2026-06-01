@@ -1,5 +1,7 @@
 UV ?= uv
+export UV_CACHE_DIR ?= $(CURDIR)/.uv-cache
 PELICANOPTS=
+GHA_WORKFLOWS=.github/workflows
 
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
@@ -34,6 +36,21 @@ help:
 	@echo '   make serve [PORT=8000] serve site at http://localhost:8000'
 	@echo '   make devserver         serve and auto-regenerate on change'
 	@echo '   make publish           generate using production settings'
+	@echo ''
+	@echo 'Quality gates:'
+	@echo '   make quality-python    lint generated artifacts and internal links'
+	@echo '   make quality-links     cached external link audit'
+	@echo '   make quality-node      validate HTML, CSS browser support, and a11y'
+	@echo '   make quality           build + all quality gates'
+	@echo ''
+	@echo 'Documentation:'
+	@echo '   make docs              build Read the Docs maintainer docs'
+	@echo '   make docs-serve        preview maintainer docs locally'
+	@echo ''
+	@echo 'GitHub Actions:'
+	@echo '   make gha-validate      YAML parse + zizmor workflow audit'
+	@echo '   make gha-pin           pin GitHub Actions refs to commit SHAs'
+	@echo '   make gha-upgrade       gha-pin + gha-validate'
 	@echo ''
 	@echo 'Set DEBUG=1 to enable Pelican debug output.'
 	@echo ''
@@ -75,4 +92,44 @@ devserver:
 publish:
 	uv run pelican "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(PUBLISHCONF)" $(PELICANOPTS)
 
-.PHONY: help gather discover generate-pages build html clean regenerate serve devserver publish
+# ── Quality gates ──────────────────────────────────────────────────────────────
+
+quality-python: html
+	uv run python scripts/check_pelican_artifacts.py --site-dir "$(OUTPUTDIR)"
+	uv run python scripts/check_links.py --site-dir "$(OUTPUTDIR)" --internal-only
+
+quality-links: html
+	uv run python scripts/check_links.py --site-dir "$(OUTPUTDIR)"
+
+quality-python-internal: html
+	uv run python scripts/check_pelican_artifacts.py --site-dir "$(OUTPUTDIR)"
+	uv run python scripts/check_links.py --site-dir "$(OUTPUTDIR)" --internal-only
+
+quality-node: html
+	npm run quality
+
+quality: build quality-python quality-node
+
+# ── Maintainer docs ───────────────────────────────────────────────────────────
+
+docs:
+	set UV_CACHE_DIR=& uv run mkdocs build
+
+docs-serve:
+	set UV_CACHE_DIR=& uv run mkdocs serve
+
+# ── GitHub Actions maintenance ────────────────────────────────────────────────
+
+gha-validate:
+	@echo "Validating GitHub Actions workflows"
+	uv run python -c "import pathlib, yaml; [yaml.safe_load(p.read_text(encoding='utf-8')) for p in pathlib.Path('$(GHA_WORKFLOWS)').glob('*.yml')]; print('YAML parse OK')"
+	uvx zizmor --no-progress --no-exit-codes .
+
+gha-pin:
+	@echo "Pinning GitHub Actions to current commit SHAs"
+	uv run python -c "import os, subprocess; token=os.environ.get('GITHUB_TOKEN') or subprocess.run(['gh', 'auth', 'token'], capture_output=True, text=True).stdout.strip(); assert token, 'Set GITHUB_TOKEN or run: gh auth login'; env=dict(os.environ, GITHUB_TOKEN=token); raise SystemExit(subprocess.run(['gha-update'], env=env).returncode)"
+
+gha-upgrade: gha-pin gha-validate
+	@echo "GitHub Actions upgrade complete"
+
+.PHONY: help gather discover generate-pages build html clean regenerate serve devserver publish quality-python quality-links quality-python-internal quality-node quality docs docs-serve gha-validate gha-pin gha-upgrade

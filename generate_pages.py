@@ -13,6 +13,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import html
 import re
 import sys
 from pathlib import Path
@@ -28,10 +29,10 @@ ECOSYSTEM_LABELS = {
     "python": "Python",
     "rust": "Rust",
     "go": "Go",
-    "node": "Node / npm",
+    "node": "npm",
     "java": "Java",
     "ruby": "Ruby",
-    "dotnet": ".NET / NuGet",
+    "dotnet": "NuGet",
     "cpp": "C++",
     "c": "C",
     "other": "Other",
@@ -68,7 +69,7 @@ def _status(tool: dict) -> str:
 
 def _review_link(tool: dict) -> str:
     if tool.get("reviewed") and tool.get("review_slug"):
-        return f"[Review](/reviews/{tool['review_slug']}/)"
+        return f'<a href="/reviews/{tool["review_slug"]}/">Review</a>'
     return "—"
 
 
@@ -114,20 +115,42 @@ def generate_tools_page(tools: list[dict]) -> str:
     for t in sorted_tools:
         eco_label = ECOSYSTEM_LABELS.get(t.get("ecosystem", ""), t.get("ecosystem", ""))
         version = t.get("latest_version") or "—"
-        date = t.get("last_release_date") or "—"
         stars = f"{t['stars']:,}" if t.get("stars") is not None else "—"
-        status = _status(t)
         dist_link = _dist_link(t)
         review = _review_link(t)
         name = t.get("name", "")
         repo = t.get("repo")
-        name_cell = f'<a href="{repo}" target="_blank" rel="noopener noreferrer">{name}</a>' if repo else name
-        rows.append(f"| {name_cell} | {eco_label} | {version} | {date} | {stars} | {status} | {dist_link} | {review} |")
+        safe_name = html.escape(name)
+        safe_repo = html.escape(repo or "", quote=True)
+        name_cell = f'<a href="{safe_repo}" target="_blank" rel="noopener noreferrer">{safe_name}</a>' if repo else safe_name
+        rows.append(
+            "        <tr>"
+            f'<td class="tools-table__name">{name_cell}</td>'
+            f"<td>{html.escape(eco_label)}</td>"
+            f'<td class="tools-table__version">{html.escape(version)}</td>'
+            f"<td>{html.escape(stars)}</td>"
+            f"<td>{dist_link}</td>"
+            f"<td>{review}</td>"
+            "</tr>"
+        )
 
     table = "\n".join([
-        "| Tool | Ecosystem | Latest Version | Last Release | Stars | Status | Distribution | Review |",
-        "|------|-----------|---------------|--------------|-------|--------|-------------|--------|",
-    ] + rows)
+        '<table class="tools-table">',
+        "    <thead>",
+        "        <tr>",
+        "            <th>Tool</th>",
+        "            <th>Ecosystem</th>",
+        "            <th>Latest Version</th>",
+        "            <th>Stars</th>",
+        "            <th>Distribution</th>",
+        "            <th>Review</th>",
+        "        </tr>",
+        "    </thead>",
+        "    <tbody>",
+        *rows,
+        "    </tbody>",
+        "</table>",
+    ])
 
     reviewed_count = sum(1 for t in tools if t.get("reviewed"))
 
@@ -135,12 +158,11 @@ def generate_tools_page(tools: list[dict]) -> str:
 Date: 2026-05-31
 Slug: tools
 sortorder: 2
-Summary: Full metadata table of every changelog and release tool on our radar.
+Summary: Full metadata table of every tracked changelog and release tool.
 
 ## Tool Inventory
 
 {len(tools)} tools tracked &nbsp;·&nbsp; {reviewed_count} reviewed.
-Data refreshed via `just gather`. Run `just generate-pages` to rebuild this page.
 
 {table}
 
@@ -172,14 +194,17 @@ def generate_ecosystem_page(ecosystem: str, tools: list[dict]) -> str:
         link = f"[{name}](/reviews/{slug}/)" if slug else name
         sections.append(f"- **{link}** — {desc}")
 
-    sections.append(f"\n## On the Radar ({len(unreviewed)})")
-    for t in sorted(unreviewed, key=lambda t: t.get("name", "").lower()):
-        name = t.get("name", "")
-        repo = t.get("repo")
-        desc = t.get("description") or ""
-        archived = " ⚠️ archived" if t.get("archived") else ""
-        link = f"[{name}]({repo})" if repo else name
-        sections.append(f"- {link}{archived} — {desc}")
+    if unreviewed:
+        sections.append(f"\n## On the Radar ({len(unreviewed)})")
+        sections.append("Tracked tools that do not have a full review article yet.")
+        sections.append("")
+        for t in sorted(unreviewed, key=lambda t: t.get("name", "").lower()):
+            name = t.get("name", "")
+            repo = t.get("repo")
+            desc = t.get("description") or ""
+            archived = " ⚠️ archived" if t.get("archived") else ""
+            link = f"[{name}]({repo})" if repo else name
+            sections.append(f"- {link}{archived} — {desc}")
 
     body = "\n".join(sections)
 

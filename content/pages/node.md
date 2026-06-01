@@ -1,8 +1,8 @@
-Title: Node / npm Tools
+Title: npm Tools
 Date: 2026-05-31
 Slug: node
 sortorder: 13
-Summary: Changelog and release management tools for Node / npm.
+Summary: Changelog and release management tools for npm.
 
 ## Reviewed (11)
 - **[auto-changelog](/reviews/auto-changelog/)** — Command-line tool that generates changelogs from git tags and commit history.
@@ -18,5 +18,7 @@ Summary: Changelog and release management tools for Node / npm.
 - **[standard-version](/reviews/standard-version/)** — Automate versioning and CHANGELOG generation with semver and conventional commits
 
 ## On the Radar (2)
+Tracked tools that do not have a full review article yet.
+
 - [@changesets/changelog-github](https://github.com/changesets/changesets#main) — Changesets changelog generator that links changelog entries to GitHub commits, PRs, and users.
 - [@semantic-release/release-notes-generator](https://github.com/semantic-release/release-notes-generator) — semantic-release plugin that generates release note content with conventional-changelog.

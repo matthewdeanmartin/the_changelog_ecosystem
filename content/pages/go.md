@@ -9,5 +9,3 @@ Summary: Changelog and release management tools for Go.
 - **[changie](/reviews/changie/)** — Automated changelog tool for projects using conventional commits
 - **[git-chglog](/reviews/git-chglog/)** — Go-based changelog generator that uses git tags and commits with configurable templates.
 - **[goreleaser](/reviews/goreleaser/)** — Release automation tool for Go projects including changelog generation
-
-## On the Radar (0)

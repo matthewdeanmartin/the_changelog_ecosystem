@@ -10,5 +10,3 @@ Summary: Changelog and release management tools for Java.
 - **[maven-changelog-plugin](/reviews/maven-changelog-plugin/)** — Apache Maven plugin that generates SCM change reports for Maven sites, including changelog and activity reports.
 - **[net.wooga.github-release-notes](/reviews/net-wooga-github-release-notes/)** — Gradle plugin providing tasks and conventions for GitHub release-note messages.
 - **[org.jetbrains.changelog](/reviews/org-jetbrains-changelog/)** — JetBrains Gradle plugin with tasks and helpers for working with Keep a Changelog style changelogs.
-
-## On the Radar (0)

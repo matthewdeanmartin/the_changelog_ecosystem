@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}{{ article.title }} - {{ SITENAME }}{% endblock %}
+{% block title %}{{ article.title | e }} - {{ SITENAME | e }}{% endblock %}
 
 {% block content %}
 <article class="review">
     <div class="review-header">
         <div class="review-header__meta">
-            <span class="ecosystem-badge ecosystem-badge--{{ article.ecosystem | lower | replace('#', 'sharp') | replace('.', 'dot') | replace('/', '-') }}">{{ article.ecosystem }}</span>
+            <span class="ecosystem-badge ecosystem-badge--{{ article.ecosystem | lower | replace('#', 'sharp') | replace('.', 'dot') | replace('/', '-') }}">{{ article.ecosystem | e }}</span>
             <span class="article-date">{{ article.date.strftime('%Y-%m-%d') }}</span>
             {% if article.tool_version %}
             <span class="tool-version">v{{ article.tool_version }}</span>
             {% endif %}
         </div>
-        <h1>{{ article.title }}</h1>
+        <h1>{{ article.title | e }}</h1>
         {% if article.tool_url %}
         <p class="tool-link"><a href="{{ article.tool_url }}" rel="noopener noreferrer" target="_blank">{{ article.tool_url }}</a></p>
         {% endif %}

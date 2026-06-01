@@ -3,40 +3,123 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+    <title>{% block title %}{{ SITENAME | e }}{% endblock %}</title>
     <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/style.css" />
 </head>
 <body>
+    {% set current_slug = page.slug if page is defined else article.slug if article is defined else "" %}
+    {% set changelog_slugs = ["changelog-schema-tooling", "keep-a-changelog", "keepachangelog", "keepachangelog-manager", "changelog-file-schemas", "changelog-validation-boundaries"] %}
+    {% set commit_slugs = ["commit-schema-trailers-tags", "conventional-commits-trailers-release-notes", "gitmoji-emoji-commit-taxonomies", "git-trailers-release-metadata", "git-tag-schemas-for-releases", "conventional-changelog", "git-cliff"] %}
+    {% set classification_slugs = ["change-classification", "gnu-gnits-historical-change-logs", "change-taxonomies-across-tools", "towncrier", "scriv", "reno"] %}
+    {% set version_slugs = ["version-schema-tooling", "semantic-versioning-changelog-workflows", "version-schema-survey", "version-bump-decision-rules", "version-validation-release-pipelines", "semantic-release", "release-please", "gitversion", "nerdbank-gitversioning"] %}
+    {% set docs_slugs = ["markup-template-docs-integration", "changelog-rendering-template-engines", "docs-integration-boundaries", "git-cliff", "git-chglog", "towncrier", "reno"] %}
+    {% set release_slugs = ["release-surfaces", "release-pages-and-registry-surfaces", "github-automatically-generated-release-notes", "gitlab-changelogs", "glab-release", "release-cli"] %}
     <div class="site-shell">
         <header class="site-header">
             <div class="site-header__inner">
                 <div class="site-branding">
-                    <a class="site-title" href="{{ SITEURL }}/">{{ SITENAME }}</a>
-                    <p class="site-tagline">{{ SITESUBTITLE | default("Reviews of changelog & release tools across every ecosystem.") }}</p>
+                    <a class="site-title" href="{{ SITEURL }}/">{{ SITENAME | e }}</a>
+                    <p class="site-tagline">{{ SITESUBTITLE | default("Reviews of changelog & release tools across every ecosystem.") | e }}</p>
                 </div>
+                <nav class="top-nav" aria-label="Primary">
+                    <a{% if page is defined and (page.slug == "home" or not page.url) %} class="active"{% endif %} href="{{ SITEURL }}/">Home</a>
+                    <a{% if current_slug in changelog_slugs %} class="active"{% endif %} href="{{ SITEURL }}/changelog-schema-tooling/">Changelog Management</a>
+                    <a{% if current_slug in commit_slugs %} class="active"{% endif %} href="{{ SITEURL }}/commit-schema-trailers-tags/">Commit Message Schemas</a>
+                    <a{% if current_slug in classification_slugs %} class="active"{% endif %} href="{{ SITEURL }}/change-classification/">Change Classification</a>
+                    <a{% if current_slug in version_slugs %} class="active"{% endif %} href="{{ SITEURL }}/version-schema-tooling/">Version Schemas</a>
+                    <a{% if current_slug in docs_slugs %} class="active"{% endif %} href="{{ SITEURL }}/markup-template-docs-integration/">Templates &amp; Docs</a>
+                    <a{% if current_slug in release_slugs %} class="active"{% endif %} href="{{ SITEURL }}/release-surfaces/">Release Surfaces</a>
+                    <a{% if page is defined and page.slug == "tools" %} class="active"{% endif %} href="{{ SITEURL }}/tools/">Tool Index</a>
+                </nav>
             </div>
         </header>
 
         <div class="site-content">
             <aside class="site-sidebar">
-                <nav class="site-nav" aria-label="Primary">
-                    <p class="site-nav__title">Navigate</p>
+                <nav class="section-nav" aria-label="Section">
+                    {% if current_slug in changelog_slugs %}
+                    <p class="section-nav__title">Changelog Management</p>
                     <ul>
-                        <li{% if page is defined and (page.slug == "home" or not page.url) %} class="active"{% endif %}>
-                            <a href="{{ SITEURL }}/">Home</a>
-                        </li>
-                        {% for p in pages | sort_by_sortorder %}
-                        {% if p.url %}
-                        <li{% if page is defined and p == page %} class="active"{% endif %}>
-                            <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
-                        </li>
-                        {% endif %}
-                        {% endfor %}
-                        <li><a href="{{ SITEURL }}/tags/">Browse by Tag</a></li>
+                        <li{% if current_slug == "keep-a-changelog" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/keep-a-changelog/">Keep a Changelog</a></li>
+                        <li{% if current_slug == "keepachangelog" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/keepachangelog/">keepachangelog</a></li>
+                        <li{% if current_slug == "keepachangelog-manager" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/keepachangelog-manager/">keepachangelog-manager-fork</a></li>
+                        <li{% if current_slug == "changelog-file-schemas" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/changelog-file-schemas/">Changelog File Schemas</a></li>
+                        <li{% if current_slug == "changelog-validation-boundaries" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/changelog-validation-boundaries/">Changelog Validation Boundaries</a></li>
+                    </ul>
+                    {% elif current_slug in commit_slugs %}
+                    <p class="section-nav__title">Commit Message Schemas</p>
+                    <ul>
+                        <li{% if current_slug == "conventional-commits-trailers-release-notes" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/conventional-commits-trailers-release-notes/">Conventional Commits</a></li>
+                        <li{% if current_slug == "gitmoji-emoji-commit-taxonomies" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/gitmoji-emoji-commit-taxonomies/">Gitmoji</a></li>
+                        <li{% if current_slug == "git-trailers-release-metadata" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/git-trailers-release-metadata/">Git Trailers</a></li>
+                        <li{% if current_slug == "git-tag-schemas-for-releases" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/git-tag-schemas-for-releases/">Git Tag Schemas</a></li>
+                        <li{% if current_slug == "conventional-changelog" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/conventional-changelog/">conventional-changelog</a></li>
+                        <li{% if current_slug == "git-cliff" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/git-cliff/">git-cliff</a></li>
+                    </ul>
+                    {% elif current_slug in classification_slugs %}
+                    <p class="section-nav__title">Change Classification</p>
+                    <ul>
+                        <li{% if current_slug == "gnu-gnits-historical-change-logs" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/gnu-gnits-historical-change-logs/">GNU and Gnits</a></li>
+                        <li{% if current_slug == "change-taxonomies-across-tools" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/change-taxonomies-across-tools/">Tool Taxonomies</a></li>
+                        <li{% if current_slug == "keep-a-changelog" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/keep-a-changelog/">Keep a Changelog</a></li>
+                        <li{% if current_slug == "towncrier" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/towncrier/">towncrier</a></li>
+                        <li{% if current_slug == "scriv" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/scriv/">scriv</a></li>
+                        <li{% if current_slug == "reno" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/reno/">reno</a></li>
+                    </ul>
+                    {% elif current_slug in version_slugs %}
+                    <p class="section-nav__title">Version Schemas</p>
+                    <ul>
+                        <li{% if current_slug == "semantic-versioning-changelog-workflows" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/semantic-versioning-changelog-workflows/">Semantic Versioning</a></li>
+                        <li{% if current_slug == "version-schema-survey" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/version-schema-survey/">Version Schema Survey</a></li>
+                        <li{% if current_slug == "version-bump-decision-rules" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/version-bump-decision-rules/">Bump Decisions</a></li>
+                        <li{% if current_slug == "version-validation-release-pipelines" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/version-validation-release-pipelines/">Version Validation</a></li>
+                        <li{% if current_slug == "semantic-release" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/semantic-release/">semantic-release</a></li>
+                        <li{% if current_slug == "release-please" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/release-please/">release-please</a></li>
+                        <li{% if current_slug == "gitversion" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/gitversion/">GitVersion</a></li>
+                        <li{% if current_slug == "nerdbank-gitversioning" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/nerdbank-gitversioning/">Nerdbank.GitVersioning</a></li>
+                    </ul>
+                    {% elif current_slug in docs_slugs %}
+                    <p class="section-nav__title">Templates &amp; Docs</p>
+                    <ul>
+                        <li{% if current_slug == "changelog-rendering-template-engines" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/changelog-rendering-template-engines/">Rendering and Templates</a></li>
+                        <li{% if current_slug == "docs-integration-boundaries" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/docs-integration-boundaries/">Docs Boundaries</a></li>
+                        <li{% if current_slug == "git-cliff" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/git-cliff/">git-cliff</a></li>
+                        <li{% if current_slug == "git-chglog" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/git-chglog/">git-chglog</a></li>
+                        <li{% if current_slug == "towncrier" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/towncrier/">towncrier</a></li>
+                        <li{% if current_slug == "reno" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/reno/">reno</a></li>
+                    </ul>
+                    {% elif current_slug in release_slugs %}
+                    <p class="section-nav__title">Release Surfaces</p>
+                    <ul>
+                        <li{% if current_slug == "release-pages-and-registry-surfaces" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/release-pages-and-registry-surfaces/">Release Pages and Registries</a></li>
+                        <li{% if current_slug == "github-automatically-generated-release-notes" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/github-automatically-generated-release-notes/">GitHub Release Notes</a></li>
+                        <li{% if current_slug == "gitlab-changelogs" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/gitlab-changelogs/">GitLab Changelogs</a></li>
+                        <li{% if current_slug == "glab-release" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/glab-release/">glab release</a></li>
+                        <li{% if current_slug == "release-cli" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/release-cli/">release-cli</a></li>
+                    </ul>
+                    {% endif %}
+
+                    <p class="section-nav__title">Ecosystems</p>
+                    <ul>
+                        <li{% if current_slug == "python" %} class="active"{% endif %}><a href="{{ SITEURL }}/python/">Python</a></li>
+                        <li{% if current_slug == "rust" %} class="active"{% endif %}><a href="{{ SITEURL }}/rust/">Rust</a></li>
+                        <li{% if current_slug == "go" %} class="active"{% endif %}><a href="{{ SITEURL }}/go/">Go</a></li>
+                        <li{% if current_slug == "node" %} class="active"{% endif %}><a href="{{ SITEURL }}/node/">npm</a></li>
+                        <li{% if current_slug == "java" %} class="active"{% endif %}><a href="{{ SITEURL }}/java/">Java</a></li>
+                        <li{% if current_slug == "ruby" %} class="active"{% endif %}><a href="{{ SITEURL }}/ruby/">Ruby</a></li>
+                        <li{% if current_slug == "dotnet" %} class="active"{% endif %}><a href="{{ SITEURL }}/dotnet/">NuGet</a></li>
+                        <li{% if current_slug == "cpp" %} class="active"{% endif %}><a href="{{ SITEURL }}/cpp/">C++</a></li>
+                        <li{% if current_slug == "cross" %} class="active"{% endif %}><a href="{{ SITEURL }}/cross/">Cross-ecosystem</a></li>
+                    </ul>
+
+                    <p class="section-nav__title">Browse</p>
+                    <ul>
+                        <li><a href="{{ SITEURL }}/tools/">All Tools</a></li>
+                        <li><a href="{{ SITEURL }}/tags/">Tags</a></li>
+                        <li><a href="{{ SITEURL }}/about/">About</a></li>
                     </ul>
                 </nav>
             </aside>
-
             <main class="site-main">
                 {% block content %}{% endblock %}
             </main>
@@ -45,6 +128,7 @@
         <footer class="site-footer">
             <div class="site-footer__inner">
                 <p>&copy; {{ CURRENTYEAR }} {{ AUTHOR }}. Built with <a href="https://getpelican.com/">Pelican</a>.</p>
+                <p>Generated {{ GENERATED_DATE }}.</p>
             </div>
         </footer>
     </div>

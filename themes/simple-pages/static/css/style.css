@@ -62,7 +62,7 @@ a:hover {
 }
 
 .site-header__inner {
-    padding: 0.85rem 0;
+    padding: 0.85rem 0 0.95rem;
 }
 
 .site-branding {
@@ -90,9 +90,42 @@ a:hover {
     font-size: 0.93rem;
 }
 
+.top-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.85rem;
+}
+
+.top-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.15rem;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgba(168, 192, 214, 0.26);
+    border-radius: 8px;
+    color: #dbe8f5;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 650;
+    line-height: 1.15;
+}
+
+.top-nav a:hover,
+.top-nav a:focus {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.top-nav a.active {
+    background: #f0f6ff;
+    border-color: #f0f6ff;
+    color: var(--bar);
+}
+
 .site-content {
     display: grid;
-    grid-template-columns: minmax(13rem, 15rem) minmax(0, 1fr);
+    grid-template-columns: minmax(13rem, 16rem) minmax(0, 1fr);
     gap: 1.1rem;
     align-items: start;
     padding: 1.2rem 0;
@@ -103,7 +136,7 @@ a:hover {
     top: 1rem;
 }
 
-.site-nav,
+.section-nav,
 .site-main {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -111,46 +144,51 @@ a:hover {
     box-shadow: var(--shadow);
 }
 
-.site-nav {
+.section-nav {
     padding: 0.9rem;
 }
 
-.site-nav__title {
-    margin: 0 0 0.75rem;
+.section-nav__title {
+    margin: 1rem 0 0.55rem;
     color: var(--muted);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.09em;
+    font-size: 0.74rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
-.site-nav ul {
+.section-nav__title:first-child {
+    margin-top: 0;
+}
+
+.section-nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.3rem;
+    gap: 0.22rem;
 }
 
-.site-nav a {
+.section-nav a {
     display: block;
-    padding: 0.55rem 0.75rem;
+    padding: 0.42rem 0.55rem;
     border-radius: 8px;
     color: var(--text);
     text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    font-weight: 520;
+    line-height: 1.25;
 }
 
-.site-nav a:hover,
-.site-nav a:focus {
+.section-nav a:hover,
+.section-nav a:focus {
     background: var(--panel-strong);
     color: var(--accent-strong);
 }
 
-.site-nav li.active a {
+.section-nav li.active a {
     background: var(--accent-strong);
-    color: #fff;
+    color: #ffffff;
 }
 
 .site-main {
@@ -246,15 +284,15 @@ table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.95rem;
-    overflow-x: auto;
-    display: block;
+    table-layout: auto;
 }
 
 th, td {
     padding: 0.55rem 0.75rem;
     border: 1px solid var(--border);
     text-align: left;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    word-break: normal;
 }
 
 th {
@@ -265,6 +303,27 @@ th {
 
 tr:nth-child(even) td {
     background: #f8fafc;
+}
+
+.tools-table {
+    table-layout: fixed;
+}
+
+.tools-table th,
+.tools-table td {
+    vertical-align: top;
+}
+
+.tools-table__name {
+    width: 22%;
+    max-width: 13rem;
+}
+
+.tools-table__version {
+    width: 18%;
+    max-width: 11rem;
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: 0.88rem;
 }
 
 /* ── Article list (index) ─────────────────────────────────────────────────── */
@@ -397,7 +456,7 @@ tr:nth-child(even) td {
 }
 
 .site-footer p {
-    margin: 0;
+    margin: 0.2rem 0 0;
     color: #7a94ae;
     text-align: center;
     font-size: 0.9rem;
@@ -418,8 +477,19 @@ tr:nth-child(even) td {
         position: static;
     }
 
-    .site-nav ul {
-        grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    .top-nav {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+
+    .section-nav {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+        gap: 0.8rem;
+    }
+
+    .section-nav__title {
+        margin-top: 0;
     }
 }
 
@@ -431,12 +501,16 @@ tr:nth-child(even) td {
     }
 
     .site-main,
-    .site-nav {
+    .section-nav {
         border-radius: 10px;
     }
 
     .site-main {
         padding: 1rem;
+    }
+
+    .top-nav {
+        grid-template-columns: 1fr;
     }
 }
 

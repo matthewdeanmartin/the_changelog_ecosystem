@@ -5,6 +5,7 @@ SITENAME = 'The Changelog Ecosystem'
 SITESUBTITLE = 'Reviews and metadata for changelog & release management tools across every ecosystem.'
 SITEURL = ''
 CURRENTYEAR = datetime.now().year
+GENERATED_DATE = datetime.now().strftime('%Y-%m-%d')
 
 PATH = 'content'
 

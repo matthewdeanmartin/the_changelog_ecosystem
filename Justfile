@@ -4,6 +4,7 @@
 
 set dotenv-load := true   # load .env if present (for GITHUB_TOKEN)
 set shell := ["bash", "-euc"]
+export UV_CACHE_DIR := ".uv-cache"
 
 # ── Default ────────────────────────────────────────────────────────────────────
 
@@ -100,6 +101,53 @@ devserver:
 # Generate production HTML
 publish:
     uv run pelican content -o output -s publishconf.py
+
+# ── Quality gates ─────────────────────────────────────────────────────────────
+
+# Python-only deterministic gates: generated artifact lint + internal links
+quality-python: html
+    uv run python scripts/check_pelican_artifacts.py --site-dir output
+    uv run python scripts/check_links.py --site-dir output --internal-only
+
+# Cached external link audit
+quality-links: html
+    uv run python scripts/check_links.py --site-dir output
+
+# Python-only gates without external HTTP checks, useful for offline iteration
+quality-python-internal: html
+    uv run python scripts/check_pelican_artifacts.py --site-dir output
+    uv run python scripts/check_links.py --site-dir output --internal-only
+
+# Node-only gates: HTML validation, CSS browser support, accessibility
+quality-node: html
+    npm run quality
+
+# Full quality pass
+quality: build quality-python quality-node
+
+# ── Maintainer documentation ─────────────────────────────────────────────────
+
+# Build the Read the Docs maintainer docs
+docs:
+    UV_CACHE_DIR= uv run mkdocs build
+
+# Serve the Read the Docs maintainer docs locally
+docs-serve:
+    UV_CACHE_DIR= uv run mkdocs serve
+
+# ── GitHub Actions maintenance ───────────────────────────────────────────────
+
+# YAML parse + zizmor workflow audit
+gha-validate:
+    make gha-validate
+
+# Pin GitHub Actions refs to commit SHAs
+gha-pin:
+    make gha-pin
+
+# Pin GitHub Actions refs, then validate them
+gha-upgrade:
+    make gha-upgrade
 
 # ── Full end-to-end ────────────────────────────────────────────────────────────
 

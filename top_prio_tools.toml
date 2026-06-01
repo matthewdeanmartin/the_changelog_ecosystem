@@ -207,17 +207,17 @@ review_notes = "Useful for CMS ingestion, validation-adjacent tasks, and program
 
 [[tools]]
 id = "keepachangelog-manager"
-package_name = "keepachangelog-manager"
+package_name = "keepachangelog-manager-fork"
 ecosystem = "python"
 languages = ["python"]
-url = "https://github.com/tomtom-international/keepachangelog-manager"
-package_url = "https://pypi.org/project/keepachangelog-manager/"
+url = "https://github.com/matthewdeanmartin/keepachangelog-manager"
+package_url = "https://pypi.org/project/keepachangelog-manager-fork/"
 source_type = "python-cli"
 status = "active"
 review_priority = "important"
 capabilities = ["validate", "create", "edit", "release", "keep-a-changelog"]
 short_description = "CLI for creating, validating, editing, and releasing Keep a Changelog formatted CHANGELOG.md files."
-review_notes = "Good candidate for validation/edit workflow reviews, not just generation."
+review_notes = "Review the maintained matthewdeanmartin fork. The original tomtom-international project is archived and unsupported."
 
 [[tools]]
 id = "conventional-changelog"

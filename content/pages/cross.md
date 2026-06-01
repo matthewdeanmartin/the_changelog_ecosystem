@@ -16,5 +16,3 @@ Summary: Changelog and release management tools for cross.
 - **[Release Drafter](/reviews/release-drafter/)** — GitHub Action that keeps a draft release updated as PRs merge, grouping release notes by labels and rules.
 - **[release-cli](/reviews/release-cli/)** — Deprecated GitLab release command-line tool formerly used by CI release jobs to create releases through the Releases API.
 - **[release-please](/reviews/release-please/)** — Google release automation that parses Conventional Commits, opens release PRs, updates changelogs, bumps versions, and creates GitHub releases.
-
-## On the Radar (0)

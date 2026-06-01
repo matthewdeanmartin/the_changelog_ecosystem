@@ -1,0 +1,32 @@
+---
+site_name: The Changelog Ecosystem Maintainer Docs
+site_url: https://the-changelog-ecosystem.readthedocs.io/
+site_author: Matthew Martin
+site_description: Maintainer documentation for The Changelog Ecosystem review site.
+repo_url: https://github.com/matthewdeanmartin/the_changelog_ecosystem
+edit_uri: edit/main/rtd/
+
+theme:
+  name: readthedocs
+
+docs_dir: rtd
+exclude_docs: |
+  requirements.txt
+
+nav:
+  - Home: index.md
+  - Maintainer Guide: maintainer-guide.md
+  - Quality Gates: quality-gates.md
+  - Adding Tools: adding-tools.md
+  - Publishing: publishing.md
+
+validation:
+  nav:
+    omitted_files: warn
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+
+plugins:
+  - search

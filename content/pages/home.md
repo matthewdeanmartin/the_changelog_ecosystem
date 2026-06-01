@@ -43,7 +43,7 @@ Reviews are added chronologically as tools are discovered and evaluated.
 ## Tool Index
 
 See the [All Tools]({filename}tools.md) page for the full metadata table — latest versions,
-archive status, and distribution links for every tool on our radar.
+archive status, and distribution links for every tracked tool.
 
 ## About
 

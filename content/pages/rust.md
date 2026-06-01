@@ -11,5 +11,3 @@ Summary: Changelog and release management tools for Rust.
 - **[changelog-rs](/reviews/changelog-rs/)** — Changelog management tool in Rust
 - **[git-cliff](/reviews/git-cliff/)** — Highly customizable changelog generator from git history
 - **[release-plz](/reviews/release-plz/)** — Rust crate release automation that updates changelogs with git-cliff, bumps Cargo.toml versions, publishes crates, and creates releases.
-
-## On the Radar (0)
