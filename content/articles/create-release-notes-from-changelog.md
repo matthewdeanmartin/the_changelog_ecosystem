@@ -12,49 +12,57 @@ Summary: GitHub Action that extracts release notes from CHANGELOG.md, optionally
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`Create release notes from changelog` is the GitHub Action wrapper around `changelog-from-release`-style release-note extraction. It is for teams that maintain a human-edited `CHANGELOG.md` and want the matching version section copied into a file that can be uploaded to a GitHub Release.
 
-`Create release notes from changelog` is a github action tool for managing changelogs and releases.
-
-GitHub Action that extracts release notes from CHANGELOG.md, optionally combines a static header, and writes RELEASE.md.
+Its value is simplicity: the changelog remains the source of truth, and the action avoids duplicating release prose in workflow YAML.
 
 ## Installation
 
-```bash
-# See https://github.com/rhysd/changelog-from-release for installation options
-# (binary releases, Homebrew, package managers)
+```yaml
+- uses: rhysd/changelog-from-release/action@v3
 ```
 
 ## What It Does
 
-- Changelog to release notes
-- Extract version section
-- Github action
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Finds the section for the release version in `CHANGELOG.md`.
+- Writes that section to a release-note file such as `RELEASE.md`.
+- Can combine extracted notes with a static header or template content.
+- Fits into a GitHub Actions release workflow before a release-publishing step.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration lives in the workflow step. The important inputs are the changelog path, the version or tag to extract, and the output file.
 
-_TODO: describe configuration approach_
+```yaml
+- uses: rhysd/changelog-from-release/action@v3
+  with:
+    file: CHANGELOG.md
+    version: ${{ github.ref_name }}
+    output: RELEASE.md
+```
+
+First-run setup is easy if the changelog headings are predictable. The main risk is heading drift: if release sections are named inconsistently, extraction can miss the intended block.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+The output is copied from the source changelog:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## 2.4.0
+
+### Fixed
+
+- Keep the release job from publishing duplicate assets.
+- Clarify the migration note for hosted runners.
+```
+
+That makes quality highly controllable. Humans write the changelog, and the action just moves the relevant slice into the release workflow.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Cross ecosystem?
-     Does it integrate with standard build tools (Cross package managers,
-     CI conventions, etc.)? -->
+This is a GitHub Actions-native helper, so it fits any language ecosystem already using GitHub Releases. It pairs well with manual changelog policies and with release actions that accept a release body file.
 
-_TODO: assess ecosystem integration_
+It is not useful for teams that want release notes generated from commits, pull requests, labels, or change fragments.
 
 ## Maintenance Status
 
@@ -64,13 +72,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/rhysd/changelog-from-release" target="_blank" rel="noopener noreferrer">https://github.com/rhysd/changelog-from-release</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The action inherits the narrow scope and maintenance profile of the underlying project.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Situational**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use it when `CHANGELOG.md` is authoritative and the release workflow only needs a reliable extraction step. Skip it if the team wants automation to decide release content.

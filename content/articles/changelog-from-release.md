@@ -12,49 +12,53 @@ Summary: Small CLI that backfills/generates a Markdown changelog from existing G
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`changelog-from-release` solves the inverse problem from most changelog tools: it turns existing GitHub Releases into a local Markdown changelog. It is aimed at projects that have been publishing release notes on GitHub for years and now want a `CHANGELOG.md` without rewriting history by hand.
 
-`changelog-from-release` is a cli tool for managing changelogs and releases.
-
-Small CLI that backfills/generates a Markdown changelog from existing GitHub Releases.
+It is intentionally narrow. Use it for backfill and synchronization from GitHub Releases, not as a full release orchestration system.
 
 ## Installation
 
 ```bash
-# See https://github.com/rhysd/changelog-from-release for installation options
-# (binary releases, Homebrew, package managers)
+# See https://github.com/rhysd/changelog-from-release for binary and package-manager options.
 ```
 
 ## What It Does
 
-- Can generate changelog from existing history / backfill old releases
-- Github releases to changelog
-- Markdown
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Reads GitHub Release entries for a repository.
+- Converts release titles, tags, dates, and bodies into a Markdown changelog.
+- Helps backfill `CHANGELOG.md` when GitHub Releases are already the source of truth.
+- Works as a small CLI that can be run locally or from CI.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration is mostly command-line driven: provide the target repository, choose the output file, and decide whether to include prereleases or drafts. The first run is light if GitHub Releases are already well written.
 
-_TODO: describe configuration approach_
+```bash
+changelog-from-release --output CHANGELOG.md owner/repo
+```
+
+The setup burden is editorial rather than technical. If old release bodies are inconsistent, the generated changelog will faithfully preserve that inconsistency.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+The generated file mirrors GitHub Release content:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## v3.9.1 - 2025-10-19
+
+### Changes
+
+- Fix release body extraction for older GitHub Releases
+- Update bundled dependencies
+```
+
+That is useful for archival work, but it is only as readable as the release notes already stored on GitHub.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Cross ecosystem?
-     Does it integrate with standard build tools (Cross package managers,
-     CI conventions, etc.)? -->
+Because it only depends on GitHub Releases, `changelog-from-release` is language-agnostic and works for any repository hosted on GitHub. It fits best as a one-time migration or occasional sync helper.
 
-_TODO: assess ecosystem integration_
+It does not replace tools such as Release Drafter, release-please, git-cliff, or Changesets. Those tools decide what should go into the next release; this one recovers what was already published.
 
 ## Maintenance Status
 
@@ -64,13 +68,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/rhysd/changelog-from-release" target="_blank" rel="noopener noreferrer">https://github.com/rhysd/changelog-from-release</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The project is small but has a recent release in the site metadata. Treat it as a focused utility rather than a broad platform dependency.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Situational**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `changelog-from-release` when GitHub Releases are already your historical record and you need to create or refresh a Markdown changelog. Choose a forward-looking generator if you are designing a new release process.

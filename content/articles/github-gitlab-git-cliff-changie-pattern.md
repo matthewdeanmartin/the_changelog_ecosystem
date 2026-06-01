@@ -12,48 +12,76 @@ Summary: For C and C++, the must-review ecosystem is mostly language-agnostic: g
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+C and C++ do not have one dominant package-manager-owned changelog workflow. The practical pattern is to choose a language-agnostic note source, usually git-cliff for commit-derived logs or Changie for change fragments, then publish through GitHub Releases, GitLab Releases, package registries, or project documentation.
 
-`GitHub/GitLab + git-cliff/Changie pattern` is a workflow pattern tool for managing changelogs and releases.
-
-For C and C++, the must-review ecosystem is mostly language-agnostic: git-cliff for commit-derived logs, Changie for fra
+This article is a workflow recommendation rather than a single tool review.
 
 ## Installation
 
-_TODO: describe installation_
+Install the tools that match the chosen workflow:
+
+```bash
+cargo install git-cliff
+go install github.com/miniscruff/changie@latest
+```
+
+For publication, use the hosting platform CLI or API, such as `gh release` or `glab release`.
 
 ## What It Does
 
-- Generates changelog/release notes from git commit history
-- Assembles changelog from individual news/change fragment files
-- Creates or updates GitHub Releases
-- Creates or updates GitLab Releases
-- Can generate changelog from existing history / backfill old releases
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Uses git-cliff when Conventional Commits or custom commit parsers are the source of truth.
+- Uses Changie when each pull request should add an explicit change fragment.
+- Publishes release notes through GitHub or GitLab release tooling.
+- Works with CMake, Meson, Make, Conan, vcpkg, distro packages, and source tarballs because the changelog layer is separate from the build system.
+- Can backfill old releases from tags when git history is consistent.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+For commit-derived notes, configure `cliff.toml`:
 
-_TODO: describe configuration approach_
+```toml
+[git]
+conventional_commits = true
+filter_unconventional = true
+tag_pattern = "v[0-9]*"
+```
+
+For fragment-based notes, configure Changie categories and keep fragments in the repository:
+
+```yaml
+changesDir: .changes
+kinds:
+  - label: Added
+    auto: minor
+  - label: Fixed
+    auto: patch
+```
+
+First-run setup is less about C++ and more about team behavior: either commits must be structured, or contributors must add fragments.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Both routes can produce clear release notes:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## v2.1.0 - 2026-05-31
+
+### Added
+
+- Add CMake package config generation for shared builds.
+
+### Fixed
+
+- Correct symbol visibility on Windows DLL exports.
+```
+
+Fragment workflows usually produce more intentional prose. Commit-derived workflows are easier to automate and backfill.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Cpp ecosystem?
-     Does it integrate with standard build tools (Cpp package managers,
-     CI conventions, etc.)? -->
+This pattern fits C and C++ precisely because it does not assume a single package manager. It works for libraries published as source archives, projects with native packages, and mixed repositories with bindings in other languages.
 
-_TODO: assess ecosystem integration_
+The tradeoff is that version bumping and artifact publishing remain separate. Tools such as CMake, Conan, vcpkg, GitHub Actions, and GitLab CI still need their own release steps.
 
 ## Maintenance Status
 
@@ -61,13 +89,10 @@ _TODO: assess ecosystem integration_
 - Last release: **unknown**
 - Appears actively maintained.
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The pattern depends on active external tools rather than one package. Check the individual git-cliff, Changie, GitHub, and GitLab reviews before final selection.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+For C and C++, start by choosing between git-cliff and Changie, then wire the output into GitHub or GitLab release publication. That keeps changelog policy independent from the project's build and packaging stack.

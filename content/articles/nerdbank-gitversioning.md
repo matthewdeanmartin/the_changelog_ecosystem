@@ -12,66 +12,76 @@ Summary: Microsoft/dotnet project for stamping assemblies, NuGet packages, VSIX,
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+Nerdbank.GitVersioning stamps .NET builds with Git-derived version information. It focuses on making assembly versions, NuGet package versions, VSIX versions, and related artifacts reproducible from repository state.
 
-`Nerdbank.GitVersioning` is a nuget msbuild dotnet tool tool for managing changelogs and releases.
-
-Microsoft/dotnet project for stamping assemblies, NuGet packages, VSIX, and other artifacts with Git-derived SemVer info
+Like GitVersion, it is version infrastructure rather than a changelog writer.
 
 ## Installation
 
 ```bash
-dotnet tool install -g Nerdbank.GitVersioning
+dotnet add package Nerdbank.GitVersioning
+dotnet tool install -g nbgv
 ```
 
 ## What It Does
 
-- Version compute
-- Semver
-- Msbuild
-- Nuget versioning
-- Designed for use in CI/CD pipelines
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Computes versions from Git commits and tags.
+- Integrates with MSBuild so projects are stamped during normal builds.
+- Produces NuGet package and assembly version metadata.
+- Supports CI scenarios where build artifacts need deterministic versions.
+- Provides the `nbgv` CLI for inspection and release tasks.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration lives in `version.json` at the repository root or project scope.
 
-_TODO: describe configuration approach_
+```json
+{
+  "version": "1.8",
+  "publicReleaseRefSpec": [
+    "^refs/heads/main$",
+    "^refs/tags/v\\d+\\.\\d+"
+  ],
+  "cloudBuild": {
+    "buildNumber": {
+      "enabled": true
+    }
+  }
+}
+```
+
+First-run setup is reasonable for SDK-style .NET projects, but teams must understand how public release branches and tags affect version labels.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+The output is version metadata, not changelog text:
 
-_TODO: paste a sample output snippet here_
+```text
+Version: 1.8.42
+AssemblyVersion: 1.8.0.0
+NuGetPackageVersion: 1.8.42-gabcdef0123
+```
+
+That makes it valuable for build correctness. It has no opinion about release-note wording.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Dotnet ecosystem?
-     Does it integrate with standard build tools (Dotnet package managers,
-     CI conventions, etc.)? -->
+The fit is excellent for .NET libraries, Visual Studio extensions, and Microsoft-style build pipelines that need version stamping built into MSBuild. It can be lighter than GitVersion when you want project-integrated version metadata rather than a separate branching model engine.
 
-_TODO: assess ecosystem integration_
+It should be paired with a changelog or release-note tool for publication.
 
 ## Maintenance Status
 
 - Latest version: **3.10.44-alpha-g09c6831bf9**
 - Last release: **1900-01-01**
 - GitHub stars: **1,563**
-- Last release was over 2 years ago — check if still maintained.
+- Last release was over 2 years ago - check if still maintained.
 - Repository: <a href="https://github.com/dotnet/Nerdbank.GitVersioning" target="_blank" rel="noopener noreferrer">https://github.com/dotnet/Nerdbank.GitVersioning</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The package version in the site metadata looks current despite the placeholder-like last-release date. Verify NuGet and repository activity before making a final adoption call.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use Nerdbank.GitVersioning when .NET build artifacts need Git-derived versions baked in through MSBuild. Do not treat it as a release-note generator; it is best paired with a separate changelog process.

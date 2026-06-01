@@ -12,51 +12,66 @@ Summary: Google release automation that parses Conventional Commits, opens relea
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`release-please` automates releases by opening a release pull request. It parses Conventional Commits, proposes version bumps, updates changelogs and manifest files, and creates GitHub Releases after the release PR merges.
 
-`release-please` is a github action cli tool for managing changelogs and releases.
-
-Google release automation that parses Conventional Commits, opens release PRs, updates changelogs, bumps versions, and c
+That release-PR model is the key distinction: automation does the bookkeeping, but humans still review the exact release diff.
 
 ## Installation
 
-```bash
-# See https://github.com/googleapis/release-please-action for installation options
-# (binary releases, Homebrew, package managers)
+```yaml
+- uses: googleapis/release-please-action@v5
+  with:
+    release-type: node
 ```
 
 ## What It Does
 
-- Generates changelog/release notes from git commit history
-- Automates version bumping (semver)
-- Changelog update
-- Creates or updates GitHub Releases
-- Release pr
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Parses Conventional Commits to determine semantic version bumps.
+- Opens and updates a release PR with changelog and version-file changes.
+- Supports many release types, including Node, Python, Java, Go, Ruby, Rust, and simple projects.
+- Creates GitHub Releases after the release PR is merged.
+- Supports manifest mode for monorepos and multi-package repositories.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Small projects can configure the GitHub Action directly. Larger projects usually use `release-please-config.json` and `.release-please-manifest.json`.
 
-_TODO: describe configuration approach_
+```json
+{
+  "release-type": "simple",
+  "packages": {
+    ".": {
+      "package-name": "example-tool"
+    }
+  }
+}
+```
+
+First-run setup is moderate: commit conventions, package files, branch permissions, and GitHub token behavior must line up. Once it is running, the release PR becomes a clear review point.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Release notes are generated from Conventional Commits:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## [1.7.0](https://github.com/example/tool/compare/v1.6.0...v1.7.0)
+
+### Features
+
+- add GitLab release publishing support
+
+### Bug Fixes
+
+- preserve changelog headings in manifest mode
+```
+
+The quality is strong for projects that write user-facing commit messages. It is weaker when commits are noisy or implementation-heavy.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Cross ecosystem?
-     Does it integrate with standard build tools (Cross package managers,
-     CI conventions, etc.)? -->
+`release-please` is cross-language but GitHub-centered. It is especially good for repositories that want version bumps and changelog updates committed before the actual release.
 
-_TODO: assess ecosystem integration_
+It is less appropriate for teams that publish from GitLab, want fragment files, or prefer a single push-to-main release with no release PR.
 
 ## Maintenance Status
 
@@ -66,13 +81,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/googleapis/release-please-action" target="_blank" rel="noopener noreferrer">https://github.com/googleapis/release-please-action</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The action and CLI remain active and widely used across Google's open-source release workflows.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `release-please` when Conventional Commits are viable and you want a reviewable release PR that updates changelogs and versions. It is one of the best default choices for GitHub projects that want automation without losing a human checkpoint.

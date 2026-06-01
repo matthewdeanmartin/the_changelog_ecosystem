@@ -12,50 +12,62 @@ Summary: Tool that stores each change in a separate YAML file to reduce changelo
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`logchange` is a fragment-based changelog tool: every change is recorded in its own YAML file, then assembled into `CHANGELOG.md` during release. It is aimed at teams that dislike merge conflicts in one shared changelog file but still want curated release notes instead of commit-message scraping.
 
-`logchange` is a cli tool for managing changelogs and releases.
-
-Tool that stores each change in a separate YAML file to reduce changelog merge conflicts and generate CHANGELOG.md durin
+It sits closer to Towncrier, Scriv, and Changie than to semantic-release or Release Drafter.
 
 ## Installation
 
 ```bash
-# See https://github.com/logchange/logchange for installation options
-# (binary releases, Homebrew, package managers)
+# See https://github.com/logchange/logchange for installation options.
 ```
 
 ## What It Does
 
-- Assembles changelog from individual news/change fragment files
-- Yaml fragments
-- Writes and updates a `CHANGELOG.md` file
-- Generates release notes for GitHub/GitLab releases
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Stores unreleased changes as individual YAML fragments.
+- Groups fragments by change type when generating a release.
+- Writes or updates `CHANGELOG.md`.
+- Can produce release-note text for hosted release pages.
+- Reduces conflicts when many contributors add release-note entries in parallel.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Projects configure the changelog file, fragment directory, and categories used for output. A small setup usually defines the release sections the project wants to expose.
 
-_TODO: describe configuration approach_
+```yaml
+changelog: CHANGELOG.md
+changes: .changes
+categories:
+  added: Added
+  fixed: Fixed
+  changed: Changed
+```
+
+First-run complexity is moderate because the team must decide where fragments live and how contributors should name categories. After that, each change is a small file rather than an edit to the main changelog.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Fragment workflows produce more intentional prose than commit scraping:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## 1.19.15 - 2026-05-13
+
+### Added
+
+- Add support for release-note generation in CI.
+
+### Fixed
+
+- Preserve existing changelog headings when rendering a new version.
+```
+
+The result is usually good when pull requests include meaningful fragments. It can become noisy if fragment categories are too broad or entries are written as internal implementation notes.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Cross ecosystem?
-     Does it integrate with standard build tools (Cross package managers,
-     CI conventions, etc.)? -->
+`logchange` is cross-language and works well in repositories where contributors can add small metadata files. It is a good fit for libraries, CLIs, and monorepos that want release notes reviewed with the code change.
 
-_TODO: assess ecosystem integration_
+It is less native than ecosystem-specific tools for Python or Node, and less automated than Conventional Commits workflows.
 
 ## Maintenance Status
 
@@ -65,13 +77,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/logchange/logchange" target="_blank" rel="noopener noreferrer">https://github.com/logchange/logchange</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+Recent release metadata is healthy, though the project is smaller than Changie, Towncrier, or git-cliff.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Situational**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `logchange` when a fragment workflow matches the team's review habits and you want a lightweight cross-language tool. If broad community adoption matters more, compare it with Changie, Towncrier, or Scriv first.

@@ -12,50 +12,64 @@ Summary: Built-in GitHub release-note generator based on merged pull requests, c
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+GitHub's automatically generated release notes are the lowest-friction option for repositories that already use pull requests and GitHub Releases. The feature builds release notes from merged PRs, contributors, labels, and compare links when creating or editing a release.
 
-`GitHub Automatically Generated Release Notes` is a platform feature tool for managing changelogs and releases.
-
-Built-in GitHub release-note generator based on merged pull requests, contributors, and changelog comparison links.
+It is not a standalone changelog system. It is a platform convenience for teams whose release notes can be assembled from PR metadata.
 
 ## Installation
 
-```bash
-# See None for installation options
-# (binary releases, Homebrew, package managers)
-```
+No installation is required. The generator is available in GitHub's release UI and through GitHub release APIs for repositories hosted on GitHub.
 
 ## What It Does
 
-- Creates or updates GitHub Releases
-- Generates release notes from merged pull requests
-- Contributors
-- Backfill helper
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Generates a release body while creating or editing a GitHub Release.
+- Groups merged pull requests into categories, with optional label-based configuration.
+- Lists contributors and adds comparison links between tags.
+- Helps backfill a release body for an existing tag without adding a local tool.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Optional configuration lives in `.github/release.yml`. A small setup can hide dependency updates and map labels into reader-friendly sections.
 
-_TODO: describe configuration approach_
+```yaml
+changelog:
+  categories:
+    - title: Features
+      labels:
+        - enhancement
+    - title: Fixes
+      labels:
+        - bug
+    - title: Other Changes
+      labels:
+        - "*"
+```
+
+First-run setup is nearly zero. The real work is maintaining labels and PR titles that make sense to readers.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Typical output is PR-centric:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## What's Changed
+
+### Features
+
+- Add project-level release templates by @octocat in #142
+
+### Fixes
+
+- Preserve draft release notes after retagging by @hubot in #148
+```
+
+This is readable for developer audiences and internal tools. For customer-facing products, the notes often need editing because PR titles are not always release prose.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Cross ecosystem?
-     Does it integrate with standard build tools (Cross package managers,
-     CI conventions, etc.)? -->
+The fit is excellent for GitHub-hosted projects in any language. It requires no package manager, no local binary, and no CI job unless the team wants to automate release creation.
 
-_TODO: assess ecosystem integration_
+The limitation is portability. Projects on GitLab, self-hosted forge setups, or teams that want a committed `CHANGELOG.md` need another tool.
 
 ## Maintenance Status
 
@@ -63,13 +77,10 @@ _TODO: assess ecosystem integration_
 - Last release: **unknown**
 - Appears actively maintained.
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+This is a GitHub platform feature rather than a package with normal release metadata.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use GitHub automatically generated release notes as the first option for simple GitHub projects that already use PRs and labels well. Move to Release Drafter, release-please, or git-cliff when you need committed changelog files, stronger templates, or a release PR workflow.

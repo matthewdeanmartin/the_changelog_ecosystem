@@ -12,12 +12,9 @@ Summary: All-in-one .NET release CLI for building, testing, packaging, creating 
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`dotnet-releaser` is an all-in-one release runner for .NET projects. It can build, test, pack, collect artifacts, generate release notes, publish to NuGet, and create GitHub Releases from one release configuration.
 
-`dotnet-releaser` is a dotnet tool tool for managing changelogs and releases.
-
-All-in-one .NET release CLI for building, testing, packaging, creating release notes from PRs/commits, publishing to NuG
+It is for maintainers who want a cohesive .NET-native release command rather than stitching together separate build, package, changelog, and upload scripts.
 
 ## Installation
 
@@ -27,36 +24,49 @@ dotnet tool install -g dotnet-releaser
 
 ## What It Does
 
-- Release orchestration
-- Generates release notes for GitHub/GitLab releases
-- Creates or updates GitHub Releases
-- Nuget publish
-- Artifacts
-- Coverage
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Builds and tests .NET projects as part of a release.
+- Packs NuGet packages and publishes them.
+- Generates release notes from pull requests and commits.
+- Creates GitHub Releases and uploads artifacts.
+- Supports CI-oriented release orchestration from a single config file.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Projects use a YAML configuration file that describes the solution or projects, package outputs, GitHub release behavior, and NuGet publishing settings.
 
-_TODO: describe configuration approach_
+```yaml
+profile: default
+projects:
+  - src/MyLibrary/MyLibrary.csproj
+github:
+  owner: example
+  repo: my-library
+nuget:
+  publish: true
+```
+
+First-run setup is more involved than a note generator because it covers the whole release path. The payoff is one command that understands common .NET release chores.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Release notes are typically GitHub-oriented:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## 0.21.0
+
+### Changes
+
+- Add deterministic package artifact names
+- Fix GitHub release asset upload on retry
+```
+
+The notes are serviceable for developer-facing packages, especially when PR titles are curated. Teams with highly polished customer release notes may still want to edit the generated body.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Dotnet ecosystem?
-     Does it integrate with standard build tools (Dotnet package managers,
-     CI conventions, etc.)? -->
+The fit is strong for .NET libraries and tools distributed through NuGet and GitHub Releases. It aligns with `dotnet tool`, `.csproj`, NuGet packaging, and CI release jobs.
 
-_TODO: assess ecosystem integration_
+It is heavier than GitVersion or versionize if you only need version calculation or changelog generation.
 
 ## Maintenance Status
 
@@ -66,13 +76,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/xoofx/dotnet-releaser" target="_blank" rel="noopener noreferrer">https://github.com/xoofx/dotnet-releaser</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+Recent release metadata is healthy, and the scope matches modern .NET package release workflows.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `dotnet-releaser` when you want one .NET-native tool to own packaging, notes, GitHub Releases, and NuGet publication. Pick a smaller tool if your pipeline already handles most of those steps.

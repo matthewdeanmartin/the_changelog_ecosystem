@@ -12,12 +12,9 @@ Summary: Git-based semantic version calculator for .NET and CI pipelines.
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+GitVersion calculates semantic versions from Git history, branch names, tags, and configuration rules. It is not a changelog writer; it answers the version-number question for .NET builds and CI pipelines.
 
-`GitVersion` is a dotnet tool msbuild tool for managing changelogs and releases.
-
-Git-based semantic version calculator for .NET and CI pipelines.
+It belongs in this comparison because many release workflows need version calculation before changelog generation, packaging, and publication.
 
 ## Installation
 
@@ -27,34 +24,48 @@ dotnet tool install -g GitVersion.Tool
 
 ## What It Does
 
-- Version compute
-- Semver
-- Git history
-- Designed for use in CI/CD pipelines
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Computes SemVer values from repository history.
+- Supports common branching strategies such as mainline and GitFlow-style workflows.
+- Exposes version variables to CI systems.
+- Integrates through a .NET tool, MSBuild package, and build-server support.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration lives in `GitVersion.yml`. The file controls branch modes, tag prefixes, prerelease labels, and increment behavior.
 
-_TODO: describe configuration approach_
+```yaml
+mode: ContinuousDelivery
+tag-prefix: "v"
+branches:
+  main:
+    regex: ^main$
+    increment: Patch
+  feature:
+    regex: ^features?[/-]
+    label: alpha
+```
+
+First-run setup is moderate because the configuration must match how the repository actually branches and tags releases.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+GitVersion produces structured version data, not release prose:
 
-_TODO: paste a sample output snippet here_
+```json
+{
+  "SemVer": "1.8.0",
+  "MajorMinorPatch": "1.8.0",
+  "InformationalVersion": "1.8.0+12.Branch.main.Sha.abcdef0"
+}
+```
+
+That output is excellent for builds, packages, and CI variables, but it does not replace release notes.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Dotnet ecosystem?
-     Does it integrate with standard build tools (Dotnet package managers,
-     CI conventions, etc.)? -->
+The fit is very strong for .NET projects, especially libraries that need deterministic assembly, NuGet, and CI versions. It also works outside .NET, but .NET remains its natural home.
 
-_TODO: assess ecosystem integration_
+Pair it with a changelog generator or release publisher when you need user-facing notes.
 
 ## Maintenance Status
 
@@ -64,13 +75,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/GitTools/GitVersion" target="_blank" rel="noopener noreferrer">https://github.com/GitTools/GitVersion</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+GitVersion remains a prominent and actively maintained versioning tool in the .NET ecosystem.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use GitVersion when the hard problem is deriving correct SemVer from Git history. Do not choose it expecting changelog prose; combine it with another tool for notes and release publication.

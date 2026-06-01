@@ -12,12 +12,9 @@ Summary: .NET/GitTools utility for creating draft releases from milestones, atta
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+GitReleaseManager is a GitTools-era .NET utility for managing GitHub Releases, especially milestone-driven draft releases. It helps maintainers create a draft, attach assets, publish it, and export release notes from GitHub project data.
 
-`GitReleaseManager` is a dotnet tool tool for managing changelogs and releases.
-
-.NET/GitTools utility for creating draft releases from milestones, attaching assets, publishing drafts, and exporting re
+It is useful when GitHub milestones are already the organizing unit for a release.
 
 ## Installation
 
@@ -27,35 +24,49 @@ dotnet tool install -g GitReleaseManager
 
 ## What It Does
 
-- Creates or updates GitHub Releases
-- Creates draft releases for manual review before publishing
-- Integrates with GitHub/GitLab milestones
-- Assets
-- Export release notes
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Creates draft GitHub Releases.
+- Pulls issue and pull request information from GitHub milestones.
+- Attaches binary assets to releases.
+- Publishes existing draft releases.
+- Exports release notes for use outside GitHub.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Most configuration is command-line driven: repository owner/name, milestone, tag, token, and optional asset paths. Teams usually wrap it in CI scripts.
 
-_TODO: describe configuration approach_
+```bash
+GitReleaseManager create \
+  --owner example \
+  --repository my-library \
+  --milestone "1.4.0" \
+  --targetcommitish main
+```
+
+Setup is moderate because GitHub milestones, labels, and tokens need to be consistent.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Milestone-based release notes are issue and PR oriented:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## 1.4.0
+
+### Issues
+
+- Fix package signing on Windows builds (#82)
+
+### Pull Requests
+
+- Add release artifact checksum upload (#91)
+```
+
+This is helpful for project-maintainer audiences, but it can read like a tracker export unless issue titles are polished.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Dotnet ecosystem?
-     Does it integrate with standard build tools (Dotnet package managers,
-     CI conventions, etc.)? -->
+GitReleaseManager fits .NET projects that already use GitHub milestones and GitTools tooling. It is less central today than newer all-in-one options such as `dotnet-releaser`.
 
-_TODO: assess ecosystem integration_
+It does not compute semantic versions like GitVersion and does not generate notes from Conventional Commits.
 
 ## Maintenance Status
 
@@ -65,13 +76,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/GitTools/GitReleaseManager" target="_blank" rel="noopener noreferrer">https://github.com/GitTools/GitReleaseManager</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The metadata shows a less frequent release cadence than the most active tools, but it is not marked archived.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Situational**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use GitReleaseManager when GitHub milestones are the release plan and you want a .NET CLI to publish drafts and assets. For new generalized .NET release pipelines, evaluate `dotnet-releaser` first.

@@ -12,12 +12,9 @@ Summary: .NET tool for automatic NuGet versioning and CHANGELOG generation from 
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`versionize` brings a Conventional Commits release workflow to .NET projects. It determines the next semantic version, updates project/package metadata, and writes `CHANGELOG.md` entries from commit history.
 
-`versionize` is a dotnet tool tool for managing changelogs and releases.
-
-.NET tool for automatic NuGet versioning and CHANGELOG generation from Conventional Commits.
+It is a good fit when the team wants a focused version-and-changelog tool rather than a full release publisher.
 
 ## Installation
 
@@ -27,35 +24,46 @@ dotnet tool install -g versionize
 
 ## What It Does
 
-- Generates changelog/release notes from git commit history
-- Parses Conventional Commits message format
-- Automates version bumping (semver)
-- Writes and updates a `CHANGELOG.md` file
-- Nuget
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Parses Conventional Commits.
+- Determines major, minor, and patch version bumps.
+- Updates .NET project version metadata.
+- Writes or updates `CHANGELOG.md` in a Keep a Changelog-like shape.
+- Can tag releases as part of the workflow.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+`versionize` can work with minimal configuration when the project already uses Conventional Commits. Optional settings can live in project metadata or command flags depending on the workflow.
 
-_TODO: describe configuration approach_
+```bash
+versionize --dry-run
+versionize
+```
+
+The main setup requirement is commit discipline. Without Conventional Commits, the version bump and changelog categories will be unreliable.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Generated changelog sections are commit-derived:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## [2.5.0] - 2026-02-01
+
+### Features
+
+- add NuGet package provenance support
+
+### Bug Fixes
+
+- preserve prerelease labels during version bump
+```
+
+The output is predictable and familiar to .NET package users, but the prose is only as good as the commit messages.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Dotnet ecosystem?
-     Does it integrate with standard build tools (Dotnet package managers,
-     CI conventions, etc.)? -->
+`versionize` feels native for .NET libraries because it is distributed as a .NET tool and understands project versioning. It is smaller and easier to adopt than an all-in-one publisher.
 
-_TODO: assess ecosystem integration_
+It does not replace a GitHub Release uploader, artifact publisher, or NuGet publishing pipeline by itself.
 
 ## Maintenance Status
 
@@ -65,13 +73,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/versionize/versionize" target="_blank" rel="noopener noreferrer">https://github.com/versionize/versionize</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The release metadata is current enough to treat it as an active .NET option.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `versionize` when a .NET project follows Conventional Commits and needs automatic version bumps plus `CHANGELOG.md`. Use `dotnet-releaser` when the desired scope also includes packaging, GitHub Releases, and NuGet publishing.

@@ -12,48 +12,67 @@ Summary: GitLab CLI command that generates changelogs from project commits using
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`glab changelog` is the GitLab CLI surface for GitLab's built-in changelog generator. It gives maintainers and CI jobs a scriptable way to generate changelog text from commit ranges without hand-calling the REST API.
 
-`glab changelog` is a cli tool for managing changelogs and releases.
-
-GitLab CLI command that generates changelogs from project commits using GitLab changelog configuration.
+Use it when GitLab Changelogs are the chosen model and you want a local or CI command to drive them.
 
 ## Installation
 
-_TODO: describe installation_
+Install the official GitLab CLI for your platform, then authenticate it against GitLab.com or your self-managed GitLab instance.
+
+```bash
+glab auth login
+```
 
 ## What It Does
 
-- Creates or updates GitLab Releases
-- Changelog generate
-- Commit range
-- Config file
-- Automation
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Generates changelog output for a GitLab project.
+- Uses the project's GitLab changelog configuration.
+- Supports release-oriented ranges such as a version and previous tag.
+- Can be used in local release scripts or GitLab CI jobs.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Most behavior comes from GitLab project settings and `.gitlab/changelog_config.yml`, not from a large CLI config file.
 
-_TODO: describe configuration approach_
+```yaml
+categories:
+  added: Added
+  fixed: Fixed
+  changed: Changed
+```
+
+A typical command supplies the version being released:
+
+```bash
+glab changelog generate --version v1.8.0
+```
+
+First-run setup depends on whether the repository already uses Git trailers. Without trailers, the command has little structured material to work with.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+The output follows GitLab changelog categories:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## v1.8.0
+
+### Added
+
+- Add container image provenance metadata
+
+### Fixed
+
+- Prevent duplicate release links in scheduled pipelines
+```
+
+It is clean when the underlying commit messages are clean. The CLI does not add editorial judgment.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Cross ecosystem?
-     Does it integrate with standard build tools (Cross package managers,
-     CI conventions, etc.)? -->
+`glab changelog` is a strong fit for GitLab-hosted projects that already use the official CLI. It is language-neutral and easy to place in CI.
 
-_TODO: assess ecosystem integration_
+It is not a general-purpose changelog generator for GitHub, Bitbucket, or local-only repositories.
 
 ## Maintenance Status
 
@@ -62,13 +81,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/gitlab-org/cli" target="_blank" rel="noopener noreferrer">https://github.com/gitlab-org/cli</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The command is part of the official GitLab CLI, so its health is tied to `glab` and GitLab's changelog API.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+For GitLab projects using changelog trailers, `glab changelog` is the practical command-line interface to the platform feature. For forge-neutral changelogs, start with git-cliff or Changie instead.

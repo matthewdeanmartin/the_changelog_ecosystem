@@ -12,51 +12,70 @@ Summary: GitHub Action that keeps a draft release updated as PRs merge, grouping
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+Release Drafter keeps a GitHub draft release continuously updated as pull requests merge. It is for teams that want the release notes to be visible and editable before publication, with PR labels driving categories.
 
-`Release Drafter` is a github action tool for managing changelogs and releases.
-
-GitHub Action that keeps a draft release updated as PRs merge, grouping release notes by labels and rules.
+Its center of gravity is human-reviewed GitHub Releases rather than fully automatic publishing.
 
 ## Installation
 
-```bash
-# See https://github.com/release-drafter/release-drafter for installation options
-# (binary releases, Homebrew, package managers)
+```yaml
+- uses: release-drafter/release-drafter@v7
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## What It Does
 
-- Creates or updates GitHub Releases
-- Creates draft releases for manual review before publishing
-- Pull request labels
-- Generates release notes for GitHub/GitLab releases
-- Categorization
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Creates or updates a draft GitHub Release.
+- Groups pull requests by labels such as `feature`, `bug`, or `maintenance`.
+- Uses templates for release names, bodies, categories, and change entries.
+- Supports excluding labels and autolabeling based on files or branch names.
+- Lets maintainers edit the draft before publishing.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration lives in `.github/release-drafter.yml`, plus a GitHub Actions workflow. A minimal configuration maps labels into sections.
 
-_TODO: describe configuration approach_
+```yaml
+categories:
+  - title: Features
+    labels:
+      - feature
+  - title: Fixes
+    labels:
+      - bug
+change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
+template: |
+  ## Changes
+
+  $CHANGES
+```
+
+First-run setup is moderate because labels and PR titles need to be cleaned up, but the workflow is straightforward once the label taxonomy is stable.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Release Drafter produces PR-based notes:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## Changes
+
+### Features
+
+- Add hosted changelog preview @alex (#241)
+
+### Fixes
+
+- Keep draft release notes when a patch branch is retagged @sam (#248)
+```
+
+The output is usually better than raw generated release notes because categories and templates are explicit. It still depends on PR titles being written for readers.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Cross ecosystem?
-     Does it integrate with standard build tools (Cross package managers,
-     CI conventions, etc.)? -->
+Release Drafter is GitHub-native and language-neutral. It works well for libraries, apps, and infrastructure projects that merge through pull requests and want release notes assembled incrementally.
 
-_TODO: assess ecosystem integration_
+It does not update version files, publish packages, or maintain `CHANGELOG.md` by default. Pair it with other tooling when those steps matter.
 
 ## Maintenance Status
 
@@ -66,13 +85,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/release-drafter/release-drafter" target="_blank" rel="noopener noreferrer">https://github.com/release-drafter/release-drafter</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The recent release cadence and large install base make it one of the safer GitHub Action choices in this space.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use Release Drafter when you want GitHub Releases with editable, label-driven notes. Choose release-please or semantic-release if version bumps and publishing should be automated as part of the same flow.

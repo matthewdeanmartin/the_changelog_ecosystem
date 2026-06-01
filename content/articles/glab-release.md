@@ -12,48 +12,59 @@ Summary: GitLab CLI release command for creating or updating releases, including
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`glab release` is the official GitLab CLI command for creating, viewing, updating, and deleting GitLab Releases. It is not primarily a changelog generator; it is the publication step that turns tags, notes, milestones, and assets into a GitLab Release.
 
-`glab release` is a cli tool for managing changelogs and releases.
-
-GitLab CLI release command for creating or updating releases, including using release notes from a file.
+It matters because GitLab's older `release-cli` is deprecated, and new GitLab release automation should generally use `glab`.
 
 ## Installation
 
-_TODO: describe installation_
+Install the official GitLab CLI and authenticate it before using release commands.
+
+```bash
+glab auth login
+```
 
 ## What It Does
 
-- Creates or updates GitLab Releases
-- Create release
-- Update release
-- Notes from file
-- Ci automation
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Creates GitLab Releases for existing or new tags.
+- Updates release names, descriptions, milestones, and asset links.
+- Reads release notes from a file, which pairs well with `glab changelog generate`.
+- Runs cleanly from GitLab CI when provided with the right token and project context.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration is mostly command flags plus GitLab authentication. A common pattern is to generate notes first, then publish them.
 
-_TODO: describe configuration approach_
+```bash
+glab changelog generate --version v1.8.0 > RELEASE.md
+glab release create v1.8.0 --notes-file RELEASE.md
+```
+
+The first-run complexity is mostly CI permissions: the job needs a token that can create releases and, if needed, upload assets.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+`glab release` publishes the notes you give it:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## v1.8.0
+
+### Added
+
+- Add SBOM upload to release assets
+
+### Fixed
+
+- Correct release links for self-managed GitLab instances
+```
+
+Quality comes from the upstream note generator or human-written file. The command itself is a transport and release-management tool.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Cross ecosystem?
-     Does it integrate with standard build tools (Cross package managers,
-     CI conventions, etc.)? -->
+The fit is excellent for GitLab projects in any language. It is the natural replacement for `release-cli` and works with GitLab CI/CD conventions.
 
-_TODO: assess ecosystem integration_
+It is irrelevant for GitHub Releases and does not maintain a committed `CHANGELOG.md` by itself.
 
 ## Maintenance Status
 
@@ -62,13 +73,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/gitlab-org/cli" target="_blank" rel="noopener noreferrer">https://github.com/gitlab-org/cli</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+`glab release` is part of the official GitLab CLI and should be treated as the current GitLab release command surface.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `glab release` for GitLab release publication, especially in new CI jobs replacing `release-cli`. Pair it with `glab changelog`, GitLab Changelogs, or a separate generator for the actual prose.

@@ -12,48 +12,65 @@ Summary: GitLab built-in changelog generation based on commit titles and Git tra
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+GitLab Changelogs are GitLab's built-in way to generate release notes from commits. The feature is aimed at projects that want release notes to come from Git history and Git trailers, especially `Changelog: added`, `Changelog: fixed`, and related categories.
 
-`GitLab Changelogs` is a platform feature api tool for managing changelogs and releases.
-
-GitLab built-in changelog generation based on commit titles and Git trailers such as Changelog: added/fixed/changed.
+It is most attractive when the project already releases through GitLab CI/CD and wants to avoid adding a separate changelog binary.
 
 ## Installation
 
-_TODO: describe installation_
+No separate installation is required for GitLab-hosted projects. Use the GitLab API, the `glab changelog` command, or CI jobs with GitLab credentials.
 
 ## What It Does
 
-- Creates or updates GitLab Releases
-- Generates changelog/release notes from git commit history
-- Git trailers
-- Changelog api
-- Supports custom output templates
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Generates changelog entries from commits between versions.
+- Uses Git trailers to categorize changes.
+- Can write generated notes into GitLab Releases.
+- Supports project-level changelog configuration and templates.
+- Works from CI through GitLab APIs or the official GitLab CLI.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration can live in `.gitlab/changelog_config.yml`. A minimal setup maps trailer categories to section titles.
 
-_TODO: describe configuration approach_
+```yaml
+categories:
+  added: Added
+  fixed: Fixed
+  changed: Changed
+template: |
+  {% for category, entries in categories %}
+  ### {{ category }}
+  {% for entry in entries %}
+  - {{ entry.title }}
+  {% endfor %}
+  {% endfor %}
+```
+
+The setup is light technically, but teams must commit to trailer hygiene. Commits without changelog trailers will not produce the same quality of output.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Generated notes are concise when commit titles and trailers are disciplined:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## 1.8.0
+
+### Added
+
+- Add release evidence upload to the pipeline
+
+### Fixed
+
+- Keep changelog generation scoped to the release branch
+```
+
+The output is developer-friendly and predictable. It is less useful when teams squash vague PR titles or do not add trailers.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Cross ecosystem?
-     Does it integrate with standard build tools (Cross package managers,
-     CI conventions, etc.)? -->
+The fit is strongest for GitLab-first projects in any language. It aligns with GitLab CI variables, Releases, API tokens, and `glab`.
 
-_TODO: assess ecosystem integration_
+For GitHub-hosted projects or teams that prefer fragment files, use a forge-neutral tool such as git-cliff or Changie instead.
 
 ## Maintenance Status
 
@@ -61,13 +78,10 @@ _TODO: assess ecosystem integration_
 - Last release: **unknown**
 - Appears actively maintained.
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+This is a GitLab platform capability, so maintenance follows GitLab rather than a standalone package cadence.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use GitLab Changelogs when the repository already lives on GitLab and the team can enforce changelog trailers. It is less compelling if you need portable local generation or hand-curated release prose.
