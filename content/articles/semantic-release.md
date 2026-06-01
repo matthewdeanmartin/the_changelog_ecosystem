@@ -2,7 +2,7 @@ Title: semantic-release
 Date: 2026-05-31
 Slug: semantic-release
 Ecosystem: Node
-Tags: conventional-commits, extensible, github-integration, gitlab-integration, node, npm-cli-ci, package-publishing, release-notes, semantic-versioning
+Tags: conventional-commits, extensible, github-integration, gitlab-integration, node, npm-cli-ci, package-publishing, release-notes, semantic-versioning, ci-cd
 Tool_URL: https://www.npmjs.com/package/semantic-release
 Tool_Version: 25.0.3
 Tool_Status: active
@@ -12,54 +12,65 @@ Summary: Fully automated version management and package publishing
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`semantic-release` is the fully automated release workflow for Conventional Commits projects. In CI, it analyzes commits, decides the next semantic version, generates release notes, publishes packages, tags releases, and updates GitHub or GitLab releases through plugins.
 
-`semantic-release` is a npm cli ci tool for managing changelogs and releases.
-
-Fully automated version management and package publishing
+Its defining tradeoff is trust in automation: maintainers do not run an interactive release command or manually pick the version. The commit history is the release intent.
 
 ## Installation
 
 ```bash
 npm install --save-dev semantic-release
-# or globally:
-npm install -g semantic-release
 ```
 
 ## What It Does
 
-- Generates changelog/release notes from git commit history
-- Automates version bumping (semver)
-- Generates release notes for GitHub/GitLab releases
-- Publishes packages to a registry (npm, crates.io, PyPI, NuGet, etc.)
-- Creates or updates GitHub Releases
-- Creates or updates GitLab Releases
-- Extensible via plugins
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Determines the next version from commit types and breaking-change footers.
+- Generates release notes using conventional-changelog behavior.
+- Publishes npm packages and can publish to many other registries through plugins.
+- Creates GitHub, GitLab, or other hosted releases.
+- Supports plugin steps for verify conditions, analyze commits, generate notes, prepare, publish, success, and fail.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration can live in `release.config.js`, `.releaserc`, or `package.json`. A minimal npm/GitHub setup is small:
 
-_TODO: describe configuration approach_
+```json
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/npm",
+    "@semantic-release/github"
+  ]
+}
+```
+
+First-run setup is moderate because CI tokens, branch protection, npm publishing, and commit discipline all need to be correct. Once configured, the workflow is intentionally hands-off.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Release notes are commit-derived:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## 3.2.0 (2026-05-31)
+
+### Features
+
+* add prerelease channel support
+
+### Bug Fixes
+
+* keep npm provenance enabled during publish
+```
+
+The notes are consistent and automated, but they only read well if the project treats commit messages as public release-note material.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Node ecosystem?
-     Does it integrate with standard build tools (Node package managers,
-     CI conventions, etc.)? -->
+Semantic-release is extremely native to Node CI workflows and npm publishing. It also has enough plugins to reach other ecosystems, but Node remains its center of gravity.
 
-_TODO: assess ecosystem integration_
+It is less appropriate for teams that want a manual approval step, curated release PRs, or intentional change files. Changesets and release-it are better fits for those styles.
 
 ## Maintenance Status
 
@@ -69,13 +80,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/semantic-release/semantic-release" target="_blank" rel="noopener noreferrer">https://github.com/semantic-release/semantic-release</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The project remains one of the central Node release automation tools, with current documentation for plugins, branches, prereleases, and CI setup.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `semantic-release` when a project wants releases to be fully driven by Conventional Commits in CI. Avoid it when humans need to curate release notes or approve a release PR before publishing.

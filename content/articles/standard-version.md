@@ -2,7 +2,7 @@ Title: standard-version
 Date: 2026-05-31
 Slug: standard-version
 Ecosystem: Node
-Tags: conventional-commits, keep-a-changelog, node, npm-cli, semantic-versioning
+Tags: conventional-commits, keep-a-changelog, node, npm-cli, semantic-versioning, git-tags, changelog-file, legacy
 Tool_URL: https://www.npmjs.com/package/standard-version
 Tool_Version: 9.5.0
 Tool_Status: unmaintained
@@ -12,67 +12,76 @@ Summary: Automate versioning and CHANGELOG generation with semver and convention
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`standard-version` was the classic npm release helper for Conventional Commits projects: bump the version, update `CHANGELOG.md`, create a release commit, and tag it. It shaped a lot of Node release habits.
 
-`standard-version` is a npm cli tool for managing changelogs and releases.
-
-Automate versioning and CHANGELOG generation with semver and conventional commits
+Today it is mainly important as legacy context. Projects that still use it can keep working, but new projects should usually choose `commit-and-tag-version`, release-it, or semantic-release.
 
 ## Installation
 
 ```bash
 npm install --save-dev standard-version
-# or globally:
-npm install -g standard-version
 ```
 
 ## What It Does
 
-- Automates version bumping (semver)
-- Writes and updates a `CHANGELOG.md` file
-- Git tag
-- Parses Conventional Commits message format
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Determines semver bumps from Conventional Commits.
+- Updates `package.json` and related version files.
+- Generates a changelog through conventional-changelog.
+- Commits release changes and creates a git tag.
+- Supports custom presets and lifecycle scripts.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+The old standard setup is an npm script:
 
-_TODO: describe configuration approach_
+```json
+{
+  "scripts": {
+    "release": "standard-version"
+  },
+  "standard-version": {
+    "preset": "conventionalcommits"
+  }
+}
+```
+
+First-run setup is easy, but the maintenance posture changes the recommendation.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Output is conventional-changelog style:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## 9.5.0 (2026-05-31)
+
+### Features
+
+- add npm release automation
+
+### Bug Fixes
+
+- update generated changelog links
+```
+
+The output remains useful, but the tool is no longer the preferred implementation of this workflow.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Node ecosystem?
-     Does it integrate with standard build tools (Node package managers,
-     CI conventions, etc.)? -->
+Historically, standard-version fit npm packages very well. It is still common in older repositories, docs, and copy-pasted release scripts.
 
-_TODO: assess ecosystem integration_
+For new work, `commit-and-tag-version` preserves the same mental model with more active maintenance.
 
 ## Maintenance Status
 
 - Latest version: **9.5.0**
 - Last release: **2022-05-15**
-- GitHub stars: **7,974**
-- Project is in **legacy/maintenance mode** — no active feature development.
+- Tool status in this survey: **unmaintained**
 - Repository: <a href="https://github.com/conventional-changelog/standard-version" target="_blank" rel="noopener noreferrer">https://github.com/conventional-changelog/standard-version</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+Treat this as legacy release infrastructure.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Avoid for new projects**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Keep `standard-version` only where it is already working and low risk. For new npm release workflows, use `commit-and-tag-version`, release-it, semantic-release, or Changesets depending on the desired release style.

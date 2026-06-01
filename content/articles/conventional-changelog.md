@@ -2,7 +2,7 @@ Title: conventional-changelog
 Date: 2026-05-31
 Slug: conventional-changelog
 Ecosystem: Node
-Tags: conventional-commits, keep-a-changelog, node, npm-cli-library, release-notes, semantic-versioning
+Tags: conventional-commits, keep-a-changelog, node, npm-cli-library, release-notes, semantic-versioning, changelog-file
 Tool_URL: https://www.npmjs.com/package/conventional-changelog
 Tool_Version: 7.2.0
 Tool_Status: active
@@ -12,68 +12,72 @@ Summary: Core Node ecosystem changelog toolkit for generating changelogs and rel
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`conventional-changelog` is the foundational Node toolkit for turning Conventional Commits into changelog text. It is both a CLI-facing package family and a library layer used by many other release tools.
 
-`conventional-changelog` is a npm cli library tool for managing changelogs and releases.
-
-Core Node ecosystem changelog toolkit for generating changelogs and release notes from commit metadata.
+The tool is best understood as infrastructure. It does not own an entire release workflow the way semantic-release does, but it provides the commit parsing, presets, and writer behavior that power a lot of the Node changelog ecosystem.
 
 ## Installation
 
 ```bash
 npm install --save-dev conventional-changelog
-# or globally:
-npm install -g conventional-changelog
 ```
 
 ## What It Does
 
-- Generates changelog/release notes from git commit history
-- Parses Conventional Commits message format
-- Generates release notes for GitHub/GitLab releases
-- Writes and updates a `CHANGELOG.md` file
-- Automates version bumping (semver)
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Reads commits since the previous semver tag or a supplied range.
+- Parses Conventional Commits into features, fixes, breaking changes, and custom sections.
+- Uses presets such as Angular or conventionalcommits to shape output.
+- Generates Markdown release notes or updates a `CHANGELOG.md` file.
+- Can be embedded in other release tooling through its library API.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration depends on whether the project uses the CLI directly or wraps the library. A simple npm script can generate or append changelog content:
 
-_TODO: describe configuration approach_
+```json
+{
+  "scripts": {
+    "changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s"
+  }
+}
+```
+
+More advanced users configure parser, writer, and preset behavior in JavaScript. First-run setup is easy if the repository already follows Conventional Commits; otherwise the generated output will be noisy or incomplete.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Typical output is grouped and concise:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## 2.4.0 (2026-05-31)
+
+### Features
+
+* add workspace release-note generation
+
+### Bug Fixes
+
+* preserve changelog links when rewriting sections
+```
+
+The quality tracks commit discipline. It is excellent for projects that write user-facing commit titles and breaking-change footers, and weak for repositories with vague merge commits.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Node ecosystem?
-     Does it integrate with standard build tools (Node package managers,
-     CI conventions, etc.)? -->
+This is deeply native to Node/npm because so many tools, presets, and commit conventions grew around it. It pairs naturally with commitlint, Commitizen, npm scripts, semantic-release plugins, and older standard-version-style workflows.
 
-_TODO: assess ecosystem integration_
+For new projects, use it directly when you want a building block. Use semantic-release, release-it, or commit-and-tag-version when you want a complete release command.
 
 ## Maintenance Status
 
 - Latest version: **7.2.0**
-- Last release: **2026-03-01**
-- GitHub stars: **8,450**
 - Appears actively maintained.
 - Repository: <a href="https://github.com/conventional-changelog/conventional-changelog" target="_blank" rel="noopener noreferrer">https://github.com/conventional-changelog/conventional-changelog</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The package remains central and current in the conventional-changelog monorepo.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `conventional-changelog` as the baseline Node commit-derived changelog engine. It is not the friendliest end-user workflow by itself, but it is the shared machinery behind many of the higher-level tools in this ecosystem.

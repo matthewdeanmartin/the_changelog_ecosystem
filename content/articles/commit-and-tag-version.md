@@ -2,7 +2,7 @@ Title: commit-and-tag-version
 Date: 2026-05-31
 Slug: commit-and-tag-version
 Ecosystem: Node
-Tags: conventional-commits, keep-a-changelog, node, npm-cli, semantic-versioning
+Tags: conventional-commits, keep-a-changelog, node, npm-cli, semantic-versioning, git-tags, changelog-file
 Tool_URL: https://www.npmjs.com/package/commit-and-tag-version
 Tool_Version: 12.7.3
 Tool_Status: active
@@ -12,67 +12,76 @@ Summary: Drop-in replacement style tool for npm version workflows with automated
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`commit-and-tag-version` is a maintained continuation of the standard-version style workflow: analyze Conventional Commits, bump versions, update `CHANGELOG.md`, create a release commit, and tag it.
 
-`commit-and-tag-version` is a npm cli tool for managing changelogs and releases.
-
-Drop-in replacement style tool for npm version workflows with automated bumping, tagging, and changelog generation.
+It is intentionally simpler than semantic-release. A maintainer runs a command, reviews the diff, and pushes the result.
 
 ## Installation
 
 ```bash
 npm install --save-dev commit-and-tag-version
-# or globally:
-npm install -g commit-and-tag-version
 ```
 
 ## What It Does
 
-- Automates version bumping (semver)
-- Writes and updates a `CHANGELOG.md` file
-- Git tag
-- Parses Conventional Commits message format
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Computes the next semver version from Conventional Commits.
+- Updates package metadata such as `package.json` and lockfiles.
+- Generates or updates `CHANGELOG.md`.
+- Creates a release commit and git tag.
+- Supports configuration inherited from the standard-version/conventional-changelog ecosystem.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Most projects add an npm script:
 
-_TODO: describe configuration approach_
+```json
+{
+  "scripts": {
+    "release": "commit-and-tag-version"
+  },
+  "commit-and-tag-version": {
+    "preset": "conventionalcommits",
+    "tagPrefix": "v"
+  }
+}
+```
+
+First-run setup is low for single-package repositories. Workspaces and nonstandard version files need more configuration.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+The changelog output follows conventional-changelog patterns:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## 12.7.3 (2026-05-31)
+
+### Features
+
+- add release commit validation
+
+### Bug Fixes
+
+- keep generated changelog section ordering stable
+```
+
+It is clean if commit messages are clean, and the committed diff gives maintainers a review point before pushing.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Node ecosystem?
-     Does it integrate with standard build tools (Node package managers,
-     CI conventions, etc.)? -->
+This fits npm packages that want an explicit local release command and a committed changelog. It is less ambitious than release-it and less automated than semantic-release, which is a virtue for some teams.
 
-_TODO: assess ecosystem integration_
+It is also a practical migration path for projects that used standard-version and want a maintained equivalent.
 
 ## Maintenance Status
 
 - Latest version: **12.7.3**
-- Last release: **2026-05-08**
-- GitHub stars: **624**
 - Appears actively maintained.
 - Repository: <a href="https://github.com/absolute-version/commit-and-tag-version" target="_blank" rel="noopener noreferrer">https://github.com/absolute-version/commit-and-tag-version</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The project exists largely to keep the standard-version-style workflow alive with current dependencies and maintenance.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `commit-and-tag-version` when you want a straightforward Conventional Commits release command that updates files, commits, and tags. It is a good fit for smaller npm packages and teams migrating away from standard-version.

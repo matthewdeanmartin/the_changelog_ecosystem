@@ -2,7 +2,7 @@ Title: @changesets/changelog-github
 Date: 2026-05-31
 Slug: changesets-changelog-github
 Ecosystem: Node
-Tags: node, npm-plugin
+Tags: node, npm-plugin, changesets, github-integration, pull-requests, contributors, changelog-template
 Tool_URL: https://www.npmjs.com/package/@changesets/changelog-github
 Tool_Version: 0.7.0
 Tool_Status: active
@@ -12,67 +12,57 @@ Summary: Changesets changelog generator that links changelog entries to GitHub c
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`@changesets/changelog-github` is a Changesets plugin, not a standalone release workflow. It customizes generated package changelogs so entries link back to GitHub pull requests, commits, and contributors.
 
-`@changesets/changelog-github` is a npm plugin tool for managing changelogs and releases.
-
-Changesets changelog generator that links changelog entries to GitHub commits, PRs, and users.
+Use it when Changesets is already the release system and the missing piece is richer GitHub context in the generated changelog.
 
 ## Installation
 
 ```bash
 npm install --save-dev @changesets/changelog-github
-# or globally:
-npm install -g @changesets/changelog-github
 ```
 
 ## What It Does
 
-- Changelog template
-- Github links
-- Pull requests
-- Contributors
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Formats Changesets changelog entries with GitHub links.
+- Adds pull request, commit, and author context where available.
+- Works inside the Changesets versioning process.
+- Improves package changelogs without changing the release model.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configure it in `.changeset/config.json`:
 
-_TODO: describe configuration approach_
+```json
+{
+  "changelog": ["@changesets/changelog-github", { "repo": "example/project" }]
+}
+```
+
+First-run setup is tiny if Changesets is already installed.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+The plugin makes entries more navigable:
 
-_TODO: paste a sample output snippet here_
+```markdown
+- Add keyboard navigation support ([#184](https://github.com/example/project/pull/184)) by [@alice](https://github.com/alice)
+```
+
+The prose still comes from changeset files, which is the right division of labor.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Node ecosystem?
-     Does it integrate with standard build tools (Node package managers,
-     CI conventions, etc.)? -->
-
-_TODO: assess ecosystem integration_
+This fits GitHub-hosted npm monorepos using Changesets. It is irrelevant without Changesets and less useful outside GitHub.
 
 ## Maintenance Status
 
 - Latest version: **0.7.0**
-- Last release: **2026-05-05**
-- GitHub stars: **11,914**
-- Appears actively maintained.
-- Repository: <a href="https://github.com/changesets/changesets#main" target="_blank" rel="noopener noreferrer">https://github.com/changesets/changesets#main</a>
-
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+- Appears active as part of the Changesets package family.
+- Repository: <a href="https://github.com/changesets/changesets" target="_blank" rel="noopener noreferrer">https://github.com/changesets/changesets</a>
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended with Changesets**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `@changesets/changelog-github` when a GitHub-hosted Changesets project wants changelog entries to point back to PRs and contributors. It is a plugin worth enabling, not a separate strategy.

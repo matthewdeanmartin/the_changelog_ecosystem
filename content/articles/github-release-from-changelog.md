@@ -2,7 +2,7 @@ Title: github-release-from-changelog
 Date: 2026-05-31
 Slug: github-release-from-changelog
 Ecosystem: Node
-Tags: github-integration, node, npm-cli
+Tags: github-integration, node, npm-cli, github-releases, changelog-to-release-notes, unmaintained
 Tool_URL: https://www.npmjs.com/package/github-release-from-changelog
 Tool_Version: 2.1.1
 Tool_Status: unmaintained
@@ -12,66 +12,63 @@ Summary: CLI that extracts the relevant changelog section and creates/updates a 
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`github-release-from-changelog` is a small CLI for projects that already maintain a changelog and want to publish one version section to GitHub Releases. It does not generate changelog prose; it extracts the relevant text and sends it to GitHub.
 
-`github-release-from-changelog` is a npm cli tool for managing changelogs and releases.
-
-CLI that extracts the relevant changelog section and creates/updates a GitHub Release for a tag.
+That makes it a narrow bridge between manual changelog discipline and GitHub Release publication.
 
 ## Installation
 
 ```bash
 npm install --save-dev github-release-from-changelog
-# or globally:
-npm install -g github-release-from-changelog
 ```
 
 ## What It Does
 
-- Changelog to github release
-- Extract version section
-- Creates or updates GitHub Releases
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Reads a changelog file.
+- Finds the section matching a release tag or version.
+- Creates or updates the corresponding GitHub Release.
+- Keeps release body text aligned with `CHANGELOG.md`.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration is mostly CLI flags and environment variables:
 
-_TODO: describe configuration approach_
+```bash
+GITHUB_TOKEN="$GITHUB_TOKEN" \
+  github-release-from-changelog --changelog CHANGELOG.md --tag v2.1.1
+```
+
+First-run setup is low if the changelog format is predictable and GitHub authentication is already available.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Output quality is entirely inherited from the source changelog:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## 2.1.1 - 2026-05-31
+
+### Fixed
+
+- Publish the exact changelog section as the GitHub release body.
+```
+
+That is a strength when the changelog is curated, and a weakness if the changelog is inconsistent.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Node ecosystem?
-     Does it integrate with standard build tools (Node package managers,
-     CI conventions, etc.)? -->
+This fits older npm workflows where `CHANGELOG.md` is the release source of truth. Modern GitHub projects may instead use GitHub's generated release notes, Release Drafter, changelogithub, or release-it.
 
-_TODO: assess ecosystem integration_
+It is intentionally not a versioning or publishing tool.
 
 ## Maintenance Status
 
 - Latest version: **2.1.1**
 - Last release: **2020-02-18**
-- GitHub stars: **64**
-- Last release was over 2 years ago — check if still maintained.
+- Tool status in this survey: **unmaintained**
 - Repository: <a href="https://github.com/MoOx/github-release-from-changelog" target="_blank" rel="noopener noreferrer">https://github.com/MoOx/github-release-from-changelog</a>
-
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Situational**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use it only for existing workflows that already depend on extracting GitHub Releases from a committed changelog. For new projects, choose a more active GitHub release tool.

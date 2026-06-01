@@ -2,7 +2,7 @@ Title: conventional-changelog-cli
 Date: 2026-05-31
 Slug: conventional-changelog-cli
 Ecosystem: Node
-Tags: node
+Tags: node, npm-cli, conventional-commits, changelog-file, release-notes
 Tool_URL: https://www.npmjs.com/package/conventional-changelog-cli
 Tool_Version: 5.0.0
 Tool_Status: active
@@ -12,64 +12,68 @@ Summary: Generate changelogs from conventional commits
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`conventional-changelog-cli` is the direct command-line wrapper around the conventional-changelog ecosystem. It gives projects a small executable for generating or appending changelog text without adopting a full release manager.
 
-`conventional-changelog-cli` is a  tool for managing changelogs and releases.
-
-Generate changelogs from conventional commits
+It is best for npm scripts and one-off generation. If you need version bumping, tagging, and publishing, use a higher-level tool.
 
 ## Installation
 
 ```bash
 npm install --save-dev conventional-changelog-cli
-# or globally:
-npm install -g conventional-changelog-cli
 ```
 
 ## What It Does
 
-_TODO: describe core features_
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Generates changelog text from Conventional Commits.
+- Writes to stdout or updates `CHANGELOG.md`.
+- Supports presets such as Angular and conventionalcommits.
+- Can append only the latest release section.
+- Can be used in npm scripts, CI jobs, or release hooks.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Most projects configure it as a script:
 
-_TODO: describe configuration approach_
+```json
+{
+  "scripts": {
+    "changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s"
+  }
+}
+```
+
+First-run setup is very low when commit messages already follow a recognized preset.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Output mirrors the underlying conventional-changelog writer:
 
-_TODO: paste a sample output snippet here_
+```markdown
+### Features
+
+* add changelog CLI script
+
+### Bug Fixes
+
+* preserve existing changelog content when appending
+```
+
+It is useful and predictable, but commit titles must be release-note quality.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Node ecosystem?
-     Does it integrate with standard build tools (Node package managers,
-     CI conventions, etc.)? -->
+This is a very Node-native utility: install it as a dev dependency and call it from `npm run changelog`. It is a component, not a release workflow.
 
-_TODO: assess ecosystem integration_
+Use it when you want the conventional-changelog engine without version bumping or publishing.
 
 ## Maintenance Status
 
 - Latest version: **5.0.0**
-- Last release: **2024-05-03**
-- GitHub stars: **8,450**
-- Appears actively maintained.
+- Appears actively maintained as part of the conventional-changelog package family.
 - Repository: <a href="https://github.com/conventional-changelog/conventional-changelog" target="_blank" rel="noopener noreferrer">https://github.com/conventional-changelog/conventional-changelog</a>
-
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Situational**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `conventional-changelog-cli` for simple scriptable changelog generation. Choose a full release tool when changelog generation is only one step of versioning and publishing.

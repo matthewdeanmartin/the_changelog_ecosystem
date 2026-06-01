@@ -2,7 +2,7 @@ Title: release-it
 Date: 2026-05-31
 Slug: release-it
 Ecosystem: Node
-Tags: extensible, github-integration, gitlab-integration, node, npm-cli, package-publishing, semantic-versioning
+Tags: extensible, github-integration, gitlab-integration, node, npm-cli, package-publishing, semantic-versioning, changelog-preview, interactive
 Tool_URL: https://www.npmjs.com/package/release-it
 Tool_Version: 20.2.0
 Tool_Status: active
@@ -12,53 +12,73 @@ Summary: Generic CLI tool to automate versioning and package publishing
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`release-it` is an explicit release command for projects that want automation without handing the entire release decision to CI. It can run interactively for local releases or non-interactively in CI, bump versions, create tags, generate changelog previews, publish packages, and create GitHub/GitLab releases.
 
-`release-it` is a npm cli tool for managing changelogs and releases.
-
-Generic CLI tool to automate versioning and package publishing
+It sits between semantic-release and manual scripts: more guided and plugin-friendly than a custom npm script, but less dogmatic than fully automated commit-driven publishing.
 
 ## Installation
 
 ```bash
 npm install --save-dev release-it
-# or globally:
-npm install -g release-it
 ```
 
 ## What It Does
 
-- Automates version bumping (semver)
-- Changelog preview
-- Creates or updates GitHub Releases
-- Creates or updates GitLab Releases
-- Publishes packages to a registry (npm, crates.io, PyPI, NuGet, etc.)
-- Extensible via plugins
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Prompts for or computes the next version.
+- Runs git checks, commits, tags, and pushes release changes.
+- Generates a changelog preview from commits or plugins.
+- Publishes to npm and creates GitHub or GitLab releases.
+- Supports plugins for Conventional Commits, workspaces, containers, Slack, and custom release steps.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration can live in `.release-it.json`, `.release-it.js`, or `package.json`. A compact setup might look like:
 
-_TODO: describe configuration approach_
+```json
+{
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "tagName": "v${version}"
+  },
+  "github": {
+    "release": true
+  },
+  "npm": {
+    "publish": true
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "conventionalcommits"
+    }
+  }
+}
+```
+
+First-run setup is moderate: decide what should be local, what should run in CI, and which plugins own changelog text.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+With the conventional-changelog plugin, release notes look familiar:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## 20.2.0
+
+### Features
+
+- add dry-run release preview for npm provenance
+
+### Bug Fixes
+
+- keep GitHub release notes aligned with generated changelog
+```
+
+The preview step is valuable because maintainers can see the release notes before the release is finalized.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Node ecosystem?
-     Does it integrate with standard build tools (Node package managers,
-     CI conventions, etc.)? -->
+`release-it` fits Node projects that want a human-invoked release command, especially libraries and apps where a maintainer still wants to approve the version. Its plugin system makes it adaptable beyond npm.
 
-_TODO: assess ecosystem integration_
+For fully automated CI releases, semantic-release is cleaner. For monorepo package intent, Changesets is usually better.
 
 ## Maintenance Status
 
@@ -68,13 +88,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/release-it/release-it" target="_blank" rel="noopener noreferrer">https://github.com/release-it/release-it</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The project is actively maintained with current docs for config files, interactive mode, CI mode, plugins, npm, GitHub, and GitLab releases.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `release-it` when you want a clear release command with automation, previews, and plugin hooks. It is the best fit for teams that want to automate the ceremony while keeping the release moment explicit.

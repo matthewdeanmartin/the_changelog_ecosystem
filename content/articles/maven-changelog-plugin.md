@@ -2,9 +2,9 @@ Title: maven-changelog-plugin
 Date: 2026-05-31
 Slug: maven-changelog-plugin
 Ecosystem: Java
-Tags: java, maven-plugin
-Tool_URL: https://search.maven.org/artifact/maven-changelog-plugin
-Tool_Version: unknown
+Tags: java, maven-plugin, maven-site, scm-report, developer-activity, file-activity, legacy
+Tool_URL: https://maven.apache.org/plugins/maven-changelog-plugin/
+Tool_Version: 3.0.0-M1
 Tool_Status: unmaintained
 Summary: Apache Maven plugin that generates SCM change reports for Maven sites, including changelog and activity reports.
 
@@ -12,67 +12,98 @@ Summary: Apache Maven plugin that generates SCM change reports for Maven sites, 
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+Apache Maven Changelog Plugin is a Maven reporting plugin for SCM activity reports. It generates Maven Site pages that show recent commits, developer activity, and file activity.
 
-`maven-changelog-plugin` is a maven plugin tool for managing changelogs and releases.
-
-Apache Maven plugin that generates SCM change reports for Maven sites, including changelog and activity reports.
+This is not a modern user-facing release-note generator. It belongs in the survey because older Maven projects may still associate “changelog” with Maven Site reports, but its output is closer to developer audit reporting than a polished release announcement.
 
 ## Installation
 
-Add to `pom.xml`:
+Add to the `reporting` section of `pom.xml`:
+
 ```xml
-<plugin>
-  <groupId>TODO</groupId>
-  <artifactId>maven-changelog-plugin</artifactId>
-</plugin>
+<reporting>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-changelog-plugin</artifactId>
+      <version>3.0.0-M1</version>
+    </plugin>
+  </plugins>
+</reporting>
 ```
 
 ## What It Does
 
-- Scm report
-- Maven site
-- Developer activity
-- File activity
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Generates `changelog:changelog`, a report of SCM revisions including dates, files, authors, and messages.
+- Generates `changelog:dev-activity`, a report summarizing commits and changed files by developer.
+- Generates `changelog:file-activity`, a report listing revised files by activity.
+- Integrates with Maven Site reporting rather than GitHub/GitLab release publishing.
+- Supports selecting which reports to generate through Maven report sets.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration is normal Maven XML. Teams usually configure it inside `<reporting>` and optionally restrict report types or commit ranges.
 
-_TODO: describe configuration approach_
+```xml
+<reporting>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-changelog-plugin</artifactId>
+      <version>3.0.0-M1</version>
+      <reportSets>
+        <reportSet>
+          <id>release-audit</id>
+          <configuration>
+            <type>range</type>
+            <range>30</range>
+          </configuration>
+          <reports>
+            <report>changelog</report>
+            <report>file-activity</report>
+          </reports>
+        </reportSet>
+      </reportSets>
+    </plugin>
+  </plugins>
+</reporting>
+```
+
+First-run setup is straightforward if the project already uses Maven Site and SCM metadata. It is awkward if the goal is only to publish release notes.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+The output is useful for internal traceability:
 
-_TODO: paste a sample output snippet here_
+```text
+2026-05-31  alice
+  src/main/java/example/ReleaseService.java
+  Fix release-note report date range
+
+2026-05-30  bob
+  pom.xml
+  Update Maven reporting plugin configuration
+```
+
+That is not the same as a reader-friendly changelog. It shows what changed in SCM, but it does not group by user impact or rewrite entries for release consumers.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Java ecosystem?
-     Does it integrate with standard build tools (Java package managers,
-     CI conventions, etc.)? -->
+The plugin is Maven-native and historically fits Maven Site generation. For Java projects that still publish Maven-generated project sites, it can be a useful audit report.
 
-_TODO: assess ecosystem integration_
+For modern release notes, it is usually the wrong tool. GitHub Releases, GitLab Releases, release-please, `git-cliff`, or a Keep a Changelog workflow will produce better reader-facing output.
 
 ## Maintenance Status
 
-- Latest version: **unknown**
+- Latest version: **3.0.0-M1**
 - Last release: **unknown**
-- Appears actively maintained.
+- Maven Plugin docs list Maven 3.6.3 and JDK 8 as minimum requirements for the current milestone.
+- Repository/docs: <a href="https://maven.apache.org/plugins/maven-changelog-plugin/" target="_blank" rel="noopener noreferrer">https://maven.apache.org/plugins/maven-changelog-plugin/</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The plugin remains documented by Apache Maven, but its model is mature and site-report oriented rather than an actively evolving release-note workflow.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Situational**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use Apache Maven Changelog Plugin only when you specifically want Maven Site SCM reports. Avoid treating it as a product changelog or release-note solution; it is better as supporting evidence for developers than as communication for users.

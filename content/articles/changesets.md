@@ -2,7 +2,7 @@ Title: Changesets
 Date: 2026-05-31
 Slug: changesets
 Ecosystem: Node
-Tags: keep-a-changelog, monorepo, news-fragments, node, npm-cli, package-publishing, semantic-versioning
+Tags: keep-a-changelog, monorepo, news-fragments, node, npm-cli, package-publishing, semantic-versioning, release-pr, changelog-file
 Tool_URL: https://www.npmjs.com/package/@changesets/cli
 Tool_Version: 2.31.0
 Tool_Status: active
@@ -12,68 +12,78 @@ Summary: File-based release intent workflow for packages and monorepos; contribu
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+Changesets is the dominant file-based release intent workflow for Node package monorepos. Contributors add small Markdown changeset files that declare which packages changed, what bump level they need, and the human-facing note that should land in the changelog.
 
-`Changesets` is a npm cli tool for managing changelogs and releases.
-
-File-based release intent workflow for packages and monorepos; contributors add changeset files that drive version bumps
+Compared with semantic-release, Changesets moves release intent out of commit messages and into reviewable files. That makes it especially strong for multi-package repositories where a single pull request can affect several packages differently.
 
 ## Installation
 
 ```bash
 npm install --save-dev @changesets/cli
-# or globally:
-npm install -g @changesets/cli
+npx changeset init
 ```
 
 ## What It Does
 
-- Assembles changelog from individual news/change fragment files
-- Automates version bumping (semver)
-- Supports monorepo / multi-package workflows
-- Writes and updates a `CHANGELOG.md` file
-- Publishes packages to a registry (npm, crates.io, PyPI, NuGet, etc.)
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Creates `.changeset/*.md` files with package bump metadata and prose.
+- Aggregates changesets into version bumps and package changelogs.
+- Supports monorepos with independent package versions.
+- Opens release PRs through the Changesets GitHub Action.
+- Publishes packages to npm after the release PR merges.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configuration lives in `.changeset/config.json`. The defaults work for many repos, but monorepos often customize changelog writers, access, base branch, and update strategy.
 
-_TODO: describe configuration approach_
+```json
+{
+  "$schema": "https://unpkg.com/@changesets/config/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "example/project" }],
+  "commit": false,
+  "fixed": [],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch"
+}
+```
+
+First-run setup is moderate. The CLI can initialize the repo quickly, but the team needs to adopt the habit of requiring a changeset for user-visible package changes.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Because entries are written by contributors, output is usually more intentional than raw commit logs:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## @example/button@2.1.0
+
+### Minor Changes
+
+- Add keyboard navigation support for segmented controls.
+
+### Patch Changes
+
+- Fix focus ring color in high contrast mode.
+```
+
+The best output comes when reviewers treat changeset text as documentation, not as a checkbox.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Node ecosystem?
-     Does it integrate with standard build tools (Node package managers,
-     CI conventions, etc.)? -->
+Changesets fits modern npm workspaces, pnpm, Yarn, and package monorepos extremely well. It is less tied to Conventional Commits and more tied to explicit release intent.
 
-_TODO: assess ecosystem integration_
+For single-package projects it can still be useful, but release-it or semantic-release may feel lighter depending on whether the team prefers manual or automated releases.
 
 ## Maintenance Status
 
 - Latest version: **2.31.0**
-- Last release: **2026-04-17**
-- GitHub stars: **11,914**
 - Appears actively maintained.
-- Repository: <a href="https://github.com/changesets/changesets#main" target="_blank" rel="noopener noreferrer">https://github.com/changesets/changesets#main</a>
+- Repository: <a href="https://github.com/changesets/changesets" target="_blank" rel="noopener noreferrer">https://github.com/changesets/changesets</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+Changesets remains widely used in Node package monorepos and has active documentation for config, versioning, publishing, and GitHub workflows.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use Changesets when package release intent should be explicit, reviewed, and package-aware. It is the default recommendation for Node monorepos and a strong alternative to commit-message-driven automation.

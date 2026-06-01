@@ -2,7 +2,7 @@ Title: @semantic-release/release-notes-generator
 Date: 2026-05-31
 Slug: semantic-release-release-notes-generator
 Ecosystem: Node
-Tags: node, npm-plugin, release-notes
+Tags: node, npm-plugin, release-notes, semantic-release, conventional-changelog, conventional-commits
 Tool_URL: https://www.npmjs.com/package/@semantic-release/release-notes-generator
 Tool_Version: 14.1.1
 Tool_Status: active
@@ -12,66 +12,67 @@ Summary: semantic-release plugin that generates release note content with conven
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`@semantic-release/release-notes-generator` is the standard semantic-release plugin for generating release-note text. It wraps conventional-changelog behavior inside semantic-release's plugin lifecycle.
 
-`@semantic-release/release-notes-generator` is a npm plugin tool for managing changelogs and releases.
-
-semantic-release plugin that generates release note content with conventional-changelog.
+It is not useful on its own; its job is to fill the `generateNotes` step of a semantic-release pipeline.
 
 ## Installation
 
 ```bash
 npm install --save-dev @semantic-release/release-notes-generator
-# or globally:
-npm install -g @semantic-release/release-notes-generator
 ```
 
 ## What It Does
 
-- Generates release notes for GitHub/GitLab releases
-- Conventional changelog
-- Semantic release plugin
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Generates release notes from commits during semantic-release.
+- Uses conventional-changelog presets and parser options.
+- Passes notes to publishing plugins such as `@semantic-release/github`.
+- Supports custom writer and preset configuration.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Configure it in semantic-release:
 
-_TODO: describe configuration approach_
+```json
+{
+  "plugins": [
+    ["@semantic-release/commit-analyzer", { "preset": "conventionalcommits" }],
+    ["@semantic-release/release-notes-generator", { "preset": "conventionalcommits" }],
+    "@semantic-release/github"
+  ]
+}
+```
+
+First-run setup is low if semantic-release is already configured.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+Generated notes look like conventional-changelog output:
 
-_TODO: paste a sample output snippet here_
+```markdown
+### Features
+
+* add prerelease channel notes
+
+### Bug Fixes
+
+* preserve issue links in generated release notes
+```
+
+The plugin is reliable, but the prose quality depends on commit messages.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Node ecosystem?
-     Does it integrate with standard build tools (Node package managers,
-     CI conventions, etc.)? -->
-
-_TODO: assess ecosystem integration_
+This is core semantic-release infrastructure for Node projects. Use it as part of semantic-release, not as an independent changelog tool.
 
 ## Maintenance Status
 
 - Latest version: **14.1.1**
-- Last release: **2026-05-08**
-- GitHub stars: **363**
 - Appears actively maintained.
 - Repository: <a href="https://github.com/semantic-release/release-notes-generator" target="_blank" rel="noopener noreferrer">https://github.com/semantic-release/release-notes-generator</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
-
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Recommended with semantic-release**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use this plugin when semantic-release owns the release workflow. Outside semantic-release, use `conventional-changelog` directly or a higher-level release tool.
