@@ -176,7 +176,7 @@ Ecosystem: {ecosystem}
 Tool_URL: {tool_url}
 Tool_Version: {version}
 Tool_Status: {article_status}
-Summary: {description[:120]}
+Summary: {description}
 
 {status_banner}
 

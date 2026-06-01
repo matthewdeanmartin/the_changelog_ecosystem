@@ -5,7 +5,7 @@ Ecosystem: Cpp
 Tool_URL: https://git-cliff.org/
 Tool_Version: unknown
 Tool_Status: active
-Summary: For C and C++, the must-review ecosystem is mostly language-agnostic: git-cliff for commit-derived logs, Changie for fra
+Summary: For C and C++, the must-review ecosystem is mostly language-agnostic: git-cliff for commit-derived logs, Changie for fragments, and GitHub/GitLab release tooling for publication.
 
 
 

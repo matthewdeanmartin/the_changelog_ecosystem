@@ -5,7 +5,7 @@ Ecosystem: Cross
 Tool_URL: https://gitlab.com/gitlab-org/release-cli
 Tool_Version: unknown
 Tool_Status: archived
-Summary: Deprecated GitLab release command-line tool formerly used by CI release jobs to create releases through the Releases API
+Summary: Deprecated GitLab release command-line tool formerly used by CI release jobs to create releases through the Releases API.
 
 > **Note:** This tool is deprecated. See the Maintenance Status section for migration guidance.
 

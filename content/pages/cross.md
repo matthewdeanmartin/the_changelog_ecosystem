@@ -12,9 +12,9 @@ Summary: Changelog and release management tools for cross.
 - **[glab changelog](/reviews/glab-changelog/)** — GitLab CLI command that generates changelogs from project commits using GitLab changelog configuration.
 - **[glab release](/reviews/glab-release/)** — GitLab CLI release command for creating or updating releases, including using release notes from a file.
 - **[Keep a Changelog](/reviews/keep-a-changelog/)** — Human-centered changelog format and vocabulary that many tools target or partially implement.
-- **[logchange](/reviews/logchange/)** — Tool that stores each change in a separate YAML file to reduce changelog merge conflicts and generate CHANGELOG.md durin
+- **[logchange](/reviews/logchange/)** — Tool that stores each change in a separate YAML file to reduce changelog merge conflicts and generate CHANGELOG.md during release.
 - **[Release Drafter](/reviews/release-drafter/)** — GitHub Action that keeps a draft release updated as PRs merge, grouping release notes by labels and rules.
-- **[release-cli](/reviews/release-cli/)** — Deprecated GitLab release command-line tool formerly used by CI release jobs to create releases through the Releases API
-- **[release-please](/reviews/release-please/)** — Google release automation that parses Conventional Commits, opens release PRs, updates changelogs, bumps versions, and c
+- **[release-cli](/reviews/release-cli/)** — Deprecated GitLab release command-line tool formerly used by CI release jobs to create releases through the Releases API.
+- **[release-please](/reviews/release-please/)** — Google release automation that parses Conventional Commits, opens release PRs, updates changelogs, bumps versions, and creates GitHub releases.
 
 ## On the Radar (0)

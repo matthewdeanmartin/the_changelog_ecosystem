@@ -5,7 +5,7 @@ Ecosystem: Cross
 Tool_URL: https://github.com/logchange/logchange
 Tool_Version: 1.19.15
 Tool_Status: active
-Summary: Tool that stores each change in a separate YAML file to reduce changelog merge conflicts and generate CHANGELOG.md durin
+Summary: Tool that stores each change in a separate YAML file to reduce changelog merge conflicts and generate CHANGELOG.md during release.
 
 
 

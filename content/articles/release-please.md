@@ -5,7 +5,7 @@ Ecosystem: Cross
 Tool_URL: https://github.com/googleapis/release-please-action
 Tool_Version: 5.0.0
 Tool_Status: active
-Summary: Google release automation that parses Conventional Commits, opens release PRs, updates changelogs, bumps versions, and c
+Summary: Google release automation that parses Conventional Commits, opens release PRs, updates changelogs, bumps versions, and creates GitHub releases.
 
 
 

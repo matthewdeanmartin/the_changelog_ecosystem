@@ -5,7 +5,7 @@ Ecosystem: Dotnet
 Tool_URL: https://www.nuget.org/packages/dotnet-releaser/
 Tool_Version: 0.21.0
 Tool_Status: active
-Summary: All-in-one .NET release CLI for building, testing, packaging, creating release notes from PRs/commits, publishing to NuG
+Summary: All-in-one .NET release CLI for building, testing, packaging, creating release notes from PRs/commits, publishing to NuGet, and creating GitHub releases.
 
 
 

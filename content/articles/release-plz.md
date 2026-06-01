@@ -5,7 +5,7 @@ Ecosystem: Rust
 Tool_URL: https://crates.io/crates/release-plz
 Tool_Version: 0.3.158
 Tool_Status: active
-Summary: Rust crate release automation that updates changelogs with git-cliff, bumps Cargo.toml versions, publishes crates, and c
+Summary: Rust crate release automation that updates changelogs with git-cliff, bumps Cargo.toml versions, publishes crates, and creates releases.
 
 
 

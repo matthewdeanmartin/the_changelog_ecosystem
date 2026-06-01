@@ -5,7 +5,7 @@ Ecosystem: Rust
 Tool_URL: https://crates.io/crates/cargo-dist
 Tool_Version: 0.32.0
 Tool_Status: active
-Summary: Rust release distribution tool that generates CI and publishes artifacts/installers to GitHub Releases; often paired wit
+Summary: Rust release distribution tool that generates CI and publishes artifacts/installers to GitHub Releases; often paired with changelog generators.
 
 
 

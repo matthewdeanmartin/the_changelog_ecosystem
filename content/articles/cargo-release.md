@@ -5,7 +5,7 @@ Ecosystem: Rust
 Tool_URL: https://crates.io/crates/cargo-release
 Tool_Version: 1.1.2
 Tool_Status: active
-Summary: Cargo subcommand for crate release automation; commonly combined with git-cliff or cargo-dist for changelog/release pipe
+Summary: Cargo subcommand for crate release automation; commonly combined with git-cliff or cargo-dist for changelog/release pipelines.
 
 
 

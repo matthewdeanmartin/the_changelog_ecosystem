@@ -5,7 +5,7 @@ Ecosystem: Dotnet
 Tool_URL: https://www.nuget.org/packages/GitReleaseManager/
 Tool_Version: 0.20.0
 Tool_Status: active
-Summary: .NET/GitTools utility for creating draft releases from milestones, attaching assets, publishing drafts, and exporting re
+Summary: .NET/GitTools utility for creating draft releases from milestones, attaching assets, publishing drafts, and exporting release notes.
 
 
 

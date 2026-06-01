@@ -5,7 +5,7 @@ Ecosystem: Dotnet
 Tool_URL: https://www.nuget.org/packages/Nerdbank.GitVersioning/
 Tool_Version: 3.10.44-alpha-g09c6831bf9
 Tool_Status: active
-Summary: Microsoft/dotnet project for stamping assemblies, NuGet packages, VSIX, and other artifacts with Git-derived SemVer info
+Summary: Microsoft/dotnet project for stamping assemblies, NuGet packages, VSIX, and other artifacts with Git-derived SemVer information.
 
 
 

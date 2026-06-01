@@ -7,7 +7,7 @@ Summary: Changelog and release management tools for Node / npm.
 ## Reviewed (11)
 - **[auto-changelog](/reviews/auto-changelog/)** — Command-line tool that generates changelogs from git tags and commit history.
 - **[changelogithub](/reviews/changelogithub/)** — CLI for generating GitHub release changelogs from Conventional Commits, powered by changelogen.
-- **[Changesets](/reviews/changesets/)** — File-based release intent workflow for packages and monorepos; contributors add changeset files that drive version bumps
+- **[Changesets](/reviews/changesets/)** — File-based release intent workflow for packages and monorepos; contributors add changeset files that drive version bumps, changelogs, and publishing.
 - **[commit-and-tag-version](/reviews/commit-and-tag-version/)** — Drop-in replacement style tool for npm version workflows with automated bumping, tagging, and changelog generation.
 - **[conventional-changelog](/reviews/conventional-changelog/)** — Core Node ecosystem changelog toolkit for generating changelogs and release notes from commit metadata.
 - **[conventional-changelog-cli](/reviews/conventional-changelog-cli/)** — Generate changelogs from conventional commits

@@ -5,7 +5,7 @@ Ecosystem: Node
 Tool_URL: https://www.npmjs.com/package/@changesets/cli
 Tool_Version: 2.31.0
 Tool_Status: active
-Summary: File-based release intent workflow for packages and monorepos; contributors add changeset files that drive version bumps
+Summary: File-based release intent workflow for packages and monorepos; contributors add changeset files that drive version bumps, changelogs, and publishing.
 
 
 
