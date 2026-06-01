@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Browse by Tag — {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<div class="tag-index">
+    <h1>Browse by Tag</h1>
+    <p>Filter reviews by capability, standard, or ecosystem.</p>
+
+    <div class="tag-cloud tag-cloud--large">
+        {% for tag, articles in tags | sort %}
+        <a class="tag-cloud__tag" href="{{ SITEURL }}/{{ tag.url }}">
+            {{ tag }} <span class="tag-count">({{ articles | count }})</span>
+        </a>
+        {% endfor %}
+    </div>
+
+    {% for tag, articles in tags | sort %}
+    <section class="tag-section" id="{{ tag.slug }}">
+        <h2><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a></h2>
+        <ul>
+            {% for article in articles | sort(attribute='title') %}
+            <li>
+                <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
+                {% if article.summary %} — {{ article.summary }}{% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endfor %}
+</div>
+{% endblock %}

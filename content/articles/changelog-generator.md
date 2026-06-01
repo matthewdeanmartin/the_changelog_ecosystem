@@ -2,7 +2,7 @@ Title: changelog-generator
 Date: 2026-05-31
 Slug: changelog-generator
 Ecosystem: Go
-Tags: conventional-commits, go, go-cli-library, release-notes
+Tags: conventional-commits, go, go-cli-library, release-notes, github-action, commit-history, ci-cd
 Tool_URL: https://github.com/gabe565/changelog-generator
 Tool_Version: 1.1.5
 Tool_Status: active
@@ -12,12 +12,9 @@ Summary: Configurable commit-based changelog generator that groups commits since
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`changelog-generator` is a focused Go CLI and library for generating release-note text from commits since the previous release. It intentionally resembles GoReleaser's changelog output, making it useful when a project wants GoReleaser-style notes without adopting the full GoReleaser artifact pipeline.
 
-`changelog-generator` is a go cli library tool for managing changelogs and releases.
-
-Configurable commit-based changelog generator that groups commits since the previous release.
+It is a narrower tool than GoReleaser and a smaller ecosystem player than `git-cliff` or Changie. Its best niche is projects that already have another build or publish system but want a lightweight, Go-native changelog step.
 
 ## Installation
 
@@ -28,34 +25,58 @@ Configurable commit-based changelog generator that groups commits since the prev
 
 ## What It Does
 
-- Generates changelog/release notes from git commit history
-- Generates release notes for GitHub/GitLab releases
-- Github action
-- Goreleaser like
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Finds commits since the previous release.
+- Filters and groups commits into release-note sections.
+- Produces GoReleaser-like changelog output.
+- Can run as a CLI, a Go library, or a GitHub Action.
+- Supports configuration file paths and CI-friendly outputs.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+The GitHub Action accepts a config path, and the CLI/library can use project configuration to control grouping and filtering. A typical workflow is lightweight:
 
-_TODO: describe configuration approach_
+```yaml
+name: release-notes
+on:
+  workflow_dispatch:
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gabe565/changelog-generator-action@v1
+        with:
+          config: .github/changelog.yml
+```
+
+First-run setup is low if the default grouping matches the project. It becomes more useful once commit filtering and section names are tuned to the team's commit style.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+The output is commit-derived and compact:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## Changelog
+
+### Features
+
+- add release-note preview command
+
+### Bug Fixes
+
+- skip generated dependency update commits
+```
+
+It is readable, but it inherits the usual limitation of commit-based tools: commit titles need to be written with release notes in mind.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Go ecosystem?
-     Does it integrate with standard build tools (Go package managers,
-     CI conventions, etc.)? -->
+The Go fit is pragmatic. It is available as a Go package and GitHub Action, and it is useful for projects that want GoReleaser-like changelog behavior while using another build system.
 
-_TODO: assess ecosystem integration_
+It is not broad enough to replace GoReleaser for Go CLI releases, and it is not as mature or configurable as `git-cliff` for complex historical changelogs. Treat it as a small, focused generator.
 
 ## Maintenance Status
 
@@ -65,13 +86,10 @@ _TODO: assess ecosystem integration_
 - Appears actively maintained.
 - Repository: <a href="https://github.com/gabe565/changelog-generator" target="_blank" rel="noopener noreferrer">https://github.com/gabe565/changelog-generator</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The project is small but current, with docs for GitHub Action usage, configuration, installation, and library/CLI entry points.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Situational**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `changelog-generator` when you want a lightweight Go-native generator that produces GoReleaser-like release notes without adopting GoReleaser itself. For flagship Go CLI release pipelines, start with GoReleaser; for highly customized commit parsing, compare it with `git-cliff`.

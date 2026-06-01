@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Tag: {{ tag }} — {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<div class="tag-listing">
+    <h1>Tag: {{ tag }}</h1>
+    <p><a href="{{ SITEURL }}/tags/">← All tags</a></p>
+
+    <ul class="review-list">
+        {% for article in articles | sort(attribute='title') %}
+        <li>
+            <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
+            {% if article.ecosystem %}
+            <span class="ecosystem-badge ecosystem-badge--{{ article.ecosystem | lower | replace('#', 'sharp') | replace('.', 'dot') | replace('/', '-') }}">{{ article.ecosystem }}</span>
+            {% endif %}
+            {% if article.summary %}<br><span class="review-summary">{{ article.summary }}</span>{% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
