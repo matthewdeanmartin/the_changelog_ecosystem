@@ -2,6 +2,7 @@ Title: com.diffplug.spotless-changelog
 Date: 2026-05-31
 Slug: com-diffplug-spotless-changelog
 Ecosystem: Java
+Tags: gradle-plugin, java, keep-a-changelog, validation
 Tool_URL: https://plugins.gradle.org/plugin/com.diffplug.spotless-changelog
 Tool_Version: unknown
 Tool_Status: active
@@ -65,7 +66,7 @@ _TODO: assess ecosystem integration_
 - Last release: **unknown**
 - GitHub stars: **48**
 - Appears actively maintained.
-- Repository: [https://github.com/diffplug/spotless-changelog](https://github.com/diffplug/spotless-changelog)
+- Repository: <a href="https://github.com/diffplug/spotless-changelog" target="_blank" rel="noopener noreferrer">https://github.com/diffplug/spotless-changelog</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

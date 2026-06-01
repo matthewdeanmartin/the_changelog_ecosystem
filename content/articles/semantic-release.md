@@ -2,6 +2,7 @@ Title: semantic-release
 Date: 2026-05-31
 Slug: semantic-release
 Ecosystem: Node
+Tags: conventional-commits, extensible, github-integration, gitlab-integration, node, npm-cli-ci, package-publishing, release-notes, semantic-versioning
 Tool_URL: https://www.npmjs.com/package/semantic-release
 Tool_Version: 25.0.3
 Tool_Status: active
@@ -66,7 +67,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-01-30**
 - GitHub stars: **23,728**
 - Appears actively maintained.
-- Repository: [https://github.com/semantic-release/semantic-release](https://github.com/semantic-release/semantic-release)
+- Repository: <a href="https://github.com/semantic-release/semantic-release" target="_blank" rel="noopener noreferrer">https://github.com/semantic-release/semantic-release</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

@@ -2,6 +2,7 @@ Title: changelog-from-release
 Date: 2026-05-31
 Slug: changelog-from-release
 Ecosystem: Cross
+Tags: backfill, cli, cross
 Tool_URL: https://github.com/rhysd/changelog-from-release
 Tool_Version: 3.9.1
 Tool_Status: unmaintained
@@ -61,7 +62,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2025-10-19**
 - GitHub stars: **112**
 - Appears actively maintained.
-- Repository: [https://github.com/rhysd/changelog-from-release](https://github.com/rhysd/changelog-from-release)
+- Repository: <a href="https://github.com/rhysd/changelog-from-release" target="_blank" rel="noopener noreferrer">https://github.com/rhysd/changelog-from-release</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

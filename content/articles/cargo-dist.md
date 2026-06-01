@@ -2,6 +2,7 @@ Title: cargo-dist
 Date: 2026-05-31
 Slug: cargo-dist
 Ecosystem: Rust
+Tags: cargo-subcommand-ci, github-integration, rust, release-orchestration, artifacts, installers, ci-cd, github-releases
 Tool_URL: https://crates.io/crates/cargo-dist
 Tool_Version: 0.32.0
 Tool_Status: active
@@ -11,12 +12,9 @@ Summary: Rust release distribution tool that generates CI and publishes artifact
 
 ## Overview
 
-<!-- TODO: 2-3 sentences. What problem does this solve? Who is the target user?
-     What distinguishes it from similar tools? -->
+`cargo-dist` is release distribution infrastructure for Rust applications. It generates CI workflows, builds release artifacts, creates installers, uploads checksums and manifests, and announces releases through GitHub Releases or related hosting.
 
-`cargo-dist` is a cargo subcommand ci tool for managing changelogs and releases.
-
-Rust release distribution tool that generates CI and publishes artifacts/installers to GitHub Releases; often paired wit
+It is adjacent to changelog tooling rather than a primary changelog editor. Its importance here is that many Rust CLI projects need release notes to travel with binaries, installers, and GitHub Releases, and `cargo-dist` is one of the strongest tools for that final distribution step.
 
 ## Installation
 
@@ -26,35 +24,54 @@ cargo install cargo-dist
 
 ## What It Does
 
-- Release orchestration
-- Creates or updates GitHub Releases
-- Artifacts
-- Installers
-- Ci generation
-
-<!-- TODO: expand each bullet with a concrete example or detail -->
+- Generates GitHub Actions workflows for release builds.
+- Builds platform artifacts for Rust binaries and other supported projects.
+- Produces installers and installation scripts for end users.
+- Publishes artifacts, checksums, and manifests to GitHub Releases or other configured hosts.
+- Can interoperate with tools such as `cargo-release`, Release Drafter, or a manually maintained release notes file.
 
 ## Configuration
 
-<!-- TODO: describe config file format, required vs optional settings,
-     how complex is first-run setup? Show a minimal config example. -->
+Newer projects can use `dist-workspace.toml` or `dist.toml`; Rust projects may also have older `[workspace.metadata.dist]` style configuration. `dist init` creates the baseline config and generated CI workflow.
 
-_TODO: describe configuration approach_
+```toml
+[dist]
+cargo-dist-version = "0.32.0"
+ci = ["github"]
+installers = ["shell", "powershell"]
+targets = ["x86_64-unknown-linux-gnu", "x86_64-pc-windows-msvc", "aarch64-apple-darwin"]
+create-release = true
+publish-jobs = ["homebrew"]
+```
+
+First-run setup is moderate because the tool touches CI, target platforms, hosting, installers, and release announcements. Changelog configuration is usually handled by a companion tool or by release notes already present in the repository.
 
 ## Output Quality
 
-<!-- TODO: show a sample snippet of generated output. What does the
-     changelog/release notes actually look like? Is it human-readable? -->
+The user-facing output is a release announcement with artifacts attached, not just a changelog file:
 
-_TODO: paste a sample output snippet here_
+```markdown
+## my-cli 1.4.0
+
+### Release Notes
+
+- Add native ARM macOS artifacts.
+- Generate PowerShell installer checksums during release.
+
+### Artifacts
+
+- my-cli-x86_64-pc-windows-msvc.zip
+- my-cli-x86_64-unknown-linux-gnu.tar.xz
+- my-cli-aarch64-apple-darwin.tar.xz
+```
+
+If the upstream release notes are good, cargo-dist helps package and publish them cleanly. If the project has no changelog discipline, cargo-dist will not fix that by itself.
 
 ## Ecosystem Fit
 
-<!-- TODO: does it feel native to the Rust ecosystem?
-     Does it integrate with standard build tools (Rust package managers,
-     CI conventions, etc.)? -->
+For Rust CLI applications, cargo-dist fits beautifully: it understands Cargo, target triples, generated CI, installers, and GitHub Releases. It fills a gap that crates.io publishing does not cover, especially for end users who expect downloadable binaries.
 
-_TODO: assess ecosystem integration_
+For libraries, it is usually unnecessary. Library crates care more about crates.io, semver, and changelog text than binary distribution.
 
 ## Maintenance Status
 
@@ -62,15 +79,12 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-05-22**
 - GitHub stars: **2,044**
 - Appears actively maintained.
-- Repository: [https://github.com/axodotdev/cargo-dist](https://github.com/axodotdev/cargo-dist)
+- Repository: <a href="https://github.com/axodotdev/cargo-dist" target="_blank" rel="noopener noreferrer">https://github.com/axodotdev/cargo-dist</a>
 
-<!-- TODO: check open issue count, PR responsiveness, release cadence -->
+The current docs cover config files, generated CI, custom jobs, publish phases, installer options, GitHub release behavior, and integration patterns with tools such as `cargo-release`.
 
 ## Verdict
 
-<!-- TODO: choose one: Recommended / Situational / Avoid
-     One paragraph justifying the verdict. -->
+**Verdict: Situational**
 
-**Verdict: _TODO_**
-
-_TODO: verdict justification_
+Use `cargo-dist` when the release problem is “ship binaries and installers with solid GitHub Releases.” Pair it with `git-cliff`, Release Drafter, `release-plz`, or a hand-maintained changelog for the actual release-note prose.

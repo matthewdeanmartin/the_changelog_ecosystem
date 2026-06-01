@@ -2,6 +2,7 @@ Title: git-chglog
 Date: 2026-05-31
 Slug: git-chglog
 Ecosystem: Go
+Tags: backfill, conventional-commits, git-tags, go, go-cli
 Tool_URL: https://github.com/git-chglog/git-chglog
 Tool_Version: 0.15.4
 Tool_Status: archived
@@ -63,7 +64,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2023-02-15**
 - GitHub stars: **2,874**
 - **Repository is archived** — no new development expected.
-- Repository: [https://github.com/git-chglog/git-chglog](https://github.com/git-chglog/git-chglog)
+- Repository: <a href="https://github.com/git-chglog/git-chglog" target="_blank" rel="noopener noreferrer">https://github.com/git-chglog/git-chglog</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

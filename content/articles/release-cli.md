@@ -2,6 +2,7 @@ Title: release-cli
 Date: 2026-05-31
 Slug: release-cli
 Ecosystem: Cross
+Tags: cli, cross, gitlab-integration
 Tool_URL: https://gitlab.com/gitlab-org/release-cli
 Tool_Version: unknown
 Tool_Status: archived
@@ -57,7 +58,7 @@ _TODO: assess ecosystem integration_
 - Latest version: **unknown**
 - Last release: **unknown**
 - **Repository is archived** — no new development expected.
-- Repository: [https://gitlab.com/gitlab-org/release-cli](https://gitlab.com/gitlab-org/release-cli)
+- Repository: <a href="https://gitlab.com/gitlab-org/release-cli" target="_blank" rel="noopener noreferrer">https://gitlab.com/gitlab-org/release-cli</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

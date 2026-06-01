@@ -2,6 +2,7 @@ Title: GitReleaseManager
 Date: 2026-05-31
 Slug: gitreleasemanager
 Ecosystem: Dotnet
+Tags: dotnet, dotnet-tool, draft-releases, github-integration, milestones
 Tool_URL: https://www.nuget.org/packages/GitReleaseManager/
 Tool_Version: 0.20.0
 Tool_Status: active
@@ -62,7 +63,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2025-04-03**
 - GitHub stars: **323**
 - Appears actively maintained.
-- Repository: [https://github.com/GitTools/GitReleaseManager](https://github.com/GitTools/GitReleaseManager)
+- Repository: <a href="https://github.com/GitTools/GitReleaseManager" target="_blank" rel="noopener noreferrer">https://github.com/GitTools/GitReleaseManager</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

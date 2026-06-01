@@ -2,6 +2,7 @@ Title: GitLab Changelogs
 Date: 2026-05-31
 Slug: gitlab-changelogs
 Ecosystem: Cross
+Tags: conventional-commits, cross, custom-templates, gitlab-integration, platform-feature-api
 Tool_URL: https://gitlab.com/user/project
 Tool_Version: unknown
 Tool_Status: active

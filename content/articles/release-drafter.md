@@ -2,6 +2,7 @@ Title: Release Drafter
 Date: 2026-05-31
 Slug: release-drafter
 Ecosystem: Cross
+Tags: cross, draft-releases, github-action, github-integration, release-notes
 Tool_URL: https://github.com/marketplace/actions
 Tool_Version: 7.3.1
 Tool_Status: active
@@ -63,7 +64,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-05-25**
 - GitHub stars: **3,879**
 - Appears actively maintained.
-- Repository: [https://github.com/release-drafter/release-drafter](https://github.com/release-drafter/release-drafter)
+- Repository: <a href="https://github.com/release-drafter/release-drafter" target="_blank" rel="noopener noreferrer">https://github.com/release-drafter/release-drafter</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

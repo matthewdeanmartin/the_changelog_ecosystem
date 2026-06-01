@@ -106,7 +106,7 @@ def maintenance_section(tool: dict) -> str:
 
     repo = tool.get("repo")
     if repo:
-        lines.append(f"- Repository: [{repo}]({repo})")
+        lines.append(f'- Repository: <a href="{repo}" target="_blank" rel="noopener noreferrer">{repo}</a>')
 
     return "\n".join(lines)
 
@@ -145,6 +145,43 @@ def capability_bullets(tool: dict) -> str:
     return "\n".join(bullets) if bullets else "_TODO: describe core features_"
 
 
+CAP_TAG_LABELS: dict[str, str] = {
+    "autocreate-from-commits": "conventional-commits",
+    "autocreate-from-tags": "git-tags",
+    "autocreate-from-github": "github-integration",
+    "autocreate-from-prs": "github-integration",
+    "fragment-assembly": "news-fragments",
+    "version-bump": "semantic-versioning",
+    "changelog-file": "keep-a-changelog",
+    "release-notes": "release-notes",
+    "github-release": "github-integration",
+    "gitlab-release": "gitlab-integration",
+    "keep-a-changelog": "keep-a-changelog",
+    "conventional-commits": "conventional-commits",
+    "custom-templates": "custom-templates",
+    "validate": "validation",
+    "backfill": "backfill",
+    "monorepo": "monorepo",
+    "plugins": "extensible",
+    "package-publish": "package-publishing",
+    "draft-release": "draft-releases",
+    "milestones": "milestones",
+    "ci-integration": "ci-cd",
+}
+
+
+def tags_line(tool: dict) -> str:
+    caps = tool.get("_toml_capabilities") or []
+    tags = {CAP_TAG_LABELS[c] for c in caps if c in CAP_TAG_LABELS}
+    eco = tool.get("ecosystem", "")
+    if eco:
+        tags.add(eco.lower())
+    source_type = tool.get("_toml_source_type", "")
+    if source_type:
+        tags.add(source_type.replace("_", "-"))
+    return ", ".join(sorted(tags))
+
+
 def render_stub(tool: dict) -> str:
     name = tool.get("name", "")
     slug = tool.get("review_slug") or slugify(name)
@@ -166,13 +203,13 @@ def render_stub(tool: dict) -> str:
     install_text = install_snippet(tool)
     maintenance_text = maintenance_section(tool)
 
-    source_type = tool.get("_toml_source_type", "")
-    review_notes = ""  # not stored in tools.json currently — prose placeholder
+    tags = tags_line(tool)
 
     return f"""Title: {name}
 Date: 2026-05-31
 Slug: {slug}
 Ecosystem: {ecosystem}
+Tags: {tags}
 Tool_URL: {tool_url}
 Tool_Version: {version}
 Tool_Status: {article_status}

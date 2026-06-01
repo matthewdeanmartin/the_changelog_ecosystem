@@ -2,6 +2,7 @@ Title: org.jetbrains.changelog
 Date: 2026-05-31
 Slug: org-jetbrains-changelog
 Ecosystem: Java
+Tags: gradle-plugin, java, keep-a-changelog, release-notes
 Tool_URL: https://plugins.gradle.org/plugin/org.jetbrains.changelog
 Tool_Version: 2.5.0
 Tool_Status: active
@@ -65,7 +66,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2025-11-25**
 - GitHub stars: **297**
 - Appears actively maintained.
-- Repository: [https://github.com/JetBrains/gradle-changelog-plugin](https://github.com/JetBrains/gradle-changelog-plugin)
+- Repository: <a href="https://github.com/JetBrains/gradle-changelog-plugin" target="_blank" rel="noopener noreferrer">https://github.com/JetBrains/gradle-changelog-plugin</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

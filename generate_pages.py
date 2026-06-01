@@ -56,7 +56,7 @@ def _dist_link(tool: dict) -> str:
     template = DIST_URLS.get(dist)
     if template:
         url = template.format(id=pkg_id)
-        return f"[{dist}]({url})"
+        return f'<a href="{url}" target="_blank" rel="noopener noreferrer">{dist}</a>'
     return dist
 
 
@@ -121,7 +121,7 @@ def generate_tools_page(tools: list[dict]) -> str:
         review = _review_link(t)
         name = t.get("name", "")
         repo = t.get("repo")
-        name_cell = f"[{name}]({repo})" if repo else name
+        name_cell = f'<a href="{repo}" target="_blank" rel="noopener noreferrer">{name}</a>' if repo else name
         rows.append(f"| {name_cell} | {eco_label} | {version} | {date} | {stars} | {status} | {dist_link} | {review} |")
 
     table = "\n".join([

@@ -2,6 +2,7 @@ Title: release-it
 Date: 2026-05-31
 Slug: release-it
 Ecosystem: Node
+Tags: extensible, github-integration, gitlab-integration, node, npm-cli, package-publishing, semantic-versioning
 Tool_URL: https://www.npmjs.com/package/release-it
 Tool_Version: 20.2.0
 Tool_Status: active
@@ -65,7 +66,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-05-30**
 - GitHub stars: **8,966**
 - Appears actively maintained.
-- Repository: [https://github.com/release-it/release-it](https://github.com/release-it/release-it)
+- Repository: <a href="https://github.com/release-it/release-it" target="_blank" rel="noopener noreferrer">https://github.com/release-it/release-it</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

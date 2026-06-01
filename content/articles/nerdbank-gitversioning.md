@@ -2,6 +2,7 @@ Title: Nerdbank.GitVersioning
 Date: 2026-05-31
 Slug: nerdbank-gitversioning
 Ecosystem: Dotnet
+Tags: ci-cd, dotnet, nuget-msbuild-dotnet-tool
 Tool_URL: https://www.nuget.org/packages/Nerdbank.GitVersioning/
 Tool_Version: 3.10.44-alpha-g09c6831bf9
 Tool_Status: active
@@ -62,7 +63,7 @@ _TODO: assess ecosystem integration_
 - Last release: **1900-01-01**
 - GitHub stars: **1,563**
 - Last release was over 2 years ago — check if still maintained.
-- Repository: [https://github.com/dotnet/Nerdbank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning)
+- Repository: <a href="https://github.com/dotnet/Nerdbank.GitVersioning" target="_blank" rel="noopener noreferrer">https://github.com/dotnet/Nerdbank.GitVersioning</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

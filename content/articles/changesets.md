@@ -2,6 +2,7 @@ Title: Changesets
 Date: 2026-05-31
 Slug: changesets
 Ecosystem: Node
+Tags: keep-a-changelog, monorepo, news-fragments, node, npm-cli, package-publishing, semantic-versioning
 Tool_URL: https://www.npmjs.com/package/@changesets/cli
 Tool_Version: 2.31.0
 Tool_Status: active
@@ -64,7 +65,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-04-17**
 - GitHub stars: **11,914**
 - Appears actively maintained.
-- Repository: [https://github.com/changesets/changesets#main](https://github.com/changesets/changesets#main)
+- Repository: <a href="https://github.com/changesets/changesets#main" target="_blank" rel="noopener noreferrer">https://github.com/changesets/changesets#main</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

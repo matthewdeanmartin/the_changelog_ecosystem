@@ -2,6 +2,7 @@ Title: logchange
 Date: 2026-05-31
 Slug: logchange
 Ecosystem: Cross
+Tags: cli, cross, keep-a-changelog, news-fragments, release-notes
 Tool_URL: https://github.com/logchange/logchange
 Tool_Version: 1.19.15
 Tool_Status: active
@@ -62,7 +63,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-05-13**
 - GitHub stars: **71**
 - Appears actively maintained.
-- Repository: [https://github.com/logchange/logchange](https://github.com/logchange/logchange)
+- Repository: <a href="https://github.com/logchange/logchange" target="_blank" rel="noopener noreferrer">https://github.com/logchange/logchange</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

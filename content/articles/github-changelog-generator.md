@@ -2,6 +2,7 @@ Title: github_changelog_generator
 Date: 2026-05-31
 Slug: github-changelog-generator
 Ecosystem: Ruby
+Tags: backfill, github-integration, keep-a-changelog, ruby, ruby-gem-cli
 Tool_URL: https://rubygems.org/gems/github_changelog_generator
 Tool_Version: 1.18.0
 Tool_Status: unmaintained
@@ -63,7 +64,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-03-18**
 - GitHub stars: **7,525**
 - Appears actively maintained.
-- Repository: [https://github.com/github-changelog-generator/github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator)
+- Repository: <a href="https://github.com/github-changelog-generator/github-changelog-generator" target="_blank" rel="noopener noreferrer">https://github.com/github-changelog-generator/github-changelog-generator</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

@@ -2,6 +2,7 @@ Title: versionize
 Date: 2026-05-31
 Slug: versionize
 Ecosystem: Dotnet
+Tags: conventional-commits, dotnet, dotnet-tool, keep-a-changelog, semantic-versioning
 Tool_URL: https://www.nuget.org/packages/versionize/
 Tool_Version: 2.5.0
 Tool_Status: active
@@ -62,7 +63,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-02-01**
 - GitHub stars: **373**
 - Appears actively maintained.
-- Repository: [https://github.com/versionize/versionize](https://github.com/versionize/versionize)
+- Repository: <a href="https://github.com/versionize/versionize" target="_blank" rel="noopener noreferrer">https://github.com/versionize/versionize</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

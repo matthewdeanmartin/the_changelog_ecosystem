@@ -2,6 +2,7 @@ Title: GitHub Automatically Generated Release Notes
 Date: 2026-05-31
 Slug: github-automatically-generated-release-notes
 Ecosystem: Cross
+Tags: cross, github-integration, platform-feature
 Tool_URL: https://github.com/en/repositories
 Tool_Version: unknown
 Tool_Status: active

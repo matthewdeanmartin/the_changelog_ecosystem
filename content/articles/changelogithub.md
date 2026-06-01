@@ -2,6 +2,7 @@ Title: changelogithub
 Date: 2026-05-31
 Slug: changelogithub
 Ecosystem: Node
+Tags: conventional-commits, github-integration, node, npm-cli, release-notes
 Tool_URL: https://www.npmjs.com/package/changelogithub
 Tool_Version: 14.0.0
 Tool_Status: active
@@ -64,7 +65,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2025-11-25**
 - GitHub stars: **931**
 - Appears actively maintained.
-- Repository: [https://github.com/antfu/changelogithub](https://github.com/antfu/changelogithub)
+- Repository: <a href="https://github.com/antfu/changelogithub" target="_blank" rel="noopener noreferrer">https://github.com/antfu/changelogithub</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

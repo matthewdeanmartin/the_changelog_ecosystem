@@ -2,6 +2,7 @@ Title: GitHub/GitLab + git-cliff/Changie pattern
 Date: 2026-05-31
 Slug: github-gitlab-git-cliff-changie-pattern
 Ecosystem: Cpp
+Tags: backfill, conventional-commits, cpp, github-integration, gitlab-integration, news-fragments, workflow-pattern
 Tool_URL: https://git-cliff.org/
 Tool_Version: unknown
 Tool_Status: active

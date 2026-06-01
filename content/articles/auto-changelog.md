@@ -2,6 +2,7 @@ Title: auto-changelog
 Date: 2026-05-31
 Slug: auto-changelog
 Ecosystem: Node
+Tags: backfill, conventional-commits, git-tags, node, npm-cli
 Tool_URL: https://www.npmjs.com/package/auto-changelog
 Tool_Version: 2.6.0
 Tool_Status: unmaintained
@@ -63,7 +64,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-05-29**
 - GitHub stars: **1,385**
 - Appears actively maintained.
-- Repository: [https://github.com/CookPete/auto-changelog](https://github.com/CookPete/auto-changelog)
+- Repository: <a href="https://github.com/CookPete/auto-changelog" target="_blank" rel="noopener noreferrer">https://github.com/CookPete/auto-changelog</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

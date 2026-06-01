@@ -2,6 +2,7 @@ Title: @changesets/changelog-github
 Date: 2026-05-31
 Slug: changesets-changelog-github
 Ecosystem: Node
+Tags: node, npm-plugin
 Tool_URL: https://www.npmjs.com/package/@changesets/changelog-github
 Tool_Version: 0.7.0
 Tool_Status: active
@@ -63,7 +64,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-05-05**
 - GitHub stars: **11,914**
 - Appears actively maintained.
-- Repository: [https://github.com/changesets/changesets#main](https://github.com/changesets/changesets#main)
+- Repository: <a href="https://github.com/changesets/changesets#main" target="_blank" rel="noopener noreferrer">https://github.com/changesets/changesets#main</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

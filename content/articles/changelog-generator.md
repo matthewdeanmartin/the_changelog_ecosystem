@@ -2,6 +2,7 @@ Title: changelog-generator
 Date: 2026-05-31
 Slug: changelog-generator
 Ecosystem: Go
+Tags: conventional-commits, go, go-cli-library, release-notes
 Tool_URL: https://github.com/gabe565/changelog-generator
 Tool_Version: 1.1.5
 Tool_Status: active
@@ -62,7 +63,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2025-03-02**
 - GitHub stars: **4**
 - Appears actively maintained.
-- Repository: [https://github.com/gabe565/changelog-generator](https://github.com/gabe565/changelog-generator)
+- Repository: <a href="https://github.com/gabe565/changelog-generator" target="_blank" rel="noopener noreferrer">https://github.com/gabe565/changelog-generator</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

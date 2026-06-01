@@ -38,11 +38,12 @@ PAGE_SAVE_AS = '{slug}/index.html'
 ARTICLE_URL = 'reviews/{slug}/'
 ARTICLE_SAVE_AS = 'reviews/{slug}/index.html'
 
-DIRECT_TEMPLATES = ['index']
+DIRECT_TEMPLATES = ['index', 'tags']
 ARCHIVES_SAVE_AS = ''
 AUTHOR_SAVE_AS = ''
 AUTHORS_SAVE_AS = ''
 CATEGORY_SAVE_AS = ''
 CATEGORIES_SAVE_AS = ''
-TAG_SAVE_AS = ''
-TAGS_SAVE_AS = ''
+TAG_URL = 'tag/{slug}/'
+TAG_SAVE_AS = 'tag/{slug}/index.html'
+TAGS_SAVE_AS = 'tags/index.html'

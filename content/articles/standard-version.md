@@ -2,6 +2,7 @@ Title: standard-version
 Date: 2026-05-31
 Slug: standard-version
 Ecosystem: Node
+Tags: conventional-commits, keep-a-changelog, node, npm-cli, semantic-versioning
 Tool_URL: https://www.npmjs.com/package/standard-version
 Tool_Version: 9.5.0
 Tool_Status: unmaintained
@@ -63,7 +64,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2022-05-15**
 - GitHub stars: **7,974**
 - Project is in **legacy/maintenance mode** — no active feature development.
-- Repository: [https://github.com/conventional-changelog/standard-version](https://github.com/conventional-changelog/standard-version)
+- Repository: <a href="https://github.com/conventional-changelog/standard-version" target="_blank" rel="noopener noreferrer">https://github.com/conventional-changelog/standard-version</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

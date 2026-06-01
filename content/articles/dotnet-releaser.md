@@ -2,6 +2,7 @@ Title: dotnet-releaser
 Date: 2026-05-31
 Slug: dotnet-releaser
 Ecosystem: Dotnet
+Tags: dotnet, dotnet-tool, github-integration, release-notes
 Tool_URL: https://www.nuget.org/packages/dotnet-releaser/
 Tool_Version: 0.21.0
 Tool_Status: active
@@ -63,7 +64,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-05-22**
 - GitHub stars: **767**
 - Appears actively maintained.
-- Repository: [https://github.com/xoofx/dotnet-releaser](https://github.com/xoofx/dotnet-releaser)
+- Repository: <a href="https://github.com/xoofx/dotnet-releaser" target="_blank" rel="noopener noreferrer">https://github.com/xoofx/dotnet-releaser</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

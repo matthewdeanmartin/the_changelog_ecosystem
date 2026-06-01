@@ -2,6 +2,7 @@ Title: maven-changelog-plugin
 Date: 2026-05-31
 Slug: maven-changelog-plugin
 Ecosystem: Java
+Tags: java, maven-plugin
 Tool_URL: https://search.maven.org/artifact/maven-changelog-plugin
 Tool_Version: unknown
 Tool_Status: unmaintained

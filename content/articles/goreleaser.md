@@ -2,6 +2,7 @@ Title: goreleaser
 Date: 2026-05-31
 Slug: goreleaser
 Ecosystem: Go
+Tags: github-integration, gitlab-integration, go, go-cli-ci
 Tool_URL: https://github.com/goreleaser/goreleaser
 Tool_Version: 2.16.0
 Tool_Status: active
@@ -64,7 +65,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-05-24**
 - GitHub stars: **15,830**
 - Appears actively maintained.
-- Repository: [https://github.com/goreleaser/goreleaser](https://github.com/goreleaser/goreleaser)
+- Repository: <a href="https://github.com/goreleaser/goreleaser" target="_blank" rel="noopener noreferrer">https://github.com/goreleaser/goreleaser</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

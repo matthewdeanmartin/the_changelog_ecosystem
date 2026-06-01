@@ -2,6 +2,7 @@ Title: conventional-changelog
 Date: 2026-05-31
 Slug: conventional-changelog
 Ecosystem: Node
+Tags: conventional-commits, keep-a-changelog, node, npm-cli-library, release-notes, semantic-versioning
 Tool_URL: https://www.npmjs.com/package/conventional-changelog
 Tool_Version: 7.2.0
 Tool_Status: active
@@ -64,7 +65,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-03-01**
 - GitHub stars: **8,450**
 - Appears actively maintained.
-- Repository: [https://github.com/conventional-changelog/conventional-changelog](https://github.com/conventional-changelog/conventional-changelog)
+- Repository: <a href="https://github.com/conventional-changelog/conventional-changelog" target="_blank" rel="noopener noreferrer">https://github.com/conventional-changelog/conventional-changelog</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

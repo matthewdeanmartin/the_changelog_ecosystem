@@ -2,6 +2,7 @@ Title: GitReleaseNotes
 Date: 2026-05-31
 Slug: gitreleasenotes
 Ecosystem: Dotnet
+Tags: dotnet, dotnet-tool, release-notes
 Tool_URL: https://www.nuget.org/packages/GitReleaseNotes/
 Tool_Version: 0.7.1
 Tool_Status: unmaintained
@@ -62,7 +63,7 @@ _TODO: assess ecosystem integration_
 - Last release: **1900-01-01**
 - GitHub stars: **171**
 - Last release was over 2 years ago — check if still maintained.
-- Repository: [https://github.com/GitTools/GitReleaseNotes](https://github.com/GitTools/GitReleaseNotes)
+- Repository: <a href="https://github.com/GitTools/GitReleaseNotes" target="_blank" rel="noopener noreferrer">https://github.com/GitTools/GitReleaseNotes</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

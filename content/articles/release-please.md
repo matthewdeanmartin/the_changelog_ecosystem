@@ -2,6 +2,7 @@ Title: release-please
 Date: 2026-05-31
 Slug: release-please
 Ecosystem: Cross
+Tags: conventional-commits, cross, github-action-cli, github-integration, semantic-versioning
 Tool_URL: https://github.com/googleapis/release-please-action
 Tool_Version: 5.0.0
 Tool_Status: active
@@ -63,7 +64,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-04-22**
 - GitHub stars: **2,415**
 - Appears actively maintained.
-- Repository: [https://github.com/googleapis/release-please-action](https://github.com/googleapis/release-please-action)
+- Repository: <a href="https://github.com/googleapis/release-please-action" target="_blank" rel="noopener noreferrer">https://github.com/googleapis/release-please-action</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

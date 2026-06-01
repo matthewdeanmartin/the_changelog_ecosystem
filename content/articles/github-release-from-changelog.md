@@ -2,6 +2,7 @@ Title: github-release-from-changelog
 Date: 2026-05-31
 Slug: github-release-from-changelog
 Ecosystem: Node
+Tags: github-integration, node, npm-cli
 Tool_URL: https://www.npmjs.com/package/github-release-from-changelog
 Tool_Version: 2.1.1
 Tool_Status: unmaintained
@@ -62,7 +63,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2020-02-18**
 - GitHub stars: **64**
 - Last release was over 2 years ago — check if still maintained.
-- Repository: [https://github.com/MoOx/github-release-from-changelog](https://github.com/MoOx/github-release-from-changelog)
+- Repository: <a href="https://github.com/MoOx/github-release-from-changelog" target="_blank" rel="noopener noreferrer">https://github.com/MoOx/github-release-from-changelog</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

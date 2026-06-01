@@ -2,6 +2,7 @@ Title: changie
 Date: 2026-05-31
 Slug: changie
 Ecosystem: Go
+Tags: go, go-cli, keep-a-changelog, news-fragments
 Tool_URL: https://github.com/miniscruff/changie
 Tool_Version: 1.24.0
 Tool_Status: active
@@ -63,7 +64,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2025-11-22**
 - GitHub stars: **879**
 - Appears actively maintained.
-- Repository: [https://github.com/miniscruff/changie](https://github.com/miniscruff/changie)
+- Repository: <a href="https://github.com/miniscruff/changie" target="_blank" rel="noopener noreferrer">https://github.com/miniscruff/changie</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

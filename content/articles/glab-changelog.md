@@ -2,6 +2,7 @@ Title: glab changelog
 Date: 2026-05-31
 Slug: glab-changelog
 Ecosystem: Cross
+Tags: cli, cross, gitlab-integration
 Tool_URL: https://gitlab.com/gitlab-org/cli
 Tool_Version: unknown
 Tool_Status: active
@@ -59,7 +60,7 @@ _TODO: assess ecosystem integration_
 - Latest version: **unknown**
 - Last release: **unknown**
 - Appears actively maintained.
-- Repository: [https://github.com/gitlab-org/cli](https://github.com/gitlab-org/cli)
+- Repository: <a href="https://github.com/gitlab-org/cli" target="_blank" rel="noopener noreferrer">https://github.com/gitlab-org/cli</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

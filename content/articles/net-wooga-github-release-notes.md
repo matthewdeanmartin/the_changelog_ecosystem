@@ -2,6 +2,7 @@ Title: net.wooga.github-release-notes
 Date: 2026-05-31
 Slug: net-wooga-github-release-notes
 Ecosystem: Java
+Tags: github-integration, gradle-plugin, java, release-notes
 Tool_URL: https://plugins.gradle.org/plugin/net.wooga.github-release-notes
 Tool_Version: 4.1.1
 Tool_Status: unmaintained
@@ -63,7 +64,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2024-01-16**
 - GitHub stars: **0**
 - Appears actively maintained.
-- Repository: [https://github.com/wooga/atlas-release](https://github.com/wooga/atlas-release)
+- Repository: <a href="https://github.com/wooga/atlas-release" target="_blank" rel="noopener noreferrer">https://github.com/wooga/atlas-release</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

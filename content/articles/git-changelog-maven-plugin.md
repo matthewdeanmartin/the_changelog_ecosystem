@@ -2,6 +2,7 @@ Title: git-changelog-maven-plugin
 Date: 2026-05-31
 Slug: git-changelog-maven-plugin
 Ecosystem: Java
+Tags: java, maven-plugin, release-notes
 Tool_URL: https://search.maven.org/artifact/se.bjurr.gitchangelog/git-changelog-maven-plugin
 Tool_Version: 2.2.11
 Tool_Status: active
@@ -66,7 +67,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2025-07-29**
 - GitHub stars: **93**
 - Appears actively maintained.
-- Repository: [https://github.com/tomasbjerre/git-changelog-maven-plugin](https://github.com/tomasbjerre/git-changelog-maven-plugin)
+- Repository: <a href="https://github.com/tomasbjerre/git-changelog-maven-plugin" target="_blank" rel="noopener noreferrer">https://github.com/tomasbjerre/git-changelog-maven-plugin</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

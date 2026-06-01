@@ -439,3 +439,57 @@ tr:nth-child(even) td {
         padding: 1rem;
     }
 }
+
+/* ── Tag cloud ─────────────────────────────────────────────────────────────── */
+
+.tag-cloud {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--panel);
+    border-radius: 8px;
+}
+
+.tag-cloud__tag {
+    display: inline-block;
+    margin: 0.2rem 0.15rem;
+    padding: 0.2rem 0.55rem;
+    background: var(--border);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.tag-cloud__tag:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.tag-cloud--large .tag-cloud__tag {
+    font-size: 0.875rem;
+    padding: 0.3rem 0.75rem;
+}
+
+.tag-count {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+.tag-section {
+    margin-top: 2rem;
+}
+
+.review-list {
+    list-style: none;
+    padding: 0;
+}
+
+.review-list li {
+    margin: 0.5rem 0;
+}
+
+.review-summary {
+    color: var(--muted);
+    font-size: 0.875rem;
+}

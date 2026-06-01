@@ -2,6 +2,7 @@ Title: Keep a Changelog
 Date: 2026-05-31
 Slug: keep-a-changelog
 Ecosystem: Cross
+Tags: keep-a-changelog, node, npm-library
 Tool_URL: https://keepachangelog.com/en/1.1.0/
 Tool_Version: unknown
 Tool_Status: active

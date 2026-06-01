@@ -2,6 +2,7 @@ Title: commit-and-tag-version
 Date: 2026-05-31
 Slug: commit-and-tag-version
 Ecosystem: Node
+Tags: conventional-commits, keep-a-changelog, node, npm-cli, semantic-versioning
 Tool_URL: https://www.npmjs.com/package/commit-and-tag-version
 Tool_Version: 12.7.3
 Tool_Status: active
@@ -63,7 +64,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-05-08**
 - GitHub stars: **624**
 - Appears actively maintained.
-- Repository: [https://github.com/absolute-version/commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version)
+- Repository: <a href="https://github.com/absolute-version/commit-and-tag-version" target="_blank" rel="noopener noreferrer">https://github.com/absolute-version/commit-and-tag-version</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

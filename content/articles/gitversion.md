@@ -2,6 +2,7 @@ Title: GitVersion
 Date: 2026-05-31
 Slug: gitversion
 Ecosystem: Dotnet
+Tags: ci-cd, dotnet, dotnet-tool-msbuild
 Tool_URL: https://www.nuget.org/packages/GitVersion.Tool/
 Tool_Version: 6.7.0
 Tool_Status: active
@@ -61,7 +62,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-03-23**
 - GitHub stars: **3,118**
 - Appears actively maintained.
-- Repository: [https://github.com/GitTools/GitVersion](https://github.com/GitTools/GitVersion)
+- Repository: <a href="https://github.com/GitTools/GitVersion" target="_blank" rel="noopener noreferrer">https://github.com/GitTools/GitVersion</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 

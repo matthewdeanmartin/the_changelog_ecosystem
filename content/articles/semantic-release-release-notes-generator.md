@@ -2,6 +2,7 @@ Title: @semantic-release/release-notes-generator
 Date: 2026-05-31
 Slug: semantic-release-release-notes-generator
 Ecosystem: Node
+Tags: node, npm-plugin, release-notes
 Tool_URL: https://www.npmjs.com/package/@semantic-release/release-notes-generator
 Tool_Version: 14.1.1
 Tool_Status: active
@@ -62,7 +63,7 @@ _TODO: assess ecosystem integration_
 - Last release: **2026-05-08**
 - GitHub stars: **363**
 - Appears actively maintained.
-- Repository: [https://github.com/semantic-release/release-notes-generator](https://github.com/semantic-release/release-notes-generator)
+- Repository: <a href="https://github.com/semantic-release/release-notes-generator" target="_blank" rel="noopener noreferrer">https://github.com/semantic-release/release-notes-generator</a>
 
 <!-- TODO: check open issue count, PR responsiveness, release cadence -->
 
