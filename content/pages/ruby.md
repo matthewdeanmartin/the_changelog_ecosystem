@@ -4,7 +4,7 @@ Slug: ruby
 sortorder: 15
 Summary: Changelog and release management tools for Ruby.
 
-## Reviewed (0)
+## Reviewed (1)
+- **[github_changelog_generator](/reviews/github-changelog-generator/)** — Ruby CLI/gem that generates CHANGELOG.md from GitHub tags, issues, labels, and merged pull requests.
 
-## On the Radar (1)
-- [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator) — Ruby CLI/gem that generates CHANGELOG.md from GitHub tags, issues, labels, and merged pull requests.
+## On the Radar (0)

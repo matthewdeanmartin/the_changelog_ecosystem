@@ -16,7 +16,14 @@
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "workflow-pattern",
-    "_toml_url": "https://git-cliff.org/"
+    "_toml_url": "https://git-cliff.org/",
+    "_toml_capabilities": [
+      "autocreate-from-commits",
+      "fragment-assembly",
+      "github-release",
+      "gitlab-release",
+      "backfill"
+    ]
   },
   {
     "id": "create-release-notes-from-changelog",
@@ -26,16 +33,21 @@
     "package_id": "marketplace/actions",
     "repo": "https://github.com/rhysd/changelog-from-release",
     "description": "GitHub Action that extracts release notes from CHANGELOG.md, optionally combines a static header, and writes RELEASE.md.",
-    "latest_version": null,
-    "last_release_date": null,
-    "stars": null,
-    "archived": null,
-    "reviewed": false,
-    "review_slug": null,
+    "latest_version": "3.9.1",
+    "last_release_date": "2025-10-19",
+    "stars": 112,
+    "archived": false,
+    "reviewed": true,
+    "review_slug": "create-release-notes-from-changelog",
     "_toml_status": "active",
     "_toml_priority": "secondary",
     "_toml_source_type": "github-action",
-    "_toml_url": "https://github.com/marketplace/actions/create-release-notes-from-changelog"
+    "_toml_url": "https://github.com/marketplace/actions/create-release-notes-from-changelog",
+    "_toml_capabilities": [
+      "changelog-to-release-notes",
+      "extract-version-section",
+      "github-action"
+    ]
   },
   {
     "id": "github-generated-release-notes",
@@ -49,12 +61,18 @@
     "last_release_date": null,
     "stars": null,
     "archived": null,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "github-automatically-generated-release-notes",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "platform-feature",
-    "_toml_url": "https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes"
+    "_toml_url": "https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes",
+    "_toml_capabilities": [
+      "github-release",
+      "autocreate-from-prs",
+      "contributors",
+      "backfill-helper"
+    ]
   },
   {
     "id": "gitlab-changelogs",
@@ -68,12 +86,19 @@
     "last_release_date": null,
     "stars": null,
     "archived": null,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "gitlab-changelogs",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "platform-feature-api",
-    "_toml_url": "https://docs.gitlab.com/user/project/changelogs/"
+    "_toml_url": "https://docs.gitlab.com/user/project/changelogs/",
+    "_toml_capabilities": [
+      "gitlab-release",
+      "autocreate-from-commits",
+      "git-trailers",
+      "changelog-api",
+      "custom-templates"
+    ]
   },
   {
     "id": "keep-a-changelog",
@@ -87,12 +112,17 @@
     "last_release_date": null,
     "stars": null,
     "archived": null,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "keep-a-changelog",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "standard",
-    "_toml_url": "https://keepachangelog.com/en/1.1.0/"
+    "_toml_url": "https://keepachangelog.com/en/1.1.0/",
+    "_toml_capabilities": [
+      "format-standard",
+      "manual-authoring",
+      "validation-target"
+    ]
   },
   {
     "id": "release-drafter",
@@ -106,12 +136,19 @@
     "last_release_date": "2026-05-25",
     "stars": 3879,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "release-drafter",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "github-action",
-    "_toml_url": "https://github.com/release-drafter/release-drafter"
+    "_toml_url": "https://github.com/release-drafter/release-drafter",
+    "_toml_capabilities": [
+      "github-release",
+      "draft-release",
+      "pull-request-labels",
+      "release-notes",
+      "categorization"
+    ]
   },
   {
     "id": "changelog-from-release",
@@ -125,12 +162,17 @@
     "last_release_date": "2025-10-19",
     "stars": 112,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "changelog-from-release",
     "_toml_status": "mature",
     "_toml_priority": "secondary",
     "_toml_source_type": "cli",
-    "_toml_url": "https://github.com/rhysd/changelog-from-release"
+    "_toml_url": "https://github.com/rhysd/changelog-from-release",
+    "_toml_capabilities": [
+      "backfill",
+      "github-releases-to-changelog",
+      "markdown"
+    ]
   },
   {
     "id": "glab-changelog",
@@ -144,12 +186,19 @@
     "last_release_date": null,
     "stars": null,
     "archived": null,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "glab-changelog",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "cli",
-    "_toml_url": "https://docs.gitlab.com/cli/changelog/generate/"
+    "_toml_url": "https://docs.gitlab.com/cli/changelog/generate/",
+    "_toml_capabilities": [
+      "gitlab-release",
+      "changelog-generate",
+      "commit-range",
+      "config-file",
+      "automation"
+    ]
   },
   {
     "id": "glab-release",
@@ -163,12 +212,19 @@
     "last_release_date": null,
     "stars": null,
     "archived": null,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "glab-release",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "cli",
-    "_toml_url": "https://docs.gitlab.com/cli/release/create/"
+    "_toml_url": "https://docs.gitlab.com/cli/release/create/",
+    "_toml_capabilities": [
+      "gitlab-release",
+      "create-release",
+      "update-release",
+      "notes-from-file",
+      "ci-automation"
+    ]
   },
   {
     "id": "logchange",
@@ -182,12 +238,18 @@
     "last_release_date": "2026-05-13",
     "stars": 71,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "logchange",
     "_toml_status": "active",
     "_toml_priority": "secondary",
     "_toml_source_type": "cli",
-    "_toml_url": "https://github.com/logchange/logchange"
+    "_toml_url": "https://github.com/logchange/logchange",
+    "_toml_capabilities": [
+      "fragment-assembly",
+      "yaml-fragments",
+      "changelog-file",
+      "release-notes"
+    ]
   },
   {
     "id": "gitlab-release-cli",
@@ -201,12 +263,17 @@
     "last_release_date": null,
     "stars": null,
     "archived": true,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "release-cli",
     "_toml_status": "deprecated",
     "_toml_priority": "important",
     "_toml_source_type": "cli",
-    "_toml_url": "https://docs.gitlab.com/user/project/releases/release_cli/"
+    "_toml_url": "https://docs.gitlab.com/user/project/releases/release_cli/",
+    "_toml_capabilities": [
+      "gitlab-release",
+      "create-release",
+      "ci-automation"
+    ]
   },
   {
     "id": "release-please",
@@ -220,12 +287,19 @@
     "last_release_date": "2026-04-22",
     "stars": 2415,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "release-please",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "github-action-cli",
-    "_toml_url": "https://github.com/googleapis/release-please"
+    "_toml_url": "https://github.com/googleapis/release-please",
+    "_toml_capabilities": [
+      "autocreate-from-commits",
+      "version-bump",
+      "changelog-update",
+      "github-release",
+      "release-pr"
+    ]
   },
   {
     "id": "gitreleasemanager",
@@ -239,12 +313,19 @@
     "last_release_date": "2025-04-03",
     "stars": 323,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "gitreleasemanager",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "dotnet-tool",
-    "_toml_url": "https://github.com/GitTools/GitReleaseManager"
+    "_toml_url": "https://github.com/GitTools/GitReleaseManager",
+    "_toml_capabilities": [
+      "github-release",
+      "draft-release",
+      "milestones",
+      "assets",
+      "export-release-notes"
+    ]
   },
   {
     "id": "gitreleasenotes",
@@ -255,15 +336,22 @@
     "repo": "https://github.com/GitTools/GitReleaseNotes",
     "description": "GitTools utility for generating release notes from GitHub, Jira, and YouTrack project data.",
     "latest_version": "0.7.1",
-    "last_release_date": "2018-07-03",
+    "last_release_date": "1900-01-01",
     "stars": 171,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "gitreleasenotes",
     "_toml_status": "mature",
     "_toml_priority": "important",
     "_toml_source_type": "dotnet-tool",
-    "_toml_url": "https://github.com/GitTools/GitReleaseNotes"
+    "_toml_url": "https://github.com/GitTools/GitReleaseNotes",
+    "_toml_capabilities": [
+      "release-notes",
+      "github",
+      "jira",
+      "youtrack",
+      "templates"
+    ]
   },
   {
     "id": "gitversion",
@@ -277,12 +365,18 @@
     "last_release_date": "2026-03-23",
     "stars": 3118,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "gitversion",
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "dotnet-tool-msbuild",
-    "_toml_url": "https://gitversion.net/docs/"
+    "_toml_url": "https://gitversion.net/docs/",
+    "_toml_capabilities": [
+      "version-compute",
+      "semver",
+      "git-history",
+      "ci-integration"
+    ]
   },
   {
     "id": "nerdbank-gitversioning",
@@ -292,16 +386,23 @@
     "package_id": "Nerdbank.GitVersioning",
     "repo": "https://github.com/dotnet/Nerdbank.GitVersioning",
     "description": "Microsoft/dotnet project for stamping assemblies, NuGet packages, VSIX, and other artifacts with Git-derived SemVer info",
-    "latest_version": "3.10.70",
-    "last_release_date": "2026-05-20",
+    "latest_version": "3.10.44-alpha-g09c6831bf9",
+    "last_release_date": "1900-01-01",
     "stars": 1563,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "nerdbank-gitversioning",
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "nuget-msbuild-dotnet-tool",
-    "_toml_url": "https://github.com/dotnet/Nerdbank.GitVersioning"
+    "_toml_url": "https://github.com/dotnet/Nerdbank.GitVersioning",
+    "_toml_capabilities": [
+      "version-compute",
+      "semver",
+      "msbuild",
+      "nuget-versioning",
+      "ci-integration"
+    ]
   },
   {
     "id": "dotnet-releaser",
@@ -315,12 +416,20 @@
     "last_release_date": "2026-05-22",
     "stars": 767,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "dotnet-releaser",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "dotnet-tool",
-    "_toml_url": "https://github.com/xoofx/dotnet-releaser"
+    "_toml_url": "https://github.com/xoofx/dotnet-releaser",
+    "_toml_capabilities": [
+      "release-orchestration",
+      "release-notes",
+      "github-release",
+      "nuget-publish",
+      "artifacts",
+      "coverage"
+    ]
   },
   {
     "id": "dotnet-versionize",
@@ -334,12 +443,19 @@
     "last_release_date": "2026-02-01",
     "stars": 373,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "versionize",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "dotnet-tool",
-    "_toml_url": "https://github.com/versionize/versionize"
+    "_toml_url": "https://github.com/versionize/versionize",
+    "_toml_capabilities": [
+      "autocreate-from-commits",
+      "conventional-commits",
+      "version-bump",
+      "changelog-file",
+      "nuget"
+    ]
   },
   {
     "id": "go-changelog-generator",
@@ -353,12 +469,18 @@
     "last_release_date": "2025-03-02",
     "stars": 4,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "changelog-generator",
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "go-cli-library",
-    "_toml_url": "https://pkg.go.dev/gabe565.com/changelog-generator"
+    "_toml_url": "https://pkg.go.dev/gabe565.com/changelog-generator",
+    "_toml_capabilities": [
+      "autocreate-from-commits",
+      "release-notes",
+      "github-action",
+      "goreleaser-like"
+    ]
   },
   {
     "name": "changie",
@@ -371,12 +493,19 @@
     "last_release_date": "2025-11-22",
     "stars": 879,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "changie",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "go-cli",
-    "_toml_url": "https://changie.dev/"
+    "_toml_url": "https://changie.dev/",
+    "_toml_capabilities": [
+      "fragment-assembly",
+      "version-management",
+      "changelog-file",
+      "customization",
+      "language-agnostic"
+    ]
   },
   {
     "id": "git-chglog",
@@ -390,12 +519,19 @@
     "last_release_date": "2023-02-15",
     "stars": 2874,
     "archived": true,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "git-chglog",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "go-cli",
-    "_toml_url": "https://github.com/git-chglog/git-chglog"
+    "_toml_url": "https://github.com/git-chglog/git-chglog",
+    "_toml_capabilities": [
+      "autocreate-from-commits",
+      "autocreate-from-tags",
+      "templates",
+      "backfill",
+      "conventional-commits"
+    ]
   },
   {
     "name": "goreleaser",
@@ -408,12 +544,20 @@
     "last_release_date": "2026-05-24",
     "stars": 15830,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "goreleaser",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "go-cli-ci",
-    "_toml_url": "https://goreleaser.com/"
+    "_toml_url": "https://goreleaser.com/",
+    "_toml_capabilities": [
+      "release-orchestration",
+      "changelog-generate",
+      "github-release",
+      "gitlab-release",
+      "gitea-release",
+      "artifacts"
+    ]
   },
   {
     "id": "spotless-changelog",
@@ -427,12 +571,19 @@
     "last_release_date": null,
     "stars": 48,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "com-diffplug-spotless-changelog",
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "gradle-plugin",
-    "_toml_url": "https://plugins.gradle.org/plugin/com.diffplug.spotless-changelog"
+    "_toml_url": "https://plugins.gradle.org/plugin/com.diffplug.spotless-changelog",
+    "_toml_capabilities": [
+      "validate",
+      "keep-a-changelog",
+      "version-compute",
+      "release-commit",
+      "git-tag"
+    ]
   },
   {
     "id": "git-changelog-maven-plugin",
@@ -446,12 +597,19 @@
     "last_release_date": "2025-07-29",
     "stars": 93,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "git-changelog-maven-plugin",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "maven-plugin",
-    "_toml_url": "https://github.com/tomasbjerre/git-changelog-maven-plugin"
+    "_toml_url": "https://github.com/tomasbjerre/git-changelog-maven-plugin",
+    "_toml_capabilities": [
+      "autocreate-from-git",
+      "maven-plugin",
+      "release-notes",
+      "jira",
+      "templates"
+    ]
   },
   {
     "id": "maven-changelog-plugin",
@@ -465,12 +623,18 @@
     "last_release_date": null,
     "stars": null,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "maven-changelog-plugin",
     "_toml_status": "mature",
     "_toml_priority": "must",
     "_toml_source_type": "maven-plugin",
-    "_toml_url": "https://maven.apache.org/plugins/maven-changelog-plugin/"
+    "_toml_url": "https://maven.apache.org/plugins/maven-changelog-plugin/",
+    "_toml_capabilities": [
+      "scm-report",
+      "maven-site",
+      "developer-activity",
+      "file-activity"
+    ]
   },
   {
     "id": "net-wooga-github-release-notes",
@@ -480,16 +644,21 @@
     "package_id": "net.wooga.github-release-notes",
     "repo": "https://github.com/wooga/atlas-release",
     "description": "Gradle plugin providing tasks and conventions for GitHub release-note messages.",
-    "latest_version": null,
-    "last_release_date": null,
-    "stars": null,
+    "latest_version": "4.1.1",
+    "last_release_date": "2024-01-16",
+    "stars": 0,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "net-wooga-github-release-notes",
     "_toml_status": "mature",
     "_toml_priority": "secondary",
     "_toml_source_type": "gradle-plugin",
-    "_toml_url": "https://plugins.gradle.org/plugin/net.wooga.github-release-notes"
+    "_toml_url": "https://plugins.gradle.org/plugin/net.wooga.github-release-notes",
+    "_toml_capabilities": [
+      "github-release",
+      "release-notes",
+      "gradle-task"
+    ]
   },
   {
     "id": "gradle-changelog-plugin",
@@ -503,12 +672,19 @@
     "last_release_date": "2025-11-25",
     "stars": 297,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "org-jetbrains-changelog",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "gradle-plugin",
-    "_toml_url": "https://github.com/JetBrains/gradle-changelog-plugin"
+    "_toml_url": "https://github.com/JetBrains/gradle-changelog-plugin",
+    "_toml_capabilities": [
+      "keep-a-changelog",
+      "gradle-task",
+      "patch-changelog",
+      "release-notes",
+      "intellij-plugin"
+    ]
   },
   {
     "id": "changesets-changelog-github",
@@ -516,7 +692,7 @@
     "ecosystem": "node",
     "distribution": "npm",
     "package_id": "@changesets/changelog-github",
-    "repo": "https://github.com/changesets/changesets",
+    "repo": "https://github.com/changesets/changesets#main",
     "description": "Changesets changelog generator that links changelog entries to GitHub commits, PRs, and users.",
     "latest_version": "0.7.0",
     "last_release_date": "2026-05-05",
@@ -527,7 +703,13 @@
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "npm-plugin",
-    "_toml_url": "https://www.npmjs.com/package/@changesets/changelog-github"
+    "_toml_url": "https://www.npmjs.com/package/@changesets/changelog-github",
+    "_toml_capabilities": [
+      "changelog-template",
+      "github-links",
+      "pull-requests",
+      "contributors"
+    ]
   },
   {
     "id": "semantic-release-release-notes-generator",
@@ -546,7 +728,12 @@
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "npm-plugin",
-    "_toml_url": "https://github.com/semantic-release/release-notes-generator"
+    "_toml_url": "https://github.com/semantic-release/release-notes-generator",
+    "_toml_capabilities": [
+      "release-notes",
+      "conventional-changelog",
+      "semantic-release-plugin"
+    ]
   },
   {
     "id": "changesets",
@@ -560,12 +747,19 @@
     "last_release_date": "2026-04-17",
     "stars": 11914,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "changesets",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "npm-cli",
-    "_toml_url": "https://github.com/changesets/changesets"
+    "_toml_url": "https://github.com/changesets/changesets",
+    "_toml_capabilities": [
+      "fragment-assembly",
+      "version-bump",
+      "monorepo",
+      "changelog-file",
+      "package-publish"
+    ]
   },
   {
     "id": "auto-changelog",
@@ -579,12 +773,18 @@
     "last_release_date": "2026-05-29",
     "stars": 1385,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "auto-changelog",
     "_toml_status": "mature",
     "_toml_priority": "important",
     "_toml_source_type": "npm-cli",
-    "_toml_url": "https://www.npmjs.com/package/auto-changelog"
+    "_toml_url": "https://www.npmjs.com/package/auto-changelog",
+    "_toml_capabilities": [
+      "autocreate-from-tags",
+      "autocreate-from-commits",
+      "templates",
+      "backfill"
+    ]
   },
   {
     "id": "changelogithub",
@@ -598,12 +798,19 @@
     "last_release_date": "2025-11-25",
     "stars": 931,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "changelogithub",
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "npm-cli",
-    "_toml_url": "https://github.com/antfu/changelogithub"
+    "_toml_url": "https://github.com/antfu/changelogithub",
+    "_toml_capabilities": [
+      "github-release",
+      "conventional-commits",
+      "release-notes",
+      "contributors",
+      "update-existing-release"
+    ]
   },
   {
     "id": "commit-and-tag-version",
@@ -617,12 +824,18 @@
     "last_release_date": "2026-05-08",
     "stars": 624,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "commit-and-tag-version",
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "npm-cli",
-    "_toml_url": "https://github.com/absolute-version/commit-and-tag-version"
+    "_toml_url": "https://github.com/absolute-version/commit-and-tag-version",
+    "_toml_capabilities": [
+      "version-bump",
+      "changelog-file",
+      "git-tag",
+      "conventional-commits"
+    ]
   },
   {
     "id": "conventional-changelog",
@@ -636,12 +849,19 @@
     "last_release_date": "2026-03-01",
     "stars": 8450,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "conventional-changelog",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "npm-cli-library",
-    "_toml_url": "https://github.com/conventional-changelog/conventional-changelog"
+    "_toml_url": "https://github.com/conventional-changelog/conventional-changelog",
+    "_toml_capabilities": [
+      "autocreate-from-commits",
+      "conventional-commits",
+      "release-notes",
+      "changelog-file",
+      "version-bump"
+    ]
   },
   {
     "name": "conventional-changelog-cli",
@@ -654,8 +874,8 @@
     "last_release_date": "2024-05-03",
     "stars": 8450,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null
+    "reviewed": true,
+    "review_slug": "conventional-changelog-cli"
   },
   {
     "id": "github-release-from-changelog",
@@ -669,12 +889,17 @@
     "last_release_date": "2020-02-18",
     "stars": 64,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "github-release-from-changelog",
     "_toml_status": "mature",
     "_toml_priority": "secondary",
     "_toml_source_type": "npm-cli",
-    "_toml_url": "https://www.npmjs.com/package/github-release-from-changelog"
+    "_toml_url": "https://www.npmjs.com/package/github-release-from-changelog",
+    "_toml_capabilities": [
+      "changelog-to-github-release",
+      "extract-version-section",
+      "github-release"
+    ]
   },
   {
     "id": "keep-a-changelog-npm",
@@ -688,12 +913,18 @@
     "last_release_date": "2026-05-22",
     "stars": 67,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "keep-a-changelog",
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "npm-library",
-    "_toml_url": "https://www.npmjs.com/package/keep-a-changelog"
+    "_toml_url": "https://www.npmjs.com/package/keep-a-changelog",
+    "_toml_capabilities": [
+      "parse",
+      "generate",
+      "keep-a-changelog",
+      "library"
+    ]
   },
   {
     "name": "release-it",
@@ -706,12 +937,20 @@
     "last_release_date": "2026-05-30",
     "stars": 8966,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "release-it",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "npm-cli",
-    "_toml_url": "https://github.com/release-it/release-it"
+    "_toml_url": "https://github.com/release-it/release-it",
+    "_toml_capabilities": [
+      "version-bump",
+      "changelog-preview",
+      "github-release",
+      "gitlab-release",
+      "package-publish",
+      "plugins"
+    ]
   },
   {
     "name": "semantic-release",
@@ -724,12 +963,21 @@
     "last_release_date": "2026-01-30",
     "stars": 23728,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "semantic-release",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "npm-cli-ci",
-    "_toml_url": "https://semantic-release.gitbook.io/semantic-release"
+    "_toml_url": "https://semantic-release.gitbook.io/semantic-release",
+    "_toml_capabilities": [
+      "autocreate-from-commits",
+      "version-bump",
+      "release-notes",
+      "package-publish",
+      "github-release",
+      "gitlab-release",
+      "plugins"
+    ]
   },
   {
     "name": "standard-version",
@@ -742,12 +990,18 @@
     "last_release_date": "2022-05-15",
     "stars": 7974,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "standard-version",
     "_toml_status": "legacy",
     "_toml_priority": "important",
     "_toml_source_type": "npm-cli",
-    "_toml_url": "https://github.com/conventional-changelog/standard-version"
+    "_toml_url": "https://github.com/conventional-changelog/standard-version",
+    "_toml_capabilities": [
+      "version-bump",
+      "changelog-file",
+      "git-tag",
+      "conventional-commits"
+    ]
   },
   {
     "id": "keepachangelog-python",
@@ -761,22 +1015,28 @@
     "last_release_date": "2024-06-14",
     "stars": 51,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "keepachangelog",
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "python-library-cli",
-    "_toml_url": "https://github.com/Colin-b/keepachangelog"
+    "_toml_url": "https://github.com/Colin-b/keepachangelog",
+    "_toml_capabilities": [
+      "parse",
+      "generate",
+      "release",
+      "keep-a-changelog"
+    ]
   },
   {
     "name": "keepachangelog-manager",
     "ecosystem": "python",
     "distribution": "pypi",
     "package_id": "keepachangelog-manager",
-    "repo": "https://github.com/matthewdeanmartin/keepachangelog-manager",
+    "repo": "https://github.com/tomtom-international/keepachangelog-manager",
     "description": "CLI for managing Keep a Changelog format files",
-    "latest_version": "5.2.0",
-    "last_release_date": "2026-05-30",
+    "latest_version": "4.0.0",
+    "last_release_date": "2025-06-10",
     "stars": 0,
     "archived": false,
     "reviewed": true,
@@ -784,7 +1044,14 @@
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "python-cli",
-    "_toml_url": "https://github.com/tomtom-international/keepachangelog-manager"
+    "_toml_url": "https://github.com/tomtom-international/keepachangelog-manager",
+    "_toml_capabilities": [
+      "validate",
+      "create",
+      "edit",
+      "release",
+      "keep-a-changelog"
+    ]
   },
   {
     "id": "reno",
@@ -792,18 +1059,25 @@
     "ecosystem": "python",
     "distribution": "pypi",
     "package_id": "reno",
-    "repo": "https://github.com/openstack/reno",
+    "repo": "https://docs.openstack.org/reno/latest/",
     "description": "OpenStack release-notes manager that stores note files and associates them with releases based on git tags.",
     "latest_version": "4.1.0",
     "last_release_date": "2024-03-04",
     "stars": 62,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "reno",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "python-cli-sphinx",
-    "_toml_url": "https://docs.openstack.org/reno/latest/"
+    "_toml_url": "https://docs.openstack.org/reno/latest/",
+    "_toml_capabilities": [
+      "fragment-assembly",
+      "release-notes",
+      "sphinx",
+      "git-tags",
+      "branch-aware"
+    ]
   },
   {
     "id": "scriv",
@@ -817,12 +1091,19 @@
     "last_release_date": "2025-12-30",
     "stars": 304,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "scriv",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "python-cli",
-    "_toml_url": "https://scriv.readthedocs.io/"
+    "_toml_url": "https://scriv.readthedocs.io/",
+    "_toml_capabilities": [
+      "fragment-assembly",
+      "changelog-file",
+      "edit",
+      "collect",
+      "pyproject-config"
+    ]
   },
   {
     "name": "towncrier",
@@ -835,12 +1116,19 @@
     "last_release_date": "2025-08-30",
     "stars": 899,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "towncrier",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "python-cli",
-    "_toml_url": "https://towncrier.readthedocs.io/"
+    "_toml_url": "https://towncrier.readthedocs.io/",
+    "_toml_capabilities": [
+      "fragment-assembly",
+      "changelog-file",
+      "release-notes",
+      "issue-links",
+      "markdown"
+    ]
   },
   {
     "id": "github-changelog-generator",
@@ -854,12 +1142,20 @@
     "last_release_date": "2026-03-18",
     "stars": 7525,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "github-changelog-generator",
     "_toml_status": "mature",
     "_toml_priority": "must",
     "_toml_source_type": "ruby-gem-cli",
-    "_toml_url": "https://github.com/github-changelog-generator/github-changelog-generator"
+    "_toml_url": "https://github.com/github-changelog-generator/github-changelog-generator",
+    "_toml_capabilities": [
+      "autocreate-from-github",
+      "issues",
+      "pull-requests",
+      "tags",
+      "backfill",
+      "changelog-file"
+    ]
   },
   {
     "id": "cargo-dist",
@@ -873,12 +1169,19 @@
     "last_release_date": "2026-05-22",
     "stars": 2044,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "cargo-dist",
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "cargo-subcommand-ci",
-    "_toml_url": "https://github.com/axodotdev/cargo-dist"
+    "_toml_url": "https://github.com/axodotdev/cargo-dist",
+    "_toml_capabilities": [
+      "release-orchestration",
+      "github-release",
+      "artifacts",
+      "installers",
+      "ci-generation"
+    ]
   },
   {
     "id": "cargo-release",
@@ -892,12 +1195,19 @@
     "last_release_date": "2026-03-24",
     "stars": 1560,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "cargo-release",
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "cargo-subcommand",
-    "_toml_url": "https://github.com/crate-ci/cargo-release"
+    "_toml_url": "https://github.com/crate-ci/cargo-release",
+    "_toml_capabilities": [
+      "version-bump",
+      "cargo-publish",
+      "git-tag",
+      "release-orchestration",
+      "pre-release-hooks"
+    ]
   },
   {
     "id": "cargo-smart-release",
@@ -911,26 +1221,33 @@
     "last_release_date": "2026-03-22",
     "stars": 119,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "cargo-smart-release",
     "_toml_status": "active",
     "_toml_priority": "important",
     "_toml_source_type": "cargo-subcommand",
-    "_toml_url": "https://github.com/GitoxideLabs/cargo-smart-release"
+    "_toml_url": "https://github.com/GitoxideLabs/cargo-smart-release",
+    "_toml_capabilities": [
+      "release-orchestration",
+      "workspace",
+      "changelog-scaffolding",
+      "cargo-publish",
+      "simulation"
+    ]
   },
   {
     "name": "changelog-rs",
     "ecosystem": "rust",
     "distribution": "crates.io",
     "package_id": "changelog",
-    "repo": "https://github.com/nickelc/changelog-rs",
+    "repo": "https://github.com/yoshuawuyts/changelog",
     "description": "Changelog management tool in Rust",
     "latest_version": "0.3.4",
     "last_release_date": "2020-03-02",
     "stars": null,
     "archived": null,
-    "reviewed": false,
-    "review_slug": null
+    "reviewed": true,
+    "review_slug": "changelog-rs"
   },
   {
     "name": "git-cliff",
@@ -943,12 +1260,19 @@
     "last_release_date": "2026-04-26",
     "stars": 11909,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "git-cliff",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "cli",
-    "_toml_url": "https://git-cliff.org/"
+    "_toml_url": "https://git-cliff.org/",
+    "_toml_capabilities": [
+      "autocreate-from-commits",
+      "conventional-commits",
+      "custom-templates",
+      "backfill",
+      "release-notes"
+    ]
   },
   {
     "id": "release-plz",
@@ -962,11 +1286,19 @@
     "last_release_date": "2026-05-10",
     "stars": 1379,
     "archived": false,
-    "reviewed": false,
-    "review_slug": null,
+    "reviewed": true,
+    "review_slug": "release-plz",
     "_toml_status": "active",
     "_toml_priority": "must",
     "_toml_source_type": "rust-cli-ci",
-    "_toml_url": "https://release-plz.dev/"
+    "_toml_url": "https://release-plz.dev/",
+    "_toml_capabilities": [
+      "release-pr",
+      "changelog-generate",
+      "version-bump",
+      "crates-io-publish",
+      "github-release",
+      "gitlab-release"
+    ]
   }
 ]

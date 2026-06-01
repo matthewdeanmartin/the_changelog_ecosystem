@@ -64,6 +64,18 @@ generate-pages:
 generate-pages-dry-run:
     uv run python generate_pages.py --dry-run
 
+# Generate stub review articles for all unreviewed tools
+stubs:
+    uv run python generate_review_stubs.py
+
+# Generate stubs for must-priority tools only
+stubs-must:
+    uv run python generate_review_stubs.py --priority must
+
+# Overwrite all existing stubs (use with care — destroys hand-written prose)
+stubs-force:
+    uv run python generate_review_stubs.py --overwrite
+
 # ── Site build ─────────────────────────────────────────────────────────────────
 
 # Build the Pelican site
