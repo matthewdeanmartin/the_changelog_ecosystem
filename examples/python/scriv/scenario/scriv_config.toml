@@ -1,0 +1,6 @@
+[tool.scriv]
+format = "md"
+changelog = "CHANGELOG.md"
+fragment_directory = "changelog.d"
+version = "literal: pyproject.toml: project.version"
+categories = "Added, Changed, Deprecated, Removed, Fixed, Security"

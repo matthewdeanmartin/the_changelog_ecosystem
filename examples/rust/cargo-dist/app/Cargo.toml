@@ -1,0 +1,9 @@
+[package]
+name = "tipcalc"
+version = "1.0.0"
+edition = "2021"
+description = "Restaurant tip calculator — fixture app for changelog tool experiments"
+
+[[bin]]
+name = "tipcalc"
+path = "src/main.rs"

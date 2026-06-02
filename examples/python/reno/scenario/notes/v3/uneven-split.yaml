@@ -1,0 +1,9 @@
+---
+features:
+  - |
+    Split the bill unevenly by per-person weights.
+    Output now lists each diner's individual share on its own line.
+upgrade:
+  - |
+    The output format changed: each diner's share is now printed on a separate
+    line instead of a single summary line. Scripts parsing stdout must be updated.

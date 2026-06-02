@@ -1,0 +1,5 @@
+---
+"tipcalc": minor
+---
+
+Split the bill evenly among a fixed number of diners

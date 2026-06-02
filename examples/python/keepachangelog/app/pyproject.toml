@@ -1,0 +1,13 @@
+[project]
+name = "tipcalc"
+version = "1.0.0"
+description = "Restaurant tip calculator — fixture app for changelog tool experiments"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+tipcalc = "tipcalc.__main__:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

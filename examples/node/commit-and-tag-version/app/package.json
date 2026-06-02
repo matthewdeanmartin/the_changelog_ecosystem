@@ -1,0 +1,13 @@
+{
+  "name": "tipcalc",
+  "version": "1.0.0",
+  "description": "Restaurant tip calculator — fixture app for changelog tool experiments",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/example/tipcalc"
+  }
+}

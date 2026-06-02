@@ -1,0 +1,5 @@
+---
+features:
+  - |
+    Compute the tip and total for a single restaurant bill.
+    All inputs are hard-coded constants; the program takes no arguments.

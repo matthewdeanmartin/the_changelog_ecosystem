@@ -1,0 +1,5 @@
+---
+features:
+  - |
+    Split the bill evenly among a fixed number of diners.
+    The per-person share is printed alongside the total.
