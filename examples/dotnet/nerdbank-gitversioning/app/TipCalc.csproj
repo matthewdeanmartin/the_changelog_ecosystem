@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Nerdbank.GitVersioning sets Version/AssemblyVersion from Git at build time. -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- MSBuild integration: stamps the assembly with Git-derived version at build time. -->
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.7.112" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

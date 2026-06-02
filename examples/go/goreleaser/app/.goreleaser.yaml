@@ -1,0 +1,35 @@
+version: 2
+project_name: tipcalc
+
+before:
+  hooks: []
+
+builds:
+  - id: tipcalc
+    main: .
+    binary: tipcalc
+    goos:
+      - linux
+    goarch:
+      - amd64
+
+archives:
+  - format: tar.gz
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+  groups:
+    - title: Features
+      regexp: "^feat"
+      order: 0
+    - title: Bug Fixes
+      regexp: "^fix"
+      order: 1
+    - title: Others
+      order: 999
