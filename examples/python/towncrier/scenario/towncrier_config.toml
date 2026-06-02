@@ -1,0 +1,19 @@
+# Appended to the app's pyproject.toml at STAGE 2 by run_experiment.sh.
+# Minimal towncrier config that targets a Markdown CHANGELOG.md and keeps news
+# fragments in newsfragments/.
+[tool.towncrier]
+package = "tipcalc"
+filename = "CHANGELOG.md"
+directory = "newsfragments"
+title_format = "## {version} ({project_date})"
+issue_format = "#{issue}"
+
+[[tool.towncrier.type]]
+directory = "feature"
+name = "Features"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "bugfix"
+name = "Bug Fixes"
+showcontent = true
