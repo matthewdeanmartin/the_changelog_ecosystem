@@ -4,8 +4,6 @@ Slug: decision-helper
 sortorder: 5
 Summary: An interactive tool to help you find the best changelog manager for your project.
 
-# Changelog Decision Helper
-
 Answer a few questions to find the most suitable tool for your workflow.
 
 <div id="decision-helper-app" class="helper-app">
@@ -13,62 +11,12 @@ Answer a few questions to find the most suitable tool for your workflow.
         <h2 id="question-text">Loading...</h2>
         <div id="options-container" class="options-grid"></div>
     </div>
-    <div id="result-container" style="display:none;">
+    <div id="result-container" hidden>
         <h2>Recommended Tools</h2>
         <div id="tools-list"></div>
-        <button onclick="resetHelper()" class="btn-reset">Start Over</button>
+        <button type="button" onclick="resetHelper()" class="btn-reset">Start Over</button>
     </div>
 </div>
-
-<style>
-.helper-app {
-    background: #f4f4f9;
-    padding: 2rem;
-    border-radius: 8px;
-    margin: 2rem 0;
-    border: 1px solid #ddd;
-}
-.options-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-.btn-option {
-    padding: 1rem;
-    background: white;
-    border: 2px solid #007bff;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: all 0.2s;
-    text-align: left;
-}
-.btn-option:hover {
-    background: #007bff;
-    color: white;
-}
-.btn-reset {
-    margin-top: 2rem;
-    padding: 0.5rem 1rem;
-    background: #6c757d;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.tool-card {
-    background: white;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-left: 4px solid #28a745;
-    border-radius: 0 4px 4px 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.tool-card h3 {
-    margin-top: 0;
-}
-</style>
 
 <script>
 const tools = [
@@ -141,6 +89,7 @@ function renderStep() {
 
     question.options.forEach(opt => {
         const btn = document.createElement('button');
+        btn.type = 'button';
         btn.className = 'btn-option';
         btn.innerText = opt.label;
         btn.onclick = () => {
@@ -153,8 +102,8 @@ function renderStep() {
 }
 
 function showResults() {
-    document.getElementById('question-container').style.display = 'none';
-    document.getElementById('result-container').style.display = 'block';
+    document.getElementById('question-container').hidden = true;
+    document.getElementById('result-container').hidden = false;
 
     const filtered = tools.filter(t => {
         const ecoMatch = t.ecosystem.includes(state.answers.ecosystem) || t.ecosystem.includes("cross");
@@ -188,8 +137,8 @@ function renderTools(toolsToRender, container) {
 
 function resetHelper() {
     state = { step: 0, answers: {} };
-    document.getElementById('question-container').style.display = 'block';
-    document.getElementById('result-container').style.display = 'none';
+    document.getElementById('question-container').hidden = false;
+    document.getElementById('result-container').hidden = true;
     renderStep();
 }
 
