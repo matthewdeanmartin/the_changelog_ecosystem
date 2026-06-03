@@ -119,6 +119,7 @@ quality-python-internal: html
     uv run python scripts/check_links.py --site-dir output --internal-only
 
 # Node-only gates: HTML validation, CSS browser support, accessibility
+# (the accessibility step skips itself on GitHub Actions because Chrome is not installed there)
 quality-node: html
     npm run quality
 

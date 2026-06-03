@@ -47,7 +47,8 @@ This runs the `npm run quality` suite:
 
 - `html-validate` for generated HTML.
 - `doiuse`-based browser support checks.
-- `pa11y` accessibility checks.
+- `pa11y` accessibility checks locally. On GitHub Actions, the accessibility step
+  exits early because the runner does not provision Chrome.
 
 ## GitHub Actions Hygiene
 

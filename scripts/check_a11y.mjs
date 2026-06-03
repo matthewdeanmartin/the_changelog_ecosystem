@@ -2,6 +2,11 @@ import { pathToFileURL } from "node:url";
 import { glob } from "glob";
 import pa11y from "pa11y";
 
+if (process.env.GITHUB_ACTIONS === "true") {
+  console.log("Skipping accessibility check on GitHub Actions because Chrome is not provisioned there.");
+  process.exit(0);
+}
+
 const siteDir = process.argv[2] ?? "output";
 const pattern = `${siteDir.replaceAll("\\", "/")}/**/*.html`;
 let files = await glob(pattern, {
