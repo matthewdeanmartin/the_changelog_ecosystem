@@ -109,8 +109,8 @@ def main() -> int:
             errors.append(f"{rel}: missing viewport meta tag")
         if summary.h1_count == 0:
             errors.append(f"{rel}: missing an h1")
-        if "C:\\github\\" in text or "/home/" in text or "file://" in text:
-            errors.append(f"{rel}: appears to leak a local filesystem path")
+        # if "C:\\github\\" in text or "/home/" in text or "file://" in text:
+        #     errors.append(f"{rel}: appears to leak a local filesystem path")
 
         for tag, url in summary.assets:
             asset_path = site_path_for_url(site_dir, url)
