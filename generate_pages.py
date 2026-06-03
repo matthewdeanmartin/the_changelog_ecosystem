@@ -69,7 +69,7 @@ def _status(tool: dict) -> str:
 
 def _review_link(tool: dict) -> str:
     if tool.get("reviewed") and tool.get("review_slug"):
-        return f'<a href="/reviews/{tool["review_slug"]}/">Review</a>'
+        return f'<a href="../reviews/{tool["review_slug"]}/">Review</a>'
     return "—"
 
 
@@ -191,7 +191,7 @@ def generate_ecosystem_page(ecosystem: str, tools: list[dict]) -> str:
         slug = t.get("review_slug")
         name = t.get("name", "")
         desc = t.get("description") or ""
-        link = f"[{name}](/reviews/{slug}/)" if slug else name
+        link = f"[{name}](../reviews/{slug}/)" if slug else name
         sections.append(f"- **{link}** — {desc}")
 
     if unreviewed:

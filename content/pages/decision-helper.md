@@ -130,7 +130,7 @@ function renderTools(toolsToRender, container) {
     toolsToRender.forEach(t => {
         const div = document.createElement('div');
         div.className = 'tool-card';
-        div.innerHTML = `<h3>${t.name}</h3><p>${t.desc}</p><a href="/reviews/${t.name}/">View Review</a>`;
+        div.innerHTML = `<h3>${t.name}</h3><p>${t.desc}</p><a href="../reviews/${t.name}/">View Review</a>`;
         container.appendChild(div);
     });
 }
