@@ -1,0 +1,8 @@
+# logchange change entry for the 3.0.0 feature.
+# This release changes the OUTPUT SHAPE (one line per diner), so we use
+# `type: changed` and an `important_notes` line — logchange's nearest equivalent
+# to flagging a breaking change (there is no Conventional-Commits `feat!`).
+title: "Split the bill unevenly using per-person weights"
+type: changed
+important_notes:
+  - "Output shape changed: totals are now printed one line per diner."

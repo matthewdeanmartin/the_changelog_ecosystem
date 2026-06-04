@@ -1,0 +1,5 @@
+# logchange change entry for the 1.0.0 feature.
+# Minimal on purpose: logchange supports authors/issues/merge_requests/links/
+# important_notes/configurations, but title + type are all that is required.
+title: "Compute the tip for a single bill and print the total"
+type: added
