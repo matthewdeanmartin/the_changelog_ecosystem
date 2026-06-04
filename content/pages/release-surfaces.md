@@ -16,7 +16,6 @@ This section tracks the release-page-like surfaces that changelog tooling needs 
 - [GitHub Automatically Generated Release Notes]({filename}../articles/github-automatically-generated-release-notes.md)
 - [GitLab Changelogs]({filename}../articles/gitlab-changelogs.md)
 - [glab release]({filename}../articles/glab-release.md)
-- [release-cli]({filename}../articles/release-cli.md)
 
 ## Surfaces To Include
 

@@ -33,8 +33,7 @@ const tools = [
     { name: "github-changelog-generator", ecosystem: ["ruby", "cross"], method: "commits-generic", orchestrator: false, desc: "Generates changelogs from GitHub issues, PRs, and tags." },
     { name: "versionize", ecosystem: ["dotnet"], method: "commits-conv", orchestrator: true, desc: "Conventional commits and changelog management for .NET projects." },
     { name: "dotnet-releaser", ecosystem: ["dotnet"], method: "commits-conv", orchestrator: true, desc: "All-in-one release CLI for .NET projects." },
-    { name: "commit-and-tag-version", ecosystem: ["node"], method: "commits-conv", orchestrator: true, desc: "Automate versioning and CHANGELOG generation. A maintained fork of standard-version." },
-    { name: "git-chglog", ecosystem: ["go", "cross"], method: "commits-conv", orchestrator: false, desc: "Highly configurable changelog generator that uses git tags and commits." }
+    { name: "commit-and-tag-version", ecosystem: ["node"], method: "commits-conv", orchestrator: true, desc: "Automate versioning and CHANGELOG generation. A maintained fork of standard-version." }
 ];
 
 let state = {

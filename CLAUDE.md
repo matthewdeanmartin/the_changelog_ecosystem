@@ -35,3 +35,9 @@
 | `generate_review_stubs.py` | Create stub articles for unreviewed tools |
 
 All scripts support `--dry-run`. See `CONTRIBUTING.md` for full workflow.
+
+## Commit messages
+
+Never add `Co-Authored-By` or any LLM attribution trailer to commit messages.
+LLMs cannot take responsibility for code, so they should not appear as co-authors.
+Write commit messages in keepachangelog style: `Added:`, `Changed:`, `Fixed:`, `Removed:`.

@@ -9,7 +9,7 @@ Summary: Reviews and metadata for changelog and release management tools across 
 ## What Is This?
 
 This site reviews tools for managing **changelogs and releases** — things like `keepachangelog-manager`,
-`git-cliff`, `semantic-release`, `standard-version`, and dozens more — across every major language ecosystem.
+`git-cliff`, `semantic-release`, `towncrier`, and dozens more — across every major language ecosystem.
 
 If a tool helps you write, generate, validate, or publish changelogs or release notes, it belongs here.
 

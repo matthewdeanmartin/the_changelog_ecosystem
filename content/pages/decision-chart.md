@@ -23,7 +23,7 @@ graph TD
     ConvTools --> ConvEcosystem{Ecosystem?}
     ConvEcosystem -->|Rust/Cross| RustConv[git-cliff, release-plz]
     ConvEcosystem -->|Node| NodeConv[semantic-release, release-it]
-    ConvEcosystem -->|Go| GoConv[goreleaser, git-chglog]
+    ConvEcosystem -->|Go| GoConv[goreleaser]
     ConvEcosystem -->|.NET| DotNetConv[versionize, dotnet-releaser]
 
     GenericCommits --> GenEcosystem{Ecosystem?}

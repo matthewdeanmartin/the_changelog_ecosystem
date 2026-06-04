@@ -13,7 +13,6 @@ Generic documentation tooling is too large for this site. This section is delibe
 - [Changelog Rendering and Template Engines]({filename}../articles/changelog-rendering-template-engines.md)
 - [Docs Integration Boundaries]({filename}../articles/docs-integration-boundaries.md)
 - [git-cliff]({filename}../articles/git-cliff.md)
-- [git-chglog]({filename}../articles/git-chglog.md)
 - [Towncrier]({filename}../articles/towncrier.md)
 - [Reno]({filename}../articles/reno.md)
 

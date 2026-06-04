@@ -35,6 +35,7 @@ generator script itself.
 |---------|-------|
 | `content/articles/*.md` | Review stubs and finished reviews |
 | `data/top_prio_tools.toml` | Curated tool list with priorities and capabilities |
+| `data/tool_ratings.csv` | One row per reviewed tool: rating + recommendable flag (see below) |
 | `content/pages/home.md` | Site landing page |
 | `content/pages/about.md` | About page |
 | `themes/` | Theme templates and CSS |
@@ -86,12 +87,50 @@ want to reset a stub to its machine-generated baseline (destroying any hand pros
    - **Ecosystem Fit** — does it feel native? CI/CD story?
    - **Verdict** — `Recommended` / `Situational` / `Avoid` + one paragraph
 
-5. Rebuild the site to check your work:
+5. Add a row to `data/tool_ratings.csv` so the verdict is machine-readable. Columns:
+
+   ```
+   tool_name,slug,rating,recommendable,verdict_summary
+   ```
+
+   - `rating` — a normalized keyword (`recommended`, `recommended-with-caveats`,
+     `conditional`, `situational`, `legacy`, `deprecated`, `unmaintained`,
+     `internal-only`, `avoid`). Derive it from the article's **Verdict** line.
+   - `recommendable` — `yes`, `no`, or `unknown`. Use `no` for any tool you would
+     steer a new project away from (broken, abandoned, deprecated, internal-only, or
+     "use only for existing installs"). Use `unknown` only if the tool is not yet
+     reviewed and has no verdict.
+
+   This file is the source of truth for "is this tool safe to recommend?" — see the
+   rule below about not linking `recommendable: no` tools from overview pages.
+
+6. Rebuild the site to check your work:
 
    ```bash
    just build
    just devserver   # then visit http://localhost:8000
    ```
+
+---
+
+## Recommendable tools and overview pages
+
+`data/tool_ratings.csv` carries a `recommendable` flag for every reviewed tool.
+A tool with `recommendable: no` (an "Avoid", deprecated, unmaintained, legacy-only, or
+internal-only verdict) must still be discoverable, but must **not** be presented as a
+suggestion:
+
+- **Do** keep it linked from its ecosystem tool list (`content/pages/{ecosystem}.md`)
+  and the master `tools.md` table. These are generated catalogs — every reviewed tool
+  belongs there, and the reader reaches the negative verdict by clicking through.
+- **Do not** link or name it from any overview / "see also" / recommender surface:
+  `decision-chart.md`, `decision-helper.md`, the topic pages
+  (`markup-template-docs-integration.md`, `release-surfaces.md`, etc.), or "Related
+  Articles"/"Core Articles" lists that exist to *recommend* tools. We do not want to
+  point readers at a dead project as an example to adopt.
+
+When a verdict changes to `recommendable: no`, update the CSV and sweep those overview
+surfaces to remove the suggestion.
 
 ---
 
