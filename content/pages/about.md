@@ -10,9 +10,9 @@ Managing changelogs is a small but surprisingly painful part of the software dev
 Every ecosystem has solved it differently, and the solutions range from excellent to abandoned.
 
 This site started after too much time was spent on
-[keepachangelog-manager](https://github.com/matthewdeanmartin/keepachangelog-manager) —
+[keepachangelog-manager-fork](https://github.com/matthewdeanmartin/keepachangelog-manager) —
 a Python tool that implements the [Keep a Changelog](https://keepachangelog.com/) spec with
-validation, formatting, and release automation. After building it, the question became:
+validation, task staging, formatting, and release automation. After building it, the question became:
 *how does it compare to everything else out there?*
 
 Answering that question is what this site is for.

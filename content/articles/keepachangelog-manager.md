@@ -7,17 +7,17 @@ Tool_URL: https://pypi.org/project/keepachangelog-manager-fork/
 Tool_Version: 5.2.0
 Tool_Status: active
 Experiment: examples/python/keepachangelog-manager/
-Summary: Maintained fork providing a command-line workflow around Keep a Changelog files — hands-on testing confirms a clean create/add/release triad with two format caveats.
+Summary: Actively maintained Keep a Changelog workflow CLI with task staging, fragments, backfill, validation/autofix, release automation, and a GUI — especially strong for KAC-native maintainer workflows.
 
 
 
 ## Overview
 
-`keepachangelog-manager-fork` is the maintained fork of `keepachangelog-manager`, a Python CLI for teams that want a structured command-line workflow around a Keep a Changelog-style `CHANGELOG.md`. It can create changelogs, add entries, validate format, export JSON, promote unreleased changes into a release, and help publish GitHub release notes.
+`keepachangelog-manager-fork` is the maintained fork of `keepachangelog-manager`, a Python CLI for teams that want a full workflow around a Keep a Changelog-style `CHANGELOG.md`. It covers creation, editing, validation, release promotion, version calculation, task staging, fragment collection, backfill, and release publishing.
 
-This distinction matters: the original `tomtom-international/keepachangelog-manager` project is archived and unsupported. The maintained fork lives at `matthewdeanmartin/keepachangelog-manager`, is published on PyPI as `keepachangelog-manager-fork`, and has continued feature work focused on usability and release automation.
+This distinction matters: the original `tomtom-international/keepachangelog-manager` project is archived and unsupported, and should be treated as **not recommended** for new use. The maintained fork lives at `matthewdeanmartin/keepachangelog-manager`, is published on PyPI as `keepachangelog-manager-fork`, and has continued feature work focused on usability and release automation.
 
-The fork is more workflow-oriented than the `keepachangelog` library and more capable than the archived upstream package. It is aimed at maintainers who want a CLI that enforces changelog hygiene rather than an importable parser alone.
+The fork is more workflow-oriented than the `keepachangelog` library and more capable than the archived upstream package. It is aimed at maintainers who want a KAC-native workflow tool rather than just a parser or a commit-to-markdown generator.
 
 A reproducible hands-on experiment for this tool lives in [`examples/python/keepachangelog-manager/`](https://github.com/matthewdeanmartin/the_changelog_ecosystem/tree/main/examples/python/keepachangelog-manager). The real output shown later in this article comes from that run.
 
@@ -33,43 +33,46 @@ The CLI entry point is `changelogmanager`.
 
 ## What It Does
 
-- Creates a new empty `CHANGELOG.md` with the expected Keep a Changelog structure.
-- Adds messages to sections such as Added, Changed, Deprecated, Removed, Fixed, and Security (via `--change-type`).
-- Validates changelog consistency and can format errors for local terminals or GitHub annotations.
-- Releases the `[Unreleased]` block into a versioned section.
-- Exports changelog content to JSON and includes GitHub release automation commands.
-- Supports multiple changelog files in one repository through a component configuration file.
-- Improves maintainer ergonomics in the fork with commands and options around GitHub release and pull request workflows.
+- Creates and validates Keep a Changelog files, including `validate --fix` for safe structural cleanup.
+- Adds, edits, lists, and removes `[Unreleased]` entries under the standard KAC change types.
+- Computes future versions for SemVer, PEP 440, and CalVer projects, then promotes `[Unreleased]` into a dated release.
+- Syncs version strings outside the changelog with `release --bump-versions`.
+- Stages future release notes in `TASKS.md`, `changelog.d/`, or richer `tickets/` fragments, then promotes them into `[Unreleased]`.
+- Backfills changelog history from local tags and commits, GitHub Releases, merged GitHub PRs, and PyPI history.
+- Exports changelog content to JSON and HTML.
+- Includes GitHub and GitLab release automation commands plus a Tkinter GUI for editing, backfill, release, and batch component workflows.
 
 ## Configuration
 
-The default workflow can operate on a single `CHANGELOG.md` with command-line options such as `--input-file`. For repositories with multiple components, the project can define a YAML config and select a component at runtime.
+The default workflow can operate on a single `CHANGELOG.md` with command-line options such as `--input-file`. For repositories with multiple components, the project can define config in `changelogmanager.toml` or `pyproject.toml`, select a component at runtime, and give each component its own changelog, tasks file, and fragment defaults.
 
-```yaml
-project:
-  components:
-    - name: Service Component
-      changelog: service/CHANGELOG.md
-    - name: Client Interface
-      changelog: client/CHANGELOG.md
+```toml
+[[components]]
+name = "service"
+changelog = "service/CHANGELOG.md"
+
+[[components]]
+name = "client"
+changelog = "client/CHANGELOG.md"
+tasks_file = "client/TASKS.md"
 ```
 
 ```bash
-changelogmanager --config config.yml --component "Client Interface" validate
-changelogmanager --input-file CHANGELOG.md release 1.4.0
+changelogmanager --config changelogmanager.toml --component client validate
+changelogmanager --input-file CHANGELOG.md release --override-version 1.4.0 --yes
 ```
 
-First-run setup is low for a single changelog and moderate for multi-component repositories. The commands are explicit, which makes the tool straightforward to wire into CI. (For non-interactive CI use, the `--yes` flag is essential — see the hands-on findings.)
+First-run setup is low for a single changelog and moderate for multi-component repositories. The command surface is larger than a tiny parser library, but it is explicit and scriptable, which makes the tool straightforward to wire into CI, pre-commit, or a local maintainer workflow.
 
 ## Output Quality
 
-The output remains standard Keep a Changelog Markdown rather than a generated commit digest. The validation and release commands are the main quality guardrails — they help keep headings, versions, and unreleased sections consistent, but the actual prose still needs to be written by humans. See the **Hands-on findings** section below for the exact, real output produced when driving a sample project through several releases (including two format gaps worth knowing about).
+The output remains standard Keep a Changelog Markdown rather than a generated commit digest. That is the point: this tool treats the changelog as a first-class maintained artifact. The current codebase also adds repair-oriented validation, structured task/fragment promotion, and JSON/HTML export, so it can support both human-maintained prose and automation around that prose.
 
 ## Ecosystem Fit
 
-`keepachangelog-manager-fork` fits Python projects that prefer a command-oriented release process and a committed changelog. It can be used from `uv run`, `tox`, or CI jobs, and its GitHub-oriented error formatting and release commands make it practical for automated release pipelines.
+`keepachangelog-manager-fork` fits Python projects that prefer a command-oriented release process and a committed changelog. It can be used from `uv run`, `tox`, pre-commit, or CI jobs, and its release commands, version calculation, and GitHub/GitLab integrations make it practical for automated release pipelines.
 
-It is less useful for projects that want fragments per pull request or changelogs generated from Conventional Commits. Its best niche is validating and operating an explicit Keep a Changelog file.
+Its strongest niche is the team that actually wants to stay inside the Keep a Changelog model: explicit `[Unreleased]` editing, KAC-style task tracking, optional fragments, backfill into a real changelog file, and release promotion from that file. In the current site inventory, it is the clearest fit for a KAC-native maintainer workflow rather than a pure commit-log pipeline.
 
 ## Maintenance Status
 
@@ -81,7 +84,7 @@ It is less useful for projects that want fragments per pull request or changelog
 - PyPI package: <a href="https://pypi.org/project/keepachangelog-manager-fork/" target="_blank" rel="noopener noreferrer">keepachangelog-manager-fork</a>
 - Archived upstream: <a href="https://github.com/tomtom-international/keepachangelog-manager" target="_blank" rel="noopener noreferrer">tomtom-international/keepachangelog-manager</a>
 
-The current fork documents CLI commands for create, add, validate, release, JSON export, GitHub release handling, pull request workflow support, formatting options, and multi-component configuration. The archived upstream has fewer features and should be treated as unsupported historical context, not the recommended package.
+The current fork documents CLI commands for create, add, edit, remove, validate/autofix, version calculation, release, JSON/HTML export, tasks, fragments, backfill, commit-message linting, rewrite planning, GitHub/GitLab automation, GUI flows, and multi-component configuration. The archived upstream has fewer features and should be treated as unsupported historical context with an **Avoid / not recommended** posture, not as a viable package choice.
 
 ---
 
@@ -150,34 +153,28 @@ Final `CHANGELOG.md` after v3.0.0 (Stage 4b):
 
 `release` stdout: `Released 2.0.0` — a clean, one-line confirmation. Note the released file contains **no** `[Unreleased]` section and **no** comparison link definitions.
 
-### Pros (observed)
+### Current strengths
 
-- **`create` + `add` + `release` is a coherent three-command workflow.** No manual `CHANGELOG.md` editing is required. Each command has a clear, single responsibility.
-- **`add` is the standout feature over the plain `keepachangelog` library.** A command that places a formatted bullet under the right section removes the most common human error in manual changelog workflows.
-- **`release --yes` is non-interactive and automation-safe.** The `--yes` flag skips the confirmation prompt cleanly; `--override-version` pins the version so CI pipelines do not need to infer it.
-- **`release` prints a clear confirmation.** `Released 2.0.0` on stdout is enough for a CI log to confirm success without parsing file output.
-- **Installs on Python 3.12 without issues.** The dependency tree (inquirer, blessed, etc.) resolved cleanly.
-- **Generates the `[Unreleased]` header on `create`.** The output follows Keep a Changelog 1.1.0 conventions, a minor but meaningful format update over the older 1.0.0 spec.
+- **It now covers the full KAC maintainer lifecycle, not just `create`/`add`/`release`.** Tasks, fragments, richer ticket assembly, backfill, version calculation, version syncing, and release publishing make it broader than the earlier snapshot in this article.
+- **`validate --fix` materially improves day-to-day usability.** The current codebase can repair many safe structural issues, normalize headings and dates, deduplicate entries, and restore missing link references that strict KAC workflows care about.
+- **The task workflow is distinctive.** `TASKS.md`, `tickets/`, and fragment support give teams a way to stage work in KAC categories before promoting it into `[Unreleased]`. That is a real differentiator versus parser-only tools.
+- **The automation surface is substantial.** `version`, `release --bump-versions`, GitHub/GitLab release commands, commit-message linting, and rewrite planning make it useful in CI as well as on a maintainer laptop.
+- **It scales beyond one changelog file.** Multi-component configuration and the GUI make it viable for repos where a single `CHANGELOG.md` is not the whole story.
 
-### Cons / pain points (observed)
+### Caveats to know
 
-- **`[Unreleased]` section is dropped after `release`.** After `changelogmanager release`, the `[Unreleased]` section does not reappear in the file. The plain `keepachangelog` library preserves an empty `[Unreleased]` header; `changelogmanager` removes it. This is a footgun for teams that run `validate` against a released changelog and expect the section to be there, or for CI rules that assert its presence.
-- **No comparison links are generated.** Unlike `keepachangelog release`, the fork does not maintain `[x.y.z]: https://...compare/...` link definitions at the bottom of the file. A strict KAC validator would flag the output as incomplete.
-- **Version is not reliably auto-detected.** `release` without `--override-version` attempts to infer the version, but in the experiment it required `--override-version` to pin correctly.
-- **`--version` is not exposed.** `changelogmanager --version` fails (SystemExit 2). Verifying the installed version requires `pip show keepachangelog-manager-fork`.
-- **Output whitespace differs from the plain library.** `create` writes `## [Unreleased]\n### Added\n` with no blank line after the header, whereas the `keepachangelog` library writes blank lines between sections. Both are valid KAC, but switching between the two tools can produce noisy diffs.
-- **Heavier dependency footprint.** Requires inquirer, blessed, jinxed, readchar — a larger install than the plain `keepachangelog` library.
+- **The workflow is intentionally more opinionated than a tiny parser library.** Teams that only want `show`/`release` on an already hand-maintained changelog may prefer a smaller tool.
+- **Released-only files are a supported shape.** After `release`, the changelog does not keep an empty `[Unreleased]` section by default; the next `add`, fragment collection, or task promotion recreates working state. Teams that want a permanently present empty `[Unreleased]` section should account for that in their local conventions.
+- **This is not the best fit for commit-derived release-note generation.** If the desired workflow is "derive everything from Conventional Commits and publish automatically," tools such as `git-cliff`, `semantic-release`, or `release-please` remain better fits.
 
 ### Docs vs. reality
 
-The original description correctly identified the fork as the maintained package and described its command set; the workflow-oriented CLI matched what was observed. What it did not capture: the `--section` flag does not exist (the real flag is `--change-type` with lowercase type names), the missing `[Unreleased]` section after `release`, the absence of comparison links, and that the `--yes` flag is essential for non-interactive use.
+The original description correctly identified the fork as the maintained package, but it understated how much functionality has been added since the upstream split. The current docs and source now cover task promotion, fragment collection, ticket assembly, backfill from several sources, `validate --fix`, version syncing, HTML export, commit-message linting, rewrite planning, GitHub/GitLab automation, and GUI workflows. That broader scope is central to how the tool should be positioned.
 
 ## Verdict
 
-**Verdict: Situational (confirmed, with format caveats)**
+**Verdict: Recommended with caveats**
 
-`keepachangelog-manager-fork` delivers on its core promise: a CLI workflow that avoids hand-editing `CHANGELOG.md`. The `create`/`add`/`release` triad is clean, non-interactive with `--yes`, and suitable for CI pipelines.
+`keepachangelog-manager-fork` is a strong recommendation for teams that want to stay inside a Keep a Changelog workflow instead of replacing it with commit-derived prose. It creates a real maintainer loop around KAC files: stage work, validate and repair structure, compute the next version, promote a release, and publish the result.
 
-The two format gaps (no `[Unreleased]` after release, no comparison links) make the output non-compliant with a strict reading of the KAC spec and incompatible with the plain `keepachangelog` library's output style. Projects that need those features should add a post-release step to restore the `[Unreleased]` header and maintain link definitions.
-
-Prefer the fork over the archived `tomtom-international/keepachangelog-manager`; the fork is the only version worth considering. For broad community adoption and fragment workflows, Towncrier or Scriv are stronger defaults; for strict changelog-file validation, usability-focused release commands, and release promotion, this tool is a practical fit.
+It is especially compelling when you want KACL-style task management or promotion into `[Unreleased]`, because that workflow is rare in the rest of the ecosystem. The caveat is scope: if your team wants a minimal parser or a purely Conventional-Commits-driven release bot, this is more tool than you need and a different philosophy than you want. The archived non-fork upstream should not be selected for new work.

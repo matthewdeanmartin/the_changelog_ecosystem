@@ -215,9 +215,23 @@ package_url = "https://pypi.org/project/keepachangelog-manager-fork/"
 source_type = "python-cli"
 status = "active"
 review_priority = "important"
-capabilities = ["validate", "create", "edit", "release", "keep-a-changelog"]
-short_description = "CLI for creating, validating, editing, and releasing Keep a Changelog formatted CHANGELOG.md files."
-review_notes = "Review the maintained matthewdeanmartin fork. The original tomtom-international project is archived and unsupported."
+capabilities = ["validate", "create", "edit", "release", "keep-a-changelog", "tasks", "fragments", "backfill", "github-release", "gitlab-release"]
+short_description = "Keep a Changelog workflow CLI with task staging, fragments, backfill, validation/autofix, release automation, and GUI support."
+review_notes = "Review the maintained matthewdeanmartin fork as the primary KAC-native workflow tool. The original tomtom-international project is archived and unsupported."
+
+[[tools]]
+id = "python-kacl"
+package_name = "python-kacl"
+ecosystem = "python"
+languages = ["python"]
+url = "https://github.com/mschmieder/python-kacl"
+package_url = "https://pypi.org/project/python-kacl/"
+source_type = "python-library-cli"
+status = "active"
+review_priority = "important"
+capabilities = ["verify", "create", "edit", "release", "keep-a-changelog", "fragments"]
+short_description = "Python library/CLI for verifying, editing, and releasing Keep a Changelog files, with fragment and link-generation support."
+review_notes = "Important comparator for strict KAC verification and another KAC-focused CLI. The historical GitHub repo points to the newer GitLab home, while PyPI remains active."
 
 [[tools]]
 id = "conventional-changelog"
@@ -716,7 +730,7 @@ notes = "Java splits by build system: Gradle plugins and Maven plugins matter; c
 
 [[ecosystem_recommendations]]
 ecosystem = "python"
-must_review_ids = ["towncrier", "scriv", "reno", "keepachangelog-manager", "keepachangelog-python", "git-cliff", "release-please", "github-changelog-generator"]
+must_review_ids = ["towncrier", "scriv", "reno", "keepachangelog-manager", "keepachangelog-python", "python-kacl", "git-cliff", "release-please", "github-changelog-generator"]
 notes = "Python has the strongest fragment-assembly ecosystem; compare Towncrier, Scriv, and Reno carefully."
 
 [[ecosystem_recommendations]]

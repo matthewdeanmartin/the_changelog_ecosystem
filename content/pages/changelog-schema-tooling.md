@@ -13,7 +13,6 @@ For the current tool inventory, start with [All Tools]({filename}tools.md). The 
 ## Core Articles
 
 - [Keep a Changelog]({filename}../articles/keep-a-changelog.md)
-- [keepachangelog]({filename}../articles/keepachangelog.md)
 - [keepachangelog-manager-fork]({filename}../articles/keepachangelog-manager.md)
 - [Changelog File Schemas]({filename}../articles/changelog-file-schemas.md)
 - [Changelog Validation Boundaries]({filename}../articles/changelog-validation-boundaries.md)

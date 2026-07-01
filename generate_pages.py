@@ -13,6 +13,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import csv
 import html
 import re
 import sys
@@ -24,6 +25,7 @@ from pipeline import tool_store
 CONTENT_DIR = Path(__file__).parent / "content"
 PAGES_DIR = CONTENT_DIR / "pages"
 ARTICLES_DIR = CONTENT_DIR / "articles"
+RATINGS_PATH = Path(__file__).parent / "data" / "tool_ratings.csv"
 
 ECOSYSTEM_LABELS = {
     "python": "Python",
@@ -35,10 +37,12 @@ ECOSYSTEM_LABELS = {
     "dotnet": "NuGet",
     "cpp": "C++",
     "c": "C",
+    "cross": "Cross-ecosystem",
     "other": "Other",
 }
 
 ECOSYSTEM_SORTORDER = list(ECOSYSTEM_LABELS.keys())
+SKIPPED_ECOSYSTEM_PAGES = {"other", "cpp"}
 
 DIST_URLS = {
     "pypi": "https://pypi.org/project/{id}/",
@@ -71,6 +75,34 @@ def _review_link(tool: dict) -> str:
     if tool.get("reviewed") and tool.get("review_slug"):
         return f'<a href="../reviews/{tool["review_slug"]}/">Review</a>'
     return "—"
+
+
+def load_tool_ratings() -> dict[str, dict[str, str]]:
+    if not RATINGS_PATH.exists():
+        return {}
+
+    with RATINGS_PATH.open(encoding="utf-8", newline="") as handle:
+        rows = csv.DictReader(handle)
+        return {row["slug"]: row for row in rows if row.get("slug")}
+
+
+def _rating_bucket(tool: dict, ratings: dict[str, dict[str, str]]) -> str:
+    slug = tool.get("review_slug")
+    if not slug:
+        return "situational"
+
+    row = ratings.get(slug)
+    if not row:
+        return "situational"
+
+    recommendable = (row.get("recommendable") or "").strip().lower()
+    rating = (row.get("rating") or "").strip().lower()
+
+    if recommendable == "no":
+        return "not_recommended"
+    if rating.startswith("recommended"):
+        return "recommended"
+    return "situational"
 
 
 def sync_reviews(tools: list[dict]) -> tuple[list[dict], int]:
@@ -177,7 +209,9 @@ Include:
 """
 
 
-def generate_ecosystem_page(ecosystem: str, tools: list[dict]) -> str:
+def generate_ecosystem_page(
+    ecosystem: str, tools: list[dict], ratings: dict[str, dict[str, str]]
+) -> str:
     label = ECOSYSTEM_LABELS.get(ecosystem, ecosystem)
     eco_tools = [t for t in tools if t.get("ecosystem") == ecosystem]
     if not eco_tools:
@@ -186,13 +220,33 @@ def generate_ecosystem_page(ecosystem: str, tools: list[dict]) -> str:
     reviewed = [t for t in eco_tools if t.get("reviewed")]
     unreviewed = [t for t in eco_tools if not t.get("reviewed")]
 
-    sections = [f"## Reviewed ({len(reviewed)})"]
-    for t in sorted(reviewed, key=lambda t: t.get("name", "").lower()):
-        slug = t.get("review_slug")
-        name = t.get("name", "")
-        desc = t.get("description") or ""
-        link = f"[{name}](../reviews/{slug}/)" if slug else name
-        sections.append(f"- **{link}** — {desc}")
+    grouped_reviewed: dict[str, list[dict]] = {
+        "recommended": [],
+        "situational": [],
+        "not_recommended": [],
+    }
+    for tool in reviewed:
+        grouped_reviewed[_rating_bucket(tool, ratings)].append(tool)
+
+    sections: list[str] = []
+    review_sections = [
+        ("recommended", "Recommended"),
+        ("situational", "Situational"),
+        ("not_recommended", "Not Recommended"),
+    ]
+    for bucket, heading in review_sections:
+        bucket_tools = sorted(
+            grouped_reviewed[bucket], key=lambda t: t.get("name", "").lower()
+        )
+        if not bucket_tools:
+            continue
+        sections.append(f"## {heading} ({len(bucket_tools)})")
+        for t in bucket_tools:
+            slug = t.get("review_slug")
+            name = t.get("name", "")
+            desc = t.get("description") or ""
+            link = f"[{name}](../reviews/{slug}/)" if slug else name
+            sections.append(f"- **{link}** — {desc}")
 
     if unreviewed:
         sections.append(f"\n## On the Radar ({len(unreviewed)})")
@@ -228,6 +282,7 @@ def main() -> None:
 
     tools = tool_store.load()
     print(f"Loaded {len(tools)} tools")
+    ratings = load_tool_ratings()
 
     # Sync review status from existing articles
     tools, synced = sync_reviews(tools)
@@ -249,9 +304,9 @@ def main() -> None:
     # Generate per-ecosystem pages
     ecosystems = sorted({t.get("ecosystem", "other") for t in tools})
     for eco in ecosystems:
-        if eco == "other":
+        if eco in SKIPPED_ECOSYSTEM_PAGES:
             continue
-        content = generate_ecosystem_page(eco, tools)
+        content = generate_ecosystem_page(eco, tools, ratings)
         if not content:
             continue
         path = PAGES_DIR / f"{eco}.md"
@@ -261,6 +316,15 @@ def main() -> None:
         else:
             path.write_text(content, encoding="utf-8")
             print(f"Wrote {path}")
+
+    for eco in sorted(SKIPPED_ECOSYSTEM_PAGES - {"other"}):
+        path = PAGES_DIR / f"{eco}.md"
+        if path.exists():
+            if args.dry_run:
+                print(f"Would remove {path}")
+            else:
+                path.unlink()
+                print(f"Removed {path}")
 
 
 if __name__ == "__main__":
