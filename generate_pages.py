@@ -18,6 +18,7 @@ import html
 import re
 import sys
 import unicodedata
+from functools import lru_cache
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -116,14 +117,17 @@ def load_tool_ratings() -> dict[str, dict[str, str]]:
         return ratings
 
 
-def _rating_bucket(tool: dict, ratings: dict[str, dict[str, str]]) -> str:
-    row = None
+def _find_rating_row(tool: dict, ratings: dict[str, dict[str, str]]) -> dict[str, str] | None:
     for slug in _slug_candidates(tool):
         row = ratings.get(slug)
         if row:
-            break
+            return row
+    return None
+
+
+def _bucket_from_rating_row(row: dict[str, str] | None) -> str | None:
     if not row:
-        return "situational"
+        return None
 
     recommendable = (row.get("recommendable") or "").strip().lower()
     rating = (row.get("rating") or "").strip().lower()
@@ -132,6 +136,43 @@ def _rating_bucket(tool: dict, ratings: dict[str, dict[str, str]]) -> str:
         return "not_recommended"
     if rating.startswith("recommended"):
         return "recommended"
+    if rating:
+        return "situational"
+    return None
+
+
+@lru_cache(maxsize=None)
+def _bucket_from_article(review_slug: str) -> str | None:
+    if not review_slug:
+        return None
+    article_path = ARTICLES_DIR / f"{review_slug}.md"
+    if not article_path.exists():
+        return None
+
+    text = article_path.read_text(encoding="utf-8")
+    verdict_match = re.search(r"^\*\*Verdict:\s*(.+?)\*\*$", text, re.MULTILINE)
+    if not verdict_match:
+        return None
+
+    verdict = verdict_match.group(1).strip().lower()
+    if "avoid" in verdict or "not recommended" in verdict:
+        return "not_recommended"
+    if "recommended" in verdict:
+        return "recommended"
+    if "situational" in verdict:
+        return "situational"
+    return None
+
+
+def _rating_bucket(tool: dict, ratings: dict[str, dict[str, str]]) -> str:
+    bucket = _bucket_from_rating_row(_find_rating_row(tool, ratings))
+    if bucket:
+        return bucket
+
+    article_bucket = _bucket_from_article(tool.get("review_slug") or "")
+    if article_bucket:
+        return article_bucket
+
     return "situational"
 
 
@@ -260,12 +301,8 @@ def generate_ecosystem_page(
     }
     missing_ratings: list[str] = []
     for tool in reviewed:
-        row = None
-        for slug in _slug_candidates(tool):
-            row = ratings.get(slug)
-            if row:
-                break
-        if not row:
+        row = _find_rating_row(tool, ratings)
+        if not row and not _bucket_from_article(tool.get("review_slug") or ""):
             missing_ratings.append(tool.get("review_slug") or tool.get("name", ""))
         grouped_reviewed[_rating_bucket(tool, ratings)].append(tool)
 
