@@ -10,6 +10,7 @@ Also syncs reviewed/review_slug in tools.json from existing article frontmatter.
 Usage:
     uv run python generate_pages.py [--dry-run]
 """
+
 from __future__ import annotations
 
 import argparse
@@ -110,14 +111,22 @@ def load_tool_ratings() -> dict[str, dict[str, str]]:
         rows = csv.DictReader(handle)
         ratings: dict[str, dict[str, str]] = {}
         for raw_row in rows:
-            row = {(key or "").strip(): (value or "").strip() for key, value in raw_row.items()}
-            for alias in (_normalize_key(row.get("slug")), _normalize_key(row.get("tool_name"))):
+            row = {
+                (key or "").strip(): (value or "").strip()
+                for key, value in raw_row.items()
+            }
+            for alias in (
+                _normalize_key(row.get("slug")),
+                _normalize_key(row.get("tool_name")),
+            ):
                 if alias and alias not in ratings:
                     ratings[alias] = row
         return ratings
 
 
-def _find_rating_row(tool: dict, ratings: dict[str, dict[str, str]]) -> dict[str, str] | None:
+def _find_rating_row(
+    tool: dict, ratings: dict[str, dict[str, str]]
+) -> dict[str, str] | None:
     for slug in _slug_candidates(tool):
         row = ratings.get(slug)
         if row:
@@ -207,7 +216,7 @@ def sync_reviews(tools: list[dict]) -> tuple[list[dict], int]:
     return tools, updated
 
 
-def generate_tools_page(tools: list[dict]) -> str:
+def generate_tools_page(tools: list[dict], ratings: dict[str, dict[str, str]]) -> str:
     def eco_sort(t: dict) -> int:
         eco = t.get("ecosystem", "other")
         try:
@@ -217,19 +226,24 @@ def generate_tools_page(tools: list[dict]) -> str:
 
     sorted_tools = sorted(tools, key=lambda t: (eco_sort(t), t.get("name", "").lower()))
 
-    rows = []
-    for t in sorted_tools:
-        eco_label = ECOSYSTEM_LABELS.get(t.get("ecosystem", ""), t.get("ecosystem", ""))
-        version = t.get("latest_version") or "—"
-        stars = f"{t['stars']:,}" if t.get("stars") is not None else "—"
-        dist_link = _dist_link(t)
-        review = _review_link(t)
-        name = t.get("name", "")
-        repo = t.get("repo")
+    def render_row(tool: dict) -> str:
+        eco_label = ECOSYSTEM_LABELS.get(
+            tool.get("ecosystem", ""), tool.get("ecosystem", "")
+        )
+        version = tool.get("latest_version") or "—"
+        stars = f"{tool['stars']:,}" if tool.get("stars") is not None else "—"
+        dist_link = _dist_link(tool)
+        review = _review_link(tool)
+        name = tool.get("name", "")
+        repo = tool.get("repo")
         safe_name = html.escape(name)
         safe_repo = html.escape(repo or "", quote=True)
-        name_cell = f'<a href="{safe_repo}" target="_blank" rel="noopener noreferrer">{safe_name}</a>' if repo else safe_name
-        rows.append(
+        name_cell = (
+            f'<a href="{safe_repo}" target="_blank" rel="noopener noreferrer">{safe_name}</a>'
+            if repo
+            else safe_name
+        )
+        return (
             "        <tr>"
             f'<td class="tools-table__name">{name_cell}</td>'
             f"<td>{html.escape(eco_label)}</td>"
@@ -240,23 +254,42 @@ def generate_tools_page(tools: list[dict]) -> str:
             "</tr>"
         )
 
-    table = "\n".join([
-        '<table class="tools-table">',
-        "    <thead>",
-        "        <tr>",
-        "            <th>Tool</th>",
-        "            <th>Ecosystem</th>",
-        "            <th>Latest Version</th>",
-        "            <th>Stars</th>",
-        "            <th>Distribution</th>",
-        "            <th>Review</th>",
-        "        </tr>",
-        "    </thead>",
-        "    <tbody>",
-        *rows,
-        "    </tbody>",
-        "</table>",
-    ])
+    def render_table(bucket_tools: list[dict]) -> str:
+        rows = [render_row(tool) for tool in bucket_tools]
+        return "\n".join(
+            [
+                '<table class="tools-table">',
+                "    <thead>",
+                "        <tr>",
+                "            <th>Tool</th>",
+                "            <th>Ecosystem</th>",
+                "            <th>Latest Version</th>",
+                "            <th>Stars</th>",
+                "            <th>Distribution</th>",
+                "            <th>Review</th>",
+                "        </tr>",
+                "    </thead>",
+                "    <tbody>",
+                *rows,
+                "    </tbody>",
+                "</table>",
+            ]
+        )
+
+    grouped_tools = {
+        bucket: [
+            tool for tool in sorted_tools if _rating_bucket(tool, ratings) == bucket
+        ]
+        for bucket in ("recommended", "situational", "not_recommended")
+    }
+    tables = "\n\n".join(
+        f"## {heading} ({len(grouped_tools[bucket])})\n\n{render_table(grouped_tools[bucket])}"
+        for bucket, heading in (
+            ("recommended", "Recommended"),
+            ("situational", "Situational"),
+            ("not_recommended", "Not Recommended"),
+        )
+    )
 
     reviewed_count = sum(1 for t in tools if t.get("reviewed"))
 
@@ -270,7 +303,7 @@ Summary: Full metadata table of every tracked changelog and release tool.
 
 {len(tools)} tools tracked &nbsp;·&nbsp; {reviewed_count} reviewed.
 
-{table}
+{tables}
 
 ## How to Add a Tool
 
@@ -347,7 +380,11 @@ def generate_ecosystem_page(
     body = "\n".join(sections)
 
     # Sortorder: put python=10, rust=11, go=12, node=13, etc.
-    sortorder = ECOSYSTEM_SORTORDER.index(ecosystem) + 10 if ecosystem in ECOSYSTEM_SORTORDER else 50
+    sortorder = (
+        ECOSYSTEM_SORTORDER.index(ecosystem) + 10
+        if ecosystem in ECOSYSTEM_SORTORDER
+        else 50
+    )
 
     return f"""Title: {label} Tools
 Date: 2026-05-31
@@ -360,8 +397,12 @@ Summary: Changelog and release management tools for {label}.
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate Pelican pages from tools.json")
-    parser.add_argument("--dry-run", action="store_true", help="Print output without writing files")
+    parser = argparse.ArgumentParser(
+        description="Generate Pelican pages from tools.json"
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Print output without writing files"
+    )
     args = parser.parse_args()
 
     tools = tool_store.load()
@@ -376,7 +417,7 @@ def main() -> None:
             tool_store.save(tools)
 
     # Generate main tools page
-    tools_content = generate_tools_page(tools)
+    tools_content = generate_tools_page(tools, ratings)
     tools_path = PAGES_DIR / "tools.md"
     if args.dry_run:
         print(f"\n--- {tools_path} ---")
