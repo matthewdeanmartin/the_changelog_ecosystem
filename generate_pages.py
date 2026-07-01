@@ -77,6 +77,22 @@ def _review_link(tool: dict) -> str:
     return "—"
 
 
+def _slug_candidates(tool: dict) -> list[str]:
+    candidates: list[str] = []
+    for value in [
+        tool.get("review_slug"),
+        tool.get("id"),
+        tool.get("name", "").lower().replace(" ", "-"),
+        re.sub(r"[^a-z0-9-]", "-", tool.get("name", "").lower()),
+    ]:
+        if not value:
+            continue
+        normalized = re.sub(r"-+", "-", str(value)).strip("-")
+        if normalized and normalized not in candidates:
+            candidates.append(normalized)
+    return candidates
+
+
 def load_tool_ratings() -> dict[str, dict[str, str]]:
     if not RATINGS_PATH.exists():
         return {}
@@ -87,11 +103,11 @@ def load_tool_ratings() -> dict[str, dict[str, str]]:
 
 
 def _rating_bucket(tool: dict, ratings: dict[str, dict[str, str]]) -> str:
-    slug = tool.get("review_slug")
-    if not slug:
-        return "situational"
-
-    row = ratings.get(slug)
+    row = None
+    for slug in _slug_candidates(tool):
+        row = ratings.get(slug)
+        if row:
+            break
     if not row:
         return "situational"
 
@@ -107,28 +123,31 @@ def _rating_bucket(tool: dict, ratings: dict[str, dict[str, str]]) -> str:
 
 def sync_reviews(tools: list[dict]) -> tuple[list[dict], int]:
     """Read article frontmatter and update reviewed/review_slug in tools."""
-    slug_map: dict[str, str] = {}  # package_id -> slug
+    article_slugs: set[str] = set()
     for article in ARTICLES_DIR.glob("*.md"):
         text = article.read_text(encoding="utf-8")
         slug_match = re.search(r"^Slug:\s*(.+)$", text, re.MULTILINE)
         if slug_match:
             slug = slug_match.group(1).strip()
-            slug_map[slug] = slug
+            article_slugs.add(slug)
 
     updated = 0
     for tool in tools:
-        slug = tool.get("review_slug") or tool.get("name", "").lower().replace(" ", "-")
-        if (ARTICLES_DIR / f"{slug}.md").exists():
-            if not tool.get("reviewed"):
+        matched_slug = None
+        for slug in _slug_candidates(tool):
+            if slug in article_slugs:
+                matched_slug = slug
+                break
+
+        if matched_slug:
+            if tool.get("review_slug") != matched_slug or not tool.get("reviewed"):
                 tool["reviewed"] = True
-                tool["review_slug"] = slug
+                tool["review_slug"] = matched_slug
                 updated += 1
-        elif tool.get("name"):
-            # Also check by name match
-            safe = re.sub(r"[^a-z0-9-]", "-", tool["name"].lower())
-            if (ARTICLES_DIR / f"{safe}.md").exists() and not tool.get("reviewed"):
-                tool["reviewed"] = True
-                tool["review_slug"] = safe
+        elif tool.get("reviewed") or tool.get("review_slug"):
+            if tool.get("reviewed") or tool.get("review_slug") is not None:
+                tool["reviewed"] = False
+                tool["review_slug"] = None
                 updated += 1
     return tools, updated
 
