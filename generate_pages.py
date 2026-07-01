@@ -17,6 +17,7 @@ import csv
 import html
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -82,24 +83,37 @@ def _slug_candidates(tool: dict) -> list[str]:
     for value in [
         tool.get("review_slug"),
         tool.get("id"),
+        tool.get("name"),
         tool.get("name", "").lower().replace(" ", "-"),
         re.sub(r"[^a-z0-9-]", "-", tool.get("name", "").lower()),
     ]:
-        if not value:
-            continue
-        normalized = re.sub(r"-+", "-", str(value)).strip("-")
+        normalized = _normalize_key(value)
         if normalized and normalized not in candidates:
             candidates.append(normalized)
     return candidates
+
+
+def _normalize_key(value: str | None) -> str:
+    if not value:
+        return ""
+    normalized = unicodedata.normalize("NFKC", str(value)).strip().lower()
+    normalized = re.sub(r"[^a-z0-9]+", "-", normalized)
+    return re.sub(r"-+", "-", normalized).strip("-")
 
 
 def load_tool_ratings() -> dict[str, dict[str, str]]:
     if not RATINGS_PATH.exists():
         return {}
 
-    with RATINGS_PATH.open(encoding="utf-8", newline="") as handle:
+    with RATINGS_PATH.open(encoding="utf-8-sig", newline="") as handle:
         rows = csv.DictReader(handle)
-        return {row["slug"]: row for row in rows if row.get("slug")}
+        ratings: dict[str, dict[str, str]] = {}
+        for raw_row in rows:
+            row = {(key or "").strip(): (value or "").strip() for key, value in raw_row.items()}
+            for alias in (_normalize_key(row.get("slug")), _normalize_key(row.get("tool_name"))):
+                if alias and alias not in ratings:
+                    ratings[alias] = row
+        return ratings
 
 
 def _rating_bucket(tool: dict, ratings: dict[str, dict[str, str]]) -> str:
@@ -244,8 +258,22 @@ def generate_ecosystem_page(
         "situational": [],
         "not_recommended": [],
     }
+    missing_ratings: list[str] = []
     for tool in reviewed:
+        row = None
+        for slug in _slug_candidates(tool):
+            row = ratings.get(slug)
+            if row:
+                break
+        if not row:
+            missing_ratings.append(tool.get("review_slug") or tool.get("name", ""))
         grouped_reviewed[_rating_bucket(tool, ratings)].append(tool)
+
+    if missing_ratings:
+        missing = ", ".join(sorted(missing_ratings))
+        raise RuntimeError(
+            f"Missing tool_ratings.csv rows for reviewed {ecosystem} tools: {missing}"
+        )
 
     sections: list[str] = []
     review_sections = [
