@@ -14,6 +14,7 @@
     {% set version_slugs = ["version-schema-tooling", "semantic-versioning-changelog-workflows", "version-schema-survey", "version-bump-decision-rules", "version-validation-release-pipelines", "semantic-release", "release-please", "gitversion", "nerdbank-gitversioning"] %}
     {% set docs_slugs = ["markup-template-docs-integration", "changelog-rendering-template-engines", "docs-integration-boundaries", "git-cliff", "git-chglog", "towncrier", "reno"] %}
     {% set release_slugs = ["release-surfaces", "release-pages-and-registry-surfaces", "github-automatically-generated-release-notes", "gitlab-changelogs", "glab-release", "release-cli"] %}
+    {% set task_slugs = ["task-tracking", "todo-md-gfm-task-lists", "portable-task-formats", "task-fragments-to-changelog"] %}
     <div class="site-shell">
         <header class="site-header">
             <div class="site-header__inner">
@@ -23,13 +24,14 @@
                 </div>
                 <nav class="top-nav" aria-label="Primary">
                     <a{% if page is defined and (page.slug == "home" or not page.url) %} class="active"{% endif %} href="{{ SITEURL }}/">Home</a>
-                    <a{% if current_slug in changelog_slugs %} class="active"{% endif %} href="{{ SITEURL }}/changelog-schema-tooling/">Changelog Management</a>
-                    <a{% if current_slug in commit_slugs %} class="active"{% endif %} href="{{ SITEURL }}/commit-schema-trailers-tags/">Commit Message Schemas</a>
-                    <a{% if current_slug in classification_slugs %} class="active"{% endif %} href="{{ SITEURL }}/change-classification/">Change Classification</a>
-                    <a{% if current_slug in version_slugs %} class="active"{% endif %} href="{{ SITEURL }}/version-schema-tooling/">Version Schemas</a>
-                    <a{% if current_slug in docs_slugs %} class="active"{% endif %} href="{{ SITEURL }}/markup-template-docs-integration/">Templates &amp; Docs</a>
-                    <a{% if current_slug in release_slugs %} class="active"{% endif %} href="{{ SITEURL }}/release-surfaces/">Release Surfaces</a>
-                    <a{% if page is defined and page.slug == "tools" %} class="active"{% endif %} href="{{ SITEURL }}/tools/">Tool Index</a>
+                    <a{% if current_slug in changelog_slugs %} class="active"{% endif %} href="{{ SITEURL }}/changelog-schema-tooling/">Changelog</a>
+                    <a{% if current_slug in commit_slugs %} class="active"{% endif %} href="{{ SITEURL }}/commit-schema-trailers-tags/">Commits</a>
+                    <a{% if current_slug in classification_slugs %} class="active"{% endif %} href="{{ SITEURL }}/change-classification/">Classification</a>
+                    <a{% if current_slug in version_slugs %} class="active"{% endif %} href="{{ SITEURL }}/version-schema-tooling/">Versioning</a>
+                    <a{% if current_slug in docs_slugs %} class="active"{% endif %} href="{{ SITEURL }}/markup-template-docs-integration/">Templates</a>
+                    <a{% if current_slug in release_slugs %} class="active"{% endif %} href="{{ SITEURL }}/release-surfaces/">Releases</a>
+                    <a{% if current_slug in task_slugs %} class="active"{% endif %} href="{{ SITEURL }}/task-tracking/">Tasks</a>
+                    <a{% if page is defined and page.slug == "tools" %} class="active"{% endif %} href="{{ SITEURL }}/tools/">Tools</a>
                 </nav>
             </div>
         </header>
@@ -97,6 +99,13 @@
                         <li{% if current_slug == "glab-release" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/glab-release/">glab release</a></li>
                         <li{% if current_slug == "release-cli" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/release-cli/">release-cli</a></li>
                     </ul>
+                    {% elif current_slug in task_slugs %}
+                    <p class="section-nav__title">Task Tracking</p>
+                    <ul>
+                        <li{% if current_slug == "todo-md-gfm-task-lists" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/todo-md-gfm-task-lists/">TODO.md and GFM Task Lists</a></li>
+                        <li{% if current_slug == "portable-task-formats" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/portable-task-formats/">Portable Task Formats</a></li>
+                        <li{% if current_slug == "task-fragments-to-changelog" %} class="active"{% endif %}><a href="{{ SITEURL }}/reviews/task-fragments-to-changelog/">Task Fragments to Changelog</a></li>
+                    </ul>
                     {% endif %}
 
                     <p class="section-nav__title">Ecosystems</p>
@@ -109,6 +118,11 @@
                         <li{% if current_slug == "ruby" %} class="active"{% endif %}><a href="{{ SITEURL }}/ruby/">Ruby</a></li>
                         <li{% if current_slug == "dotnet" %} class="active"{% endif %}><a href="{{ SITEURL }}/dotnet/">NuGet</a></li>
                         <li{% if current_slug == "cross" %} class="active"{% endif %}><a href="{{ SITEURL }}/cross/">Cross-ecosystem</a></li>
+                    </ul>
+
+                    <p class="section-nav__title">CI Pipelines</p>
+                    <ul>
+                        <li{% if current_slug == "github-actions" %} class="active"{% endif %}><a href="{{ SITEURL }}/github-actions/">GitHub Actions</a></li>
                     </ul>
 
                     <p class="section-nav__title">Browse</p>

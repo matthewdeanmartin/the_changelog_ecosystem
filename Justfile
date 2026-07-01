@@ -52,8 +52,16 @@ gather-eco ecosystem:
 gather-dry-run:
     uv run python gather_metadata.py --dry-run
 
-# Full pipeline: discover new tools, then gather metadata for all
-pipeline: discover gather
+# Sync the GitHub Actions catalog (data/gha_actions.toml) into tools.json
+gha:
+    uv run python sync_gha_actions.py
+
+# Preview the GitHub Actions sync without writing
+gha-dry-run:
+    uv run python sync_gha_actions.py --dry-run
+
+# Full pipeline: discover new tools, sync GHA catalog, then gather metadata for all
+pipeline: discover gha gather
 
 # ── Page generation ────────────────────────────────────────────────────────────
 

@@ -51,3 +51,7 @@ semantic-release,semantic-release,recommended,yes,"Recommended, with a sharp sco
 standard-version,standard-version,unmaintained,no,"Works correctly but unmaintained; prefer the maintained drop-in (commit-and-tag-version) for new projects."
 towncrier,towncrier,recommended,yes,"Recommended (unchanged)."
 versionize,versionize,recommended-with-caveats,yes,"Recommended (with caveats)."
+Release Changelog Builder,release-changelog-builder-action,recommended,yes,"Recommended; templated category-driven GitHub Release notes."
+Conventional Changelog Action,conventional-changelog-action,recommended,yes,"Recommended; lightweight changelog+tag in CI for Conventional-Commits projects."
+Action For Semantic Release,semantic-release-action,recommended,yes,"Recommended way to run semantic-release in GitHub Actions."
+Changesets Action,changesets-action,recommended-with-caveats,yes,"Recommended with caveats; standard way to run Changesets, best for npm monorepos."

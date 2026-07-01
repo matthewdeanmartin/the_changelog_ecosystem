@@ -134,6 +134,39 @@ surfaces to remove the suggestion.
 
 ---
 
+## GitHub Actions catalog
+
+Changelog/release GitHub Actions are curated in `data/gha_actions.toml`, not by
+hand-editing pages. They are rendered to their own page
+(`content/pages/github-actions.md`) and are **excluded** from the master tools
+table and the per-ecosystem pages so the Marketplace flood cannot bury the
+recommended standalone tools.
+
+Each action carries a `tier`:
+
+| Tier | Meaning | Article? |
+|------|---------|----------|
+| 1 | Distinct behavior worth adopting on its own | Yes — full review + `tool_ratings.csv` row |
+| 2 | GHA wrapper of an already-reviewed engine | No — set `wraps` to the engine's review slug; the catalog links there |
+| 3 | Thin / single-purpose / low-value | No — one catalog line only |
+
+Tier-2 and tier-3 actions must **never** be named on a recommender surface
+(`decision-chart.md`, `decision-helper.md`, topic pages, "see also" lists) — same
+rule as `recommendable: no` tools. Tier-1 actions may be cross-linked like any
+reviewed tool.
+
+To add or update an action:
+
+```bash
+$EDITOR data/gha_actions.toml   # add [[actions]] with id, repo, marketplace_url, tier, wraps
+just gha                        # upsert into tools.json (idempotent; --dry-run available)
+just gather                     # fill stars/version/archived from the repo
+just generate-pages             # rewrite github-actions.md
+```
+
+`id` must be unique across *all* tools; the sync aborts on a collision with an
+unrelated tracked tool rather than clobbering it.
+
 ## Updating tool metadata
 
 Metadata (version, last release, stars, archived) is fetched from registries. To refresh:

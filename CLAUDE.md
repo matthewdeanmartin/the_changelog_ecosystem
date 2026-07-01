@@ -31,10 +31,28 @@
 |--------|---------|
 | `discover_tools.py` | Find new tools from registries (appends to tools.json) |
 | `gather_metadata.py` | Fetch live version/stars/date/archived from APIs |
-| `generate_pages.py` | Rewrite tools.md and ecosystem pages from tools.json |
+| `generate_pages.py` | Rewrite tools.md, ecosystem pages, and github-actions.md from tools.json |
 | `generate_review_stubs.py` | Create stub articles for unreviewed tools |
+| `sync_gha_actions.py` | Upsert the GitHub Actions catalog (`data/gha_actions.toml`) into tools.json (`just gha`) |
 
 All scripts support `--dry-run`. See `CONTRIBUTING.md` for full workflow.
+
+## GitHub Actions catalog
+
+Changelog-related GitHub Actions are curated in `data/gha_actions.toml` and
+rendered to their own `content/pages/github-actions.md` (Tool Index stays focused
+on standalone tools). Each action has a `tier`:
+
+- **tier 1** — distinct behavior; gets a full review article + `tool_ratings.csv` row.
+- **tier 2** — GHA wrapper of an already-reviewed engine; NO article. Set `wraps`
+  to the engine's review slug; the catalog links there.
+- **tier 3** — thin / low-value; one catalog line only. Never an article, and
+  never named on a recommender surface (decision-chart/-helper, topic pages).
+
+Workflow: edit `data/gha_actions.toml` → `just gha` → `just gather` → `just generate-pages`.
+GHA records (`ecosystem = github-action`, `distribution = github`) are excluded
+from the master tools table and ecosystem pages by design, so the Marketplace
+flood cannot bury recommended standalone tools.
 
 ## Commit messages
 

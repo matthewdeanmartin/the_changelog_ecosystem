@@ -41,11 +41,25 @@ ECOSYSTEM_LABELS = {
     "cpp": "C++",
     "c": "C",
     "cross": "Cross-ecosystem",
+    "github-action": "GitHub Actions",
     "other": "Other",
 }
 
 ECOSYSTEM_SORTORDER = list(ECOSYSTEM_LABELS.keys())
 SKIPPED_ECOSYSTEM_PAGES = {"other", "cpp"}
+
+# GitHub Actions get their own dedicated page (generate_gha_page) and must NOT
+# appear in the tools.md bucket tables or the per-ecosystem pages, so the flood
+# of low-effort actions cannot bury the recommended standalone tools.
+GHA_ECOSYSTEM = "github-action"
+
+GHA_CATEGORY_LABELS = {
+    "changelog-file-managers": "Changelog-file managers",
+    "release-note-generators": "Release-note generators",
+    "conventional-commits-generators": "Conventional Commits generators",
+    "full-release-automation": "Full release automation",
+    "changesets-ecosystem": "Changesets ecosystem",
+}
 
 DIST_URLS = {
     "pypi": "https://pypi.org/project/{id}/",
@@ -217,6 +231,9 @@ def sync_reviews(tools: list[dict]) -> tuple[list[dict], int]:
 
 
 def generate_tools_page(tools: list[dict], ratings: dict[str, dict[str, str]]) -> str:
+    # GitHub Actions live on their own page; keep them out of the master table.
+    tools = [t for t in tools if t.get("ecosystem") != GHA_ECOSYSTEM]
+
     def eco_sort(t: dict) -> int:
         eco = t.get("ecosystem", "other")
         try:
@@ -396,6 +413,96 @@ Summary: Changelog and release management tools for {label}.
 """
 
 
+def _gha_marketplace_link(tool: dict) -> str:
+    url = tool.get("marketplace_url") or tool.get("repo")
+    if url:
+        return f'[Marketplace]({url})'
+    return "_marketplace link needed_"
+
+
+def generate_gha_page(
+    tools: list[dict], ratings: dict[str, dict[str, str]]
+) -> str:
+    """Dedicated GitHub Actions catalog, grouped by category, split by tier.
+
+    Tier 1: full reviews (linked). Tier 2: wrappers of a reviewed engine
+    (link to that review). Tier 3: catalog line only.
+    """
+    gha = [t for t in tools if t.get("ecosystem") == GHA_ECOSYSTEM]
+    review_slugs = {
+        t.get("review_slug")
+        for t in tools
+        if t.get("reviewed") and t.get("review_slug")
+    }
+
+    def stars(t: dict) -> str:
+        return f"{t['stars']:,}⭐" if t.get("stars") is not None else ""
+
+    def engine_link(t: dict) -> str:
+        wraps = t.get("wraps")
+        if wraps and wraps in review_slugs:
+            return f"wraps [{wraps}](../reviews/{wraps}/)"
+        if wraps:
+            return f"wraps `{wraps}`"
+        return ""
+
+    sections: list[str] = []
+    for category, label in GHA_CATEGORY_LABELS.items():
+        cat_tools = sorted(
+            (t for t in gha if t.get("gha_category") == category),
+            key=lambda t: (t.get("gha_tier", 3), t.get("name", "").lower()),
+        )
+        if not cat_tools:
+            continue
+        sections.append(f"## {label}")
+        sections.append("")
+        for t in cat_tools:
+            name = t.get("name", "")
+            desc = t.get("description") or ""
+            tier = t.get("gha_tier", 3)
+            market = _gha_marketplace_link(t)
+            star = stars(t)
+            meta = " · ".join(x for x in (star, market) if x)
+            if tier == 1 and t.get("reviewed") and t.get("review_slug"):
+                head = f"**[{name}](../reviews/{t['review_slug']}/)**"
+                sections.append(f"- {head} — {desc} ({meta})")
+            elif tier == 2:
+                eng = engine_link(t)
+                base = desc.rstrip(".")
+                tail = f"; {eng}" if eng else ""
+                sections.append(f"- **{name}** — {base}{tail} ({meta})")
+            else:  # tier 3
+                sections.append(f"- {name} — {desc} ({market})")
+        sections.append("")
+
+    body = "\n".join(sections)
+    tier1 = sum(1 for t in gha if t.get("gha_tier") == 1)
+
+    return f"""Title: GitHub Actions
+Date: 2026-07-01
+Slug: github-actions
+sortorder: 8
+Summary: Changelog and release-note GitHub Actions, grouped by what they do.
+
+## About This Page
+
+GitHub Actions are a major way changelog and release tooling gets distributed,
+but most Marketplace actions are thin wrappers or single-purpose helpers. To keep
+the [tool index](../tools/) focused on standalone tools worth adopting, actions
+live here on their own page.
+
+Entries are grouped by category. **{tier1} actions** have a full review; the rest
+either wrap a tool reviewed elsewhere on the site (follow the link) or are listed
+for completeness. Inclusion here is **not** an endorsement.
+
+{body}
+## Contributing
+
+The catalog is generated from `data/gha_actions.toml`. Add an action there (with
+its Marketplace URL and tier) and run `just gha` + `just generate-pages`.
+"""
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Generate Pelican pages from tools.json"
@@ -426,10 +533,20 @@ def main() -> None:
         tools_path.write_text(tools_content, encoding="utf-8")
         print(f"Wrote {tools_path}")
 
-    # Generate per-ecosystem pages
+    # Generate the dedicated GitHub Actions page
+    gha_content = generate_gha_page(tools, ratings)
+    gha_path = PAGES_DIR / "github-actions.md"
+    if args.dry_run:
+        print(f"\n--- {gha_path} (first 300 chars) ---")
+        print(gha_content[:300])
+    else:
+        gha_path.write_text(gha_content, encoding="utf-8")
+        print(f"Wrote {gha_path}")
+
+    # Generate per-ecosystem pages (github-action has its own page above)
     ecosystems = sorted({t.get("ecosystem", "other") for t in tools})
     for eco in ecosystems:
-        if eco in SKIPPED_ECOSYSTEM_PAGES:
+        if eco in SKIPPED_ECOSYSTEM_PAGES or eco == GHA_ECOSYSTEM:
             continue
         content = generate_ecosystem_page(eco, tools, ratings)
         if not content:

@@ -101,7 +101,8 @@ a:hover {
     display: inline-flex;
     align-items: center;
     min-height: 2.15rem;
-    padding: 0.45rem 0.7rem;
+    padding: 0.45rem 0.65rem;
+    white-space: nowrap;
     border: 1px solid rgba(168, 192, 214, 0.26);
     border-radius: 8px;
     color: #dbe8f5;

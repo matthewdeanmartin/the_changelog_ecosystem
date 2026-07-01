@@ -6,9 +6,9 @@ Summary: Full metadata table of every tracked changelog and release tool.
 
 ## Tool Inventory
 
-53 tools tracked &nbsp;·&nbsp; 53 reviewed.
+50 tools tracked &nbsp;·&nbsp; 50 reviewed.
 
-## Recommended (29)
+## Recommended (27)
 
 <table class="tools-table">
     <thead>
@@ -49,12 +49,10 @@ Summary: Full metadata table of every tracked changelog and release tool.
         <tr><td class="tools-table__name"><a href="https://github.com/gitlab-org/cli" target="_blank" rel="noopener noreferrer">glab changelog</a></td><td>Cross-ecosystem</td><td class="tools-table__version">—</td><td>—</td><td>gitlab</td><td><a href="../reviews/glab-changelog/">Review</a></td></tr>
         <tr><td class="tools-table__name"><a href="https://github.com/gitlab-org/cli" target="_blank" rel="noopener noreferrer">glab release</a></td><td>Cross-ecosystem</td><td class="tools-table__version">—</td><td>—</td><td>gitlab</td><td><a href="../reviews/glab-release/">Review</a></td></tr>
         <tr><td class="tools-table__name">Keep a Changelog</td><td>Cross-ecosystem</td><td class="tools-table__version">—</td><td>—</td><td>other</td><td><a href="../reviews/keep-a-changelog/">Review</a></td></tr>
-        <tr><td class="tools-table__name"><a href="https://github.com/release-drafter/release-drafter" target="_blank" rel="noopener noreferrer">Release Drafter</a></td><td>Cross-ecosystem</td><td class="tools-table__version">7.3.1</td><td>3,879</td><td><a href="https://github.com/marketplace/actions" target="_blank" rel="noopener noreferrer">github</a></td><td><a href="../reviews/release-drafter/">Review</a></td></tr>
-        <tr><td class="tools-table__name"><a href="https://github.com/googleapis/release-please-action" target="_blank" rel="noopener noreferrer">release-please</a></td><td>Cross-ecosystem</td><td class="tools-table__version">5.0.0</td><td>2,415</td><td><a href="https://github.com/googleapis/release-please-action" target="_blank" rel="noopener noreferrer">github</a></td><td><a href="../reviews/release-please/">Review</a></td></tr>
     </tbody>
 </table>
 
-## Situational (16)
+## Situational (15)
 
 <table class="tools-table">
     <thead>
@@ -82,7 +80,6 @@ Summary: Full metadata table of every tracked changelog and release tool.
         <tr><td class="tools-table__name"><a href="https://github.com/github-changelog-generator/github-changelog-generator" target="_blank" rel="noopener noreferrer">github_changelog_generator</a></td><td>Ruby</td><td class="tools-table__version">1.18.0</td><td>7,525</td><td><a href="https://rubygems.org/gems/github_changelog_generator" target="_blank" rel="noopener noreferrer">rubygems</a></td><td><a href="../reviews/github-changelog-generator/">Review</a></td></tr>
         <tr><td class="tools-table__name"><a href="https://github.com/GitTools/GitReleaseManager" target="_blank" rel="noopener noreferrer">GitReleaseManager</a></td><td>NuGet</td><td class="tools-table__version">0.20.0</td><td>323</td><td><a href="https://www.nuget.org/packages/GitReleaseManager/" target="_blank" rel="noopener noreferrer">nuget</a></td><td><a href="../reviews/gitreleasemanager/">Review</a></td></tr>
         <tr><td class="tools-table__name"><a href="https://github.com/rhysd/changelog-from-release" target="_blank" rel="noopener noreferrer">changelog-from-release</a></td><td>Cross-ecosystem</td><td class="tools-table__version">3.9.1</td><td>112</td><td><a href="https://github.com/rhysd/changelog-from-release" target="_blank" rel="noopener noreferrer">github</a></td><td><a href="../reviews/changelog-from-release/">Review</a></td></tr>
-        <tr><td class="tools-table__name"><a href="https://github.com/rhysd/changelog-from-release" target="_blank" rel="noopener noreferrer">Create release notes from changelog</a></td><td>Cross-ecosystem</td><td class="tools-table__version">3.9.1</td><td>112</td><td><a href="https://github.com/marketplace/actions" target="_blank" rel="noopener noreferrer">github</a></td><td><a href="../reviews/create-release-notes-from-changelog/">Review</a></td></tr>
         <tr><td class="tools-table__name"><a href="https://github.com/logchange/logchange" target="_blank" rel="noopener noreferrer">logchange</a></td><td>Cross-ecosystem</td><td class="tools-table__version">1.19.15</td><td>71</td><td><a href="https://github.com/logchange/logchange" target="_blank" rel="noopener noreferrer">github</a></td><td><a href="../reviews/logchange/">Review</a></td></tr>
     </tbody>
 </table>
