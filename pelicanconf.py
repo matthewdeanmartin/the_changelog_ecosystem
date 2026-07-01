@@ -29,7 +29,7 @@ def _sort_by_sortorder(pages):
 
 JINJA_FILTERS = {'sort_by_sortorder': _sort_by_sortorder}
 
-DISPLAY_PAGES_ON_MENU = True
+DISPLAY_PAGES_ON_MENU = False
 DISPLAY_CATEGORIES_ON_MENU = False
 
 THEME = 'themes/simple-pages'
