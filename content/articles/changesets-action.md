@@ -9,9 +9,9 @@ Summary: The official GitHub Action for the Changesets workflow — opens a vers
 
 ## Overview
 
-`changesets/action` is the official GitHub Action for the [Changesets](../reviews/changesets/) workflow. Contributors add changeset files to their PRs; this action watches the default branch, and when changesets are present it opens (and keeps updated) a "Version Packages" PR that consumes them, bumps versions, and edits changelogs. Merging that PR triggers publication.
+`changesets/action` is the official GitHub Action for the [Changesets](../changesets/) workflow. Contributors add changeset files to their PRs; this action watches the default branch, and when changesets are present it opens (and keeps updated) a "Version Packages" PR that consumes them, bumps versions, and edits changelogs. Merging that PR triggers publication.
 
-This review covers the action surface only. For the fragment format, monorepo behavior, and when Changesets is the right model, see the [Changesets review](../reviews/changesets/).
+This review covers the action surface only. For the fragment format, monorepo behavior, and when Changesets is the right model, see the [Changesets review](../changesets/).
 
 ## Installation
 
@@ -54,4 +54,4 @@ Squarely aimed at JavaScript/TypeScript monorepos publishing to npm, and it is t
 
 **Verdict: Recommended with caveats**
 
-The standard, reliable way to run Changesets in GitHub Actions — recommended if you have adopted the Changesets model, which is itself best suited to npm monorepos. The real decision is about the [Changesets](../reviews/changesets/) workflow, not this action; teams outside the JS ecosystem will usually be better served by release-please or a Conventional-Commits action.
+The standard, reliable way to run Changesets in GitHub Actions — recommended if you have adopted the Changesets model, which is itself best suited to npm monorepos. The real decision is about the [Changesets](../changesets/) workflow, not this action; teams outside the JS ecosystem will usually be better served by release-please or a Conventional-Commits action.

@@ -9,9 +9,9 @@ Summary: The common GitHub Action entry point for running semantic-release, whic
 
 ## Overview
 
-`semantic-release-action` (cycjimmy) is the most common way to run [semantic-release](../reviews/semantic-release/) inside GitHub Actions. It is a thin execution wrapper: the behavior, plugins, and configuration are all semantic-release's — the action mainly handles installing it and running it in the workflow.
+`semantic-release-action` (cycjimmy) is the most common way to run [semantic-release](../semantic-release/) inside GitHub Actions. It is a thin execution wrapper: the behavior, plugins, and configuration are all semantic-release's — the action mainly handles installing it and running it in the workflow.
 
-Because the engine does the real work, this review covers only the GitHub Actions surface. For how the tool behaves, its plugin model, and when to choose it, see the [semantic-release review](../reviews/semantic-release/).
+Because the engine does the real work, this review covers only the GitHub Actions surface. For how the tool behaves, its plugin model, and when to choose it, see the [semantic-release review](../semantic-release/).
 
 ## Installation
 
@@ -61,4 +61,4 @@ GitHub-native and language-neutral, though semantic-release's roots and plugin e
 
 **Verdict: Recommended**
 
-The right way to run semantic-release in GitHub Actions — but the adoption decision is really about the [semantic-release](../reviews/semantic-release/) engine, not this wrapper. If full publish-on-merge automation is what you want, use it; if you prefer a review gate before releasing, look at release-please instead.
+The right way to run semantic-release in GitHub Actions — but the adoption decision is really about the [semantic-release](../semantic-release/) engine, not this wrapper. If full publish-on-merge automation is what you want, use it; if you prefer a review gate before releasing, look at release-please instead.
